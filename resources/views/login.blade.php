@@ -96,10 +96,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="links">
-            <a href="#">NID Data Collection Submission Dashboard</a><br>
-            <a href="#">Login</a>
-        </div>
+       
 
         <h2>DepEd Computerization Program (DCP) </h2>
         <p class="text-center" style="text-align: center;">Inventory Management System</p>
