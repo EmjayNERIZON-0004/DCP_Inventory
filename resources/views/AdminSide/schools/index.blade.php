@@ -1,156 +1,256 @@
- @extends('layout.Admin-Side')
- 
-  <title>@yield('title','DCP Dashboard')</title>
-   
-   
+@extends('layout.Admin-Side')
+
+<title>@yield('title','DCP Dashboard')</title>
 
 @section('content')
- 
-<style>
-
-    input[type="text"]{
-        border: 1px solid #ccc;
+  <style>
+    input[type="text"] {
+      border: 1px solid #ccc;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+      padding: 0.5rem 0.75rem;
     }
-</style>
+    .add-school-flex {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      align-items: stretch;
+      justify-content: center;
+      width: 100%;
+    }
+    .add-school-col {
+      background: #fff;
+      border-radius: 0.5rem;
+      padding: 1rem 1rem; 
+      display: flex;
+      flex-direction: column;  
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      flex: 1 1 0;
+    }
+    .add-school-logo {
+      width: 250px  ;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #e5e7eb;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.08);
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 900px) {
+      .add-school-flex { flex-direction: column; gap: 1.5rem; }
+      .add-school-col { min-width: unset; width: 100%; }
+    }
+  </style>
 
-<div class="max-w-5xl mx-auto p-4">
-  <form method="POST" action="{{route('store.schools')}}" enctype="multipart/form-data"
-        class="bg-white shadow-lg rounded-lg p-6 flex flex-col lg:flex-row gap-6">
-    @csrf
+  <div class="w-full p-4 ">
+    <div class="flex flex-col lg:flex-row-reverse gap-4 ">
+      <!-- Add School Form -->
+      <div class="w-full mx-auto p-0 flex-1 flex flex-col justify-stretch" >
+        <form
+ 
+          style="border: 1px solid #ccc;"
+          method="POST"
+          action="{{ route('store.schools') }}"
+          enctype="multipart/form-data"
+          class="bg-white shadow-lg rounded-lg mt-5 w-full max-full mx-0"
+        >
+          @csrf
+          <div class="add-school-flex"  >
+            <!-- Left: Logo -->
+            <div class="add-school-col" style="flex:1">
+              <img src="{{ asset('icon/logo.png') }}" alt="School Logo" class="add-school-logo" />
+            </div>
+            <!-- Center: School ID and School Name with Submit Button below -->
+            <div class="add-school-col" style="flex:1; align-items: stretch; justify-content: center;">
+              <div class="flex flex-col mb-4">
+              <h2 class="text-2xl font-bold text-blue-700 mb-2">Add School</h2>
+               
+              <label for="SchoolID" class="mb-1 font-medium text-gray-700">School ID</label>
+                <input
+                  type="text"
+                  name="SchoolID"
+                  id="SchoolID"
+                  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
+              <div class="flex flex-col mb-4">
+                <label for="SchoolName" class="mb-1 font-medium text-gray-700">School Name</label>
+                <input
+                  type="text"
+                  name="SchoolName"
+                  id="SchoolName"
+                  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
 
-    <!-- Left: Logo & Image Upload -->
-    <div class="w-full lg:w-1/3 flex flex-col items-center justify-start gap-4">
-      <!-- Logo Image -->
-      <img id="logoPreview"
-           src="{{ asset('icon/logo.png') }}"
-           alt="School Logo"
-           class="w-40 h-40 object-cover rounded-full border border-gray-300 shadow-md">
 
-      <!-- File Input with Styled Label -->
-      <label for="logo"
-             class="bg-blue-100 text-blue-700 font-semibold px-4 py-2 rounded-full cursor-pointer hover:bg-blue-200 transition">
-        Select School Logo
-        <input type="file" name="image_path" id="logo" class="hidden" accept="image/*">
-      </label>
+  <div class="flex flex-col mb-4">
+                <label for="SchoolEmailAddress" class="mb-1 font-medium text-gray-700">School Email Address</label>
+                <input
+                  type="email"
+                  name="SchoolEmailAddress"
+                  id="SchoolEmailAddress"
+                  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
+
+         
+
+              <div class="flex flex-col items-end mt-2">
+                <button
+                  type="submit"
+                  class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition w-full"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Map and Coordinates -->
+            <div class="add-school-col" style="flex:1; align-items: stretch;">
+                 <div class="flex flex-col mb-4">
+                <label for="SchoolLevel" class="mb-1 font-medium text-gray-700">School Level</label>
+                <select
+                  name="SchoolLevel"
+                  id="SchoolLevel"
+                  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                >
+                  <option value="" disabled selected>-- Select School Level --</option>
+                  <option value="Elementary School">Elementary School</option>
+                  <option value="Junior High School">Junior High School</option>
+                  <option value="Senior High School">Senior High School</option>
+                </select>
+              </div>
+            <div class="w-full flex flex-col">
+                <label class="mb-1 font-medium text-gray-700">School Location (Select on Map)</label>
+                <div id="map" style="height: 180px; border-radius: 8px; margin-bottom: 8px;"></div>
+                <div class="flex gap-2">
+                  <div class="w-1/2 flex flex-col">
+                    <label for="Latitude" class="mb-1 font-medium text-gray-700">Latitude</label>
+                    <input type="text" name="Latitude" id="latitude" class="px-3 py-2 border border-gray-300 rounded" placeholder="Latitude" readonly required>
+                  </div>
+                  <div class="w-1/2 flex flex-col">
+                    <label for="Longitude" class="mb-1 font-medium text-gray-700">Longitude</label>
+                    <input type="text" name="Longitude" id="longitude" class="px-3 py-2 border border-gray-300 rounded" placeholder="Longitude" readonly required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <!-- Right: School Form -->
-    <div class="flex-1">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">Add School</h2>
-      <table class="w-full text-sm">
-        <thead class="bg-gray-100">
+  <!-- Add Leaflet.js for map selector -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Map selector logic
+      var map = L.map('map').setView([15.928, 120.348], 12); // Centered on Pangasinan
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(map);
+      var marker;
+      function setLatLng(lat, lng) {
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+      }
+      map.on('click', function(e) {
+        if (marker) map.removeLayer(marker);
+        marker = L.marker(e.latlng).addTo(map);
+        setLatLng(e.latlng.lat, e.latlng.lng);
+      });
+      // Auto-search map when School Name changes
+      var schoolNameInput = document.getElementById('SchoolName');
+      if (schoolNameInput) {
+        var schoolNameTimeout;
+        schoolNameInput.addEventListener('input', function(e) {
+          clearTimeout(schoolNameTimeout);
+          var value = this.value.trim();
+          if (value.length > 2) {
+            schoolNameTimeout = setTimeout(function() {
+              var query = value + ', San Carlos Pangasinan';
+              fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query))
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                  if (data && data.length > 0) {
+                    var lat = parseFloat(data[0].lat);
+                    var lon = parseFloat(data[0].lon);
+                    map.setView([lat, lon], 16);
+                    if (marker) map.removeLayer(marker);
+                    marker = L.marker([lat, lon]).addTo(map);
+                    setLatLng(lat, lon);
+                  }
+                })
+                .catch(function(err) {
+                  // Optionally handle error
+                  // console.error('Map search error:', err);
+                });
+            }, 600); // debounce
+          }
+        });
+      }
+    });
+  </script>
+
+  <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5">
+    <h2 class="text-lg font-bold text-gray-800 mb-4" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">School List</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border border-gray-200" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        <thead style="background: #2563eb;">
           <tr>
-            <th class="text-left px-4 py-2">Label</th>
-            <th class="text-left px-4 py-2">Input</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School ID</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School Name</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School Level</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School Head</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School Contact</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700" style="background: #2563eb;">School Email</th>
+            <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white" style="background: #2563eb;">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          @foreach([
-            'SchoolID' => 'School ID',
-            'SchoolName' => 'School Name',
-            'Region' => 'Region',
-            'Division' => 'Division',
-            'District' => 'District',
-            'SchoolHead' => 'School Head',
-            'ContactNumber' => 'Contact Number',
-            'Email' => 'Email'
-          ] as $name => $label)
-          <tr class="border-b">
-            <td class="px-4 py-2 font-medium text-gray-700">
-              <label for="{{ $name }}">{{ $label }}</label>
+        <tbody class="bg-white divide-y divide-gray-200">
+          @foreach($schools as $school)
+          <tr class="hover:bg-blue-50 transition">
+            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolID }}</td>
+            <td class="px-4 py-3 font-medium text-gray-900 border-r border-gray-200">{{ $school->SchoolName }}</td>
+            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolLevel }}</td> 
+            <td class="px-4 py-3 border-r border-gray-200">{{ $school->PrincipalName }}</td> 
+            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolContactNumber }}</td>
+            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolEmailAddress }}</td>
+            <td class="px-4 py-3 space-x-2">
+                <a
+                    href="{{ route('schools.show', $school->SchoolID) }}"
+                    class="inline-block px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+                >View</a>
+                <a
+                    href="#"
+                    class="inline-block px-3 py-1 text-xs font-semibold text-white bg-green-500 rounded hover:bg-green-600"
+                >Edit</a>
+                <form action="{{ route('schools.destroy', $school->SchoolID) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button
+                        type="submit"
+                        onclick="return confirm('Are you sure you want to delete this school?')"
+                        class="inline-block px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600"
+                    >Delete</button>
+                </form>
             </td>
-            <td class="px-4 py-2">
-      @php
-    if ($name == 'Region') {
-        $value = 'Region I';
-    } elseif ($name == 'Division') {
-        $value = 'San Carlos City';
-    } else {
-        $value = '';
-    }
-@endphp
-
-
-              <input type="text" name="{{ $name }}" id="{{ $name }}" value="{{$value}}"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </td>
-
           </tr>
           @endforeach
         </tbody>
       </table>
-
-      <!-- Submit Button -->
-      <div class="mt-4 text-right">
-        <button type="submit"
-          class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Submit</button>
-      </div>
     </div>
-  </form>
 </div>
-
-
- <input type="hidden" value="{{asset('icon/logo.png')}}" id="default_icon">
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const input = document.getElementById('logo');
-  const preview = document.getElementById('logoPreview');
-    const icon = document.getElementById('default_icon');
-  input.addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (file) {
-      preview.src = URL.createObjectURL(file);
-    } else {
-      preview.src = icon;
-    }
-  });
-});
-</script>
-
-
- 
-<div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5">
-  <h2 class="text-2xl font-bold text-gray-800 mb-4">School List</h2>
-  
-  <div class="overflow-x-auto">
-    <table class="min-w-full text-sm text-left text-gray-700 border border-gray-200">
-      <thead class="bg-blue-100 text-gray-900">
-        <tr>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">School ID</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">School Name</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">Region</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">Division</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">District</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">School Head</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">Contact Number</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">Email</th>
-          <th class="px-6 py-3 font-semibold uppercase tracking-wider">Actions</th>
-        </tr>
-      </thead>
-
-      <tbody class="bg-white divide-y divide-gray-200">
-        @foreach($schools as $school)
-        <tr class="hover:bg-blue-50 transition">
-          <td class="px-6 py-4">{{ $school->SchoolID }}</td>
-          <td class="px-6 py-4 font-medium text-gray-900">{{ $school->SchoolName }}</td>
-          <td class="px-6 py-4">{{ $school->Region }}</td>
-          <td class="px-6 py-4">{{ $school->Division }}</td>
-          <td class="px-6 py-4">{{ $school->District}}</td>
-          <td class="px-6 py-4">{{ $school->SchoolHead }}</td>
-          <td class="px-6 py-4">{{ $school->ContactNumber }}</td>
-          <td class="px-6 py-4">{{ $school->Email }}</td>
-          <td class="px-6 py-4 space-x-2">
-            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-white bg-green-500 rounded hover:bg-green-600">Edit</a>
-            <a href="#" class="inline-block px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600">Delete</a>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-
 @endsection

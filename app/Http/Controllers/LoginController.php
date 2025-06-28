@@ -23,17 +23,18 @@ class LoginController extends Controller
           if($request->username == "admin"){
             return redirect()->route('AdminSide-Dashboard');
           }      
-          else{
-                $user = SchoolUser::where('username', $request->username)->first();
-                 if ($user && ($request->password === $user->password || Hash::check($request->password, $user->password))) {
+          
+else {
+    $users = SchoolUser::where('username', $request->username)->get();
 
-                Auth::guard('school')->login($user, $request->has('remember'));
-                  return redirect()->intended('/dashboard');
-                            }
-          }
-           
-
-                return back()->withErrors(['login' => 'Invalid credentials']);
+    foreach ($users as $user) {
+        if (Hash::check($request->password, $user->password)) {
+            Auth::guard('school')->login($user, $request->has('remember'));
+            return redirect()->intended('School/profile');
+        }
+    }
+}
+return back()->withErrors(['login' => 'Invalid credentials']);
             }
 
     public function logout()

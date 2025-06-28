@@ -7,13 +7,47 @@ use Illuminate\Database\Eloquent\Model;
 class School extends Model
 {
     protected $table = 'schools';
-    protected $primaryKey = 'SchoolID';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $primaryKey = 'pk_school_id';
+ 
 
     protected $fillable = [
-        'SchoolID', 'SchoolName', 'Region', 'Division',
-        'District', 'SchoolHead', 'ContactNumber', 'Email'
+        'pk_school_id',
+        'SchoolID',
+        'SchoolName',
+        'SchoolLevel',
+        'Region',
+        'Division',
+        'District',
+        'image_path',
+        'Province',
+        'CityMunicipality',
+        'SchoolContactNumber',
+        'SchoolEmailAddress',
+        'PrincipalName',
+        'PrincipalContact',
+        'PrincipalEmail',
+        'ICTName',
+        'ICTContact',
+        'ICTEmail',
+        'CustodianName',
+        'CustodianContact',
+        'CustodianEmail',
+        'created_at',
+        'updated_at'
     ];
+
+    public function schoolUser()
+    {
+        return $this->hasOne(SchoolUser::class, 'pk_school_id', 'pk_school_id');
+    }
+     public function schoolCoordinates()
+    {
+        return $this->hasOne(SchoolCoordinates::class, 'pk_school_id', 'pk_school_id');       
+    }
+   
+    public function schoolData()
+    {
+        return $this->hasMany(SchoolData::class, 'pk_school_id', 'pk_school_id');
+    }
 }
 
