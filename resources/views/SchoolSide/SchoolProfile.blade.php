@@ -87,7 +87,7 @@
                 <div><span class="font-semibold">School ID:</span> {{ Auth::guard('school')->user()->school->SchoolID }}</div>
                     <div><span class="font-semibold">School Name:</span> {{ Auth::guard('school')->user()->school->SchoolName }}</div>
                     <div class="flex flex-col">
-                        <label for="SchoolLevel" class="mb-1 font-medium text-gray-700">School Level</label>
+                        <label for="    " class="mb-1 font-medium text-gray-700">School Level</label>
                         <input
                             type="text"
                             id="SchoolLevelInput"

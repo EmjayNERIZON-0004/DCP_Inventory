@@ -49,7 +49,40 @@ class SchoolDCPBatchController extends Controller
     public function updateItem(Request $request, $itemId)
     {
         $item = DCPBatchItem::findOrFail($itemId);
-        $item->update($request->only(['brand', 'serial_number', 'condition_id']));
-        return back()->with('success', 'Item updated!');
+
+        $validated = $request->validate([
+            'unit' => 'nullable|string|max:50',
+            'quantity' => 'nullable|integer',
+            'condition_id' => 'nullable|integer',
+            'brand' => 'nullable|string|max:100',
+            'serial_number' => 'nullable|string|max:100',
+            'iar_ref_code' => 'nullable|string|max:100',
+            'iar_value' => 'nullable|string|max:100',
+            'iar_date' => 'nullable|date',
+            'itr_value' => 'nullable|string|max:100',
+
+            'itr_ref_code' => 'nullable|string|max:100',
+            'itr_date' => 'nullable|date',
+            'certificate_of_completion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'date_approved' => 'nullable|date',
+        ]);
+
+        // Handle file upload if present
+         if ($request->hasFile('certificate_of_completion')) {
+        $file = $request->file('certificate_of_completion');
+        $filename = date('d-m-Y') . '_' . $file->getClientOriginalName();
+        $destination = public_path('certificates');
+        $file->move($destination, $filename);
+        $validated['certificate_of_completion'] =  $filename;
+    }
+
+        $item->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Item updated successfully!',
+            'data' => $item
+        ]);
+
     }
 }

@@ -18,6 +18,8 @@ protected $fillable = [
     'brand',
      'serial_number',
       'iar_ref_code', 
+      'iar_value', 
+      'itr_value', 
       'iar_date', 
       'itr_ref_code',
        'itr_date',

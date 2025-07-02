@@ -8,6 +8,7 @@ use App\Models\SchoolUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class SchoolDetailsController extends Controller
 {
@@ -73,7 +74,7 @@ class SchoolDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'SchoolID' => 'required|string|max:255',
             'SchoolName' => 'required|string|max:255',
             'SchoolLevel' => 'required|string|max:255',
@@ -81,6 +82,15 @@ class SchoolDetailsController extends Controller
             'Latitude' => 'required|numeric',
             'Longitude' => 'required|numeric',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $validated = $validator->validated();
 
         // Save the school (pk_school_id will be auto-incremented)
         $school = School::create($validated);
@@ -101,7 +111,14 @@ class SchoolDetailsController extends Controller
                 'password' => bcrypt($password),
             ]);
 
-        return redirect()->route('index.schools')->with('success', 'School added successfully!');
+     
+            return response()->json([
+                'success' => true,
+                'message' => 'School created successfully!',
+                'school' => $school,
+            ]);
+
+
     }
 
     /**
@@ -139,13 +156,19 @@ public function show($SchoolID)
         $school->delete();
         
         // Optionally, delete the associated coordinates and user
-        SchoolCoordinates::where('SchoolID', $id)->delete();
+        SchoolCoordinates::where('pk_school_id', $id)->delete();
         $schoolUser = $school->schoolUser;
         if ($schoolUser) {
             $schoolUser->delete();
         }
 
         Log::info("School with ID: $id has been deleted.");
-        return redirect()->route('index.schools')->with('success', 'School deleted successfully.');
+
+
+      return response()->json([
+                'success' => true,
+                'message' => 'School deleted successfully!' 
+      ]);
+        
     }
 }
