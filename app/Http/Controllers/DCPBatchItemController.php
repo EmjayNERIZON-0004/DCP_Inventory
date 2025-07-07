@@ -31,7 +31,7 @@ class DCPBatchItemController extends Controller
             'quantity' => 'required|integer',
             'unit' => 'required|string|max:50',
             'condition_id' => 'integer|nullable',
-            // add other fields as needed
+
         ]);
 
         $batch = DCPBatch::findOrFail($batchId);

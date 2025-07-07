@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login - DCP System</title>
@@ -94,14 +95,43 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-       
+        @if ($errors->any())
+            <div class="mb-4">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <strong>Whoops!</strong> There were some problems with your input.<br>
+                    <ul class="mt-2 list-disc list-inside text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="mb-4">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="mb-4">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+
 
         <h2>DepEd Computerization Program (DCP) </h2>
         <p class="text-center" style="text-align: center;">Inventory Management System</p>
 
-        <form method="POST" action="{{route('submit-login')}}" >
+        <form method="POST" action="{{ route('submit-login') }}">
             @csrf
 
             <div class="form-group">
@@ -114,7 +144,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-           
+
 
             <div class="form-group remember">
                 <input type="checkbox" name="remember"> Remember me
@@ -124,4 +154,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -48,10 +48,10 @@
 
         {{-- Right Table (fixed height + scrollable) --}}
         <div class="md:w-full bg-white shadow-xl rounded-lg p-6"
-            style="font-family: Verdana, Geneva, Tahoma, sans-serif; height: 300px;">
+            style="font-family: Verdana, Geneva, Tahoma, sans-serif; height: 460px;">
             <h2 class="text-xl font-bold mb-3">Existing Item Types</h2>
 
-            <div class="overflow-y-auto" style="max-height: 200px;border:1px solid #ccc;">
+            <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
                 <table class="table-auto w-full">
                     <thead class="sticky top-0 bg-blue-600 text-white">
                         <tr>

@@ -6,17 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class DCPBatch extends Model
 {
-  
-// DcpBatch.php
-protected $table = 'dcp_batches';
-protected $primaryKey = 'pk_dcp_batches_id';
-protected $fillable = [
-    'dcp_package_type_id', 'school_id', 'batch_label', 'description', 'email',
-    'budget_year', 'delivery_date', 'supplier_name', 'mode_of_delivery', 'submission_status'
-];
+
+    // DcpBatch.php
+    protected $table = 'dcp_batches';
+    protected $primaryKey = 'pk_dcp_batches_id';
+    protected $fillable = [
+        'dcp_package_type_id',
+        'school_id',
+        'batch_label',
+        'description',
+        'email',
+        'budget_year',
+        'delivery_date',
+        'supplier_name',
+        'mode_of_delivery',
+        'submission_status'
+    ];
     public function dcpBatchItems()
     {
-        return $this->hasMany(DCPBatchItem::class, 'dcp_batch_id', 'pk_dcp_batches_id');    
+        return $this->hasMany(DCPBatchItem::class, 'dcp_batch_id', 'pk_dcp_batches_id');
     }
 
     public function dcpPackageType()
@@ -27,6 +35,4 @@ protected $fillable = [
     {
         return $this->belongsTo(School::class, 'school_id', 'pk_school_id');
     }
-     
-
 }

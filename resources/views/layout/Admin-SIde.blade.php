@@ -27,25 +27,35 @@
     </header>
     <div class="bg-white border-b border-gray-200">
         <div class="flex flex-wrap gap-2 justify-center sm:justify-start px-2 py-2">
-            <a href="#"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
+            <a href="{{ url('Admin/DCP-Dashboard') }}"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/DCP-Dashboard') ? ' text-blue-900 font-bold underline' : '' }}"
                 style="width: fit-content;">Home</a>
             <a href="{{ route('index.schools') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Schools/index') ? '  text-blue-900 font-bold underline' : '' }}"
                 style="width: fit-content;">School Profile</a>
             <a href="{{ route('user.schools') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/Schools-User') ? '  text-blue-900 font-bold underline' : '' }}"
                 style="width: fit-content;">School Users</a>
-            <a href="{{ route('index.batch') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
-                style="width: fit-content;">DCP Batch</a>
             <a href="{{ route('index.package_type') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('package-type/create') ? '  text-blue-900 font-bold underline' : '' }}"
                 style="width: fit-content;">DCP Packages</a>
             <a href="{{ route('index.item_type') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('item-type') ? '  text-blue-900 font-bold underline' : '' }}"
                 style="width: fit-content;">DCP Items</a>
+            <a href="{{ route('index.batch') }}"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/DCPBatch/index') ? '  text-blue-900 font-bold underline' : '' }}"
+                style="width: fit-content;">DCP Batch</a>
+
+            <a href="{{ route('index.SchoolsInventory') }}"
+                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200
+       {{ request()->routeIs('index.SchoolsInventory') ? 'text-blue-900 font-bold underline' : '' }}"
+                style="width: fit-content;">
+                DCP Inventory
+            </a>
+
         </div>
+
+
     </div>
     <main class="flex-grow">
 
