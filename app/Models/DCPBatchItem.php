@@ -34,6 +34,7 @@ class DCPBatchItem extends Model
         'delivery_receipt_file',
         'invoice_receipt_status',
         'invoice_receipt_file',
+        'dcp_assigned_users',
 
     ];
     public function dcpBatch()
@@ -42,10 +43,24 @@ class DCPBatchItem extends Model
     }
     public function dcpItemType()
     {
-        return $this->belongsTo(DCPItemTypes::class, 'item_types_id', 'pk_dcp_item_types_id');
+        return $this->belongsTo(DCPItemTypes::class, 'item_type_id', 'pk_dcp_item_types_id');
     }
+
     public function dcpCondition()
     {
         return $this->belongsTo(DCPDeliveryCondintion::class, 'condition_id', 'pk_dcp_condition_id');
+    }
+
+    public function dcpAssignedUsers()
+    {
+        return $this->hasOne(DCPItemAssignedUser::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
+    }
+    public function dcpBatchItemLocation()
+    {
+        return $this->hasOne(DCPItemAssignedLocation::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
+    }
+    public function dcpItemWarranties()
+    {
+        return $this->hasMany(DCPItemWarrantyStatus::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
     }
 }

@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class DCPBatchItemBrand extends Model
+{
+    protected $table = "dcp_batch_item_brands";
+    protected $primaryKey = "pk_dcp_batch_item_brands_id";
+    protected $fillable = [
+        'brand_name',
+        'created_at',
+        'updated_at',
+    ];
+    public function dcpPackageContent()
+    {
+        return $this->hasMany(DCPPackageContent::class, 'dcp_batch_item_brands_id', 'pk_dcp_batch_item_brands_id');
+    }
+}

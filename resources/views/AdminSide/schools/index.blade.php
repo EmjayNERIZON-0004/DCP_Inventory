@@ -16,7 +16,7 @@
         .add-school-flex {
             display: flex;
             flex-direction: row;
-            gap: 2rem;
+
             align-items: stretch;
             justify-content: center;
             width: 100%;
@@ -35,8 +35,7 @@
         }
 
         .add-school-logo {
-            width: 250px;
-            height: 250px;
+
             object-fit: cover;
             border-radius: 50%;
             border: 2px solid #e5e7eb;
@@ -47,7 +46,7 @@
         @media (max-width: 900px) {
             .add-school-flex {
                 flex-direction: column;
-                gap: 1.5rem;
+
             }
 
             .add-school-col {
@@ -188,13 +187,15 @@
                         <span id="school-result-message"></span>
                     </div>
                 </div>
-                <form id="school_add_form" style="border: 1px solid #ccc;" action="{{ route('store.schools') }}"
-                    enctype="multipart/form-data" class="bg-white shadow-lg rounded-lg mt-5 w-full max-full mx-0">
+                <form id="school_add_form" action="{{ route('store.schools') }}" enctype="multipart/form-data"
+                    class="bg-white border border-green-500  shadow-lg rounded-lg mt-5 w-full max-full mx-0">
                     @csrf
-                    <div class="add-school-flex">
+                    <div class=" flex flex-col md:flex-row gap-0 md:gap-4">
                         <!-- Left: Logo -->
-                        <div class="add-school-col" style="flex:1">
-                            <img src="{{ asset('icon/logo.png') }}" alt="School Logo" class="add-school-logo" />
+                        <div class="add-school-col justify-start md:justify-center" style="flex:1">
+                            <img src="{{ asset('icon/logo.png') }}" alt="School Logo"
+                                class="w-40 h-40 md:w-80 md:h-80 object-contain" />
+
                         </div>
                         <!-- Center: School ID and School Name with Submit Button below -->
                         <div class="add-school-col" style="flex:1; align-items: stretch; justify-content: center;">
@@ -247,7 +248,8 @@
                             </div>
                             <div class="w-full flex flex-col">
                                 <label class="mb-1 font-medium text-gray-700">School Location (Select on Map)</label>
-                                <div id="map" style="height: 180px; border-radius: 8px; margin-bottom: 8px;"></div>
+                                <div id="map"
+                                    style="height: 180px; border-radius: 8px; margin-bottom: 8px; z-index: 0"></div>
                                 <div class="flex gap-2">
                                     <div class="w-1/2 flex flex-col">
                                         <label for="Latitude" class="mb-1 font-medium text-gray-700">Latitude</label>
@@ -269,6 +271,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
 
     <!-- Add Leaflet.js for map selector -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -328,31 +335,38 @@
         });
     </script>
 
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5">
-        <h2 class="text-lg font-bold text-gray-800 mb-4" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">School
-            List</h2>
+    <div class="bg-white border border-blue-500 shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5">
+        <h2 class="text-xl font-bold text-blue-700  " style="font-family: Verdana, Geneva, Tahoma, sans-serif;">School
+        </h2>
+        <div class="text-md text-gray-600  mb-5">List of Schools under DepEd Computerization Program</div>
+        <input type="text" id="searchSchool" placeholder="Search School..."
+            class="w-1/3 mb-4 px-3 py-2 border rounded shadow focus:outline-blue-400" />
+
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left border border-gray-200"
                 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <thead style="background: #2563eb;">
+                <thead class="bg-gray-700">
                     <tr>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School ID</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School Name</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School Level</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School Head</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School Contact</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white border-r border-blue-700"
-                            style="background: #2563eb;">School Email</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white"
-                            style="background: #2563eb;">Actions</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School ID</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School Name</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School Level</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School Head</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School Contact</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            School Email</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            Last Login</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
+                            Mail</th>
+                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody id="schoolTableBody" class="bg-white divide-y divide-gray-200">
                     @foreach ($schools as $school)
                         <tr class="hover:bg-blue-50 transition" id="row-{{ $school->pk_school_id }}">
                             <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolID }}</td>
@@ -362,12 +376,43 @@
                             <td class="px-4 py-3 border-r border-gray-200">{{ $school->PrincipalName }}</td>
                             <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolContactNumber }}</td>
                             <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolEmailAddress }}</td>
+                            <td class="px-4 py-3 border-r border-gray-200">
+                                @php
+                                    $user_login = App\Models\SchoolUser::where(
+                                        'pk_school_id',
+                                        $school->pk_school_id,
+                                    )->value('last_login');
+
+                                @endphp
+                                {{ $user_login }}</td>
+                            <form action="{{ route('notify.school', $school->pk_school_id) }}" method="POST">
+                                @csrf
+                                <td class="px-4 py-3 border-r border-gray-200">
+                                    <button type="submit"
+                                        class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">
+                                        Notify
+                                    </button>
+                                </td>
+                            </form>
+
                             <td class="px-4 py-3">
                                 <div class="flex flex-col gap-2 items-stretch">
                                     <a href="{{ route('schools.show', $school->SchoolID) }}"
                                         class="px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 text-center">View</a>
-                                    <a href="#"
-                                        class="px-3 py-1 text-xs font-semibold text-white bg-green-500 rounded hover:bg-green-600 text-center">Edit</a>
+                                    <button
+                                        onclick="showEditSchoolForm(
+                                        '{{ $school->pk_school_id }}',
+                                        '{{ $school->SchoolID }}',
+                                        '{{ $school->SchoolName }}',
+                                        '{{ $school->SchoolLevel }}',
+                                        '{{ $school->SchoolEmailAddress }}',
+                                
+                                          )"
+                                        class="px-3 py-1 text-xs font-semibold text-white bg-green-500 rounded hover:bg-green-600 text-center">
+                                        Edit
+                                    </button>
+
+
                                     <button type="button" onclick="deleteSchool('{{ $school->pk_school_id }}')"
                                         class="px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600 text-center">Delete</button>
                                 </div>
@@ -378,4 +423,91 @@
             </table>
         </div>
     </div>
+
+    <div id="school-edit-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-green-500 w-full max-w-4xl relative">
+            <button type="button" onclick="cancelSchoolEdit()"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
+
+            <form id="school-edit-form" method="POST">
+                @csrf
+                @method('POST')
+
+                <input type="hidden" name="pk_school_id" id="edit_pk_school_id">
+
+                <h2 class="text-2xl font-bold mb-4">
+                    Edit School Information
+                    <span class="bg-green-500 text-white py-1 px-2 rounded-xl text-sm font-normal">Edit</span>
+                </h2>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-4">
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-gray-700 font-semibold mb-2">School ID</label>
+                        <input type="text" name="SchoolID" id="edit_SchoolID"
+                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-gray-700 font-semibold mb-2">School Name</label>
+                        <input type="text" name="SchoolName" id="edit_SchoolName"
+                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-4">
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-gray-700 font-semibold mb-2">School Level</label>
+
+
+                        <select name="SchoolLevel" id="edit_SchoolLevel"
+                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+
+
+
+                            <option value="Elementary School">Elementary School</option>
+                            <option value="Junior High School">Junior High School</option>
+                            <option value="Senior High School">Senior High School</option>
+                        </select>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                        <input type="email" name="SchoolEmailAddress" id="edit_SchoolEmailAddress"
+                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="bg-green-600 hover:bg-green-700 text-white py-1 px-4 rounded">Update</button>
+                    <button type="button" onclick="cancelSchoolEdit()"
+                        class="bg-gray-400 hover:bg-gray-600 text-white py-1 px-4 rounded ml-2">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        function showEditSchoolForm(pk_school_id, schoolID, schoolName, schoolLevel, email, ) {
+            // Fill form fields
+            document.getElementById('edit_pk_school_id').value = pk_school_id;
+            document.getElementById('edit_SchoolID').value = schoolID;
+            document.getElementById('edit_SchoolName').value = schoolName;
+            document.getElementById('edit_SchoolLevel').value = schoolLevel;
+            document.getElementById('edit_SchoolEmailAddress').value = email;
+
+            // Set action URL dynamically
+            document.getElementById('school-edit-form').action = `/update-school/${pk_school_id}`;
+
+            // Show modal
+            document.getElementById('school-edit-modal').classList.remove('hidden');
+        }
+
+        function cancelSchoolEdit() {
+            document.getElementById('school-edit-modal').classList.add('hidden');
+            document.getElementById('school-edit-form').reset();
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/search/school.js') }}"></script>
 @endsection

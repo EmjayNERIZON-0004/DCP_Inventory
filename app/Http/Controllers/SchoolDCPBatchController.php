@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\DCPBatch;
 use App\Models\DCPBatchItem;
+use App\Models\DCPCurrentCondition;
 use App\Models\DCPDeliveryCondintion;
+use App\Models\DCPItemAssignedLocation;
+use App\Models\DCPItemAssignedUser;
+use App\Models\DCPItemCondition;
 use App\Models\DCPItemTypes;
 use App\Models\School;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class SchoolDCPBatchController extends Controller
 {
@@ -145,13 +152,17 @@ class SchoolDCPBatchController extends Controller
         $batch = DB::table('dcp_batches')
             ->join('dcp_package_types', 'dcp_batches.dcp_package_type_id', '=', 'dcp_package_types.pk_dcp_package_types_id')
             ->join('schools', 'dcp_batches.school_id', '=', 'schools.pk_school_id')
+            ->leftJoin('dcp_batch_approval', 'dcp_batch_approval.dcp_batches_id', "=", 'dcp_batches.pk_dcp_batches_id')
+
             ->select(
                 'dcp_batches.*',
                 'dcp_package_types.name as package_type_name',
                 'schools.SchoolName as school_name',
                 'schools.SchoolLevel as school_level',
                 'schools.SchoolID as school_id',
-                'dcp_batches.pk_dcp_batches_id as id'
+                'dcp_batches.pk_dcp_batches_id as id',
+                'dcp_batch_approval.status as status_submitted',
+                'dcp_batch_approval.submitted_at'
             )
             ->where('dcp_batches.school_id', $school->pk_school_id) // Only batches for this school
             ->orderBy('dcp_batches.created_at', 'desc')
@@ -173,6 +184,13 @@ class SchoolDCPBatchController extends Controller
 
         return view('SchoolSide.DCPBatch.Items', compact('batchId', 'batchName', 'batch', 'items', 'itemTypes', 'conditions', 'batchId', 'batchStatus', 'batch_approved'));
     }
+    public function warranty($batchItemId)
+    {
+        $batchItem = DCPBatchItem::findOrFail($batchItemId);
+        $warranties = $batchItem->dcpItemWarranties;
+        // dd($warranties);
+        return view('SchoolSide.DCPBatch.Warranty', compact('batchItem', 'warranties'));
+    }
 
     public function itemStatus($batchId)
     {
@@ -189,48 +207,182 @@ class SchoolDCPBatchController extends Controller
 
         return view('SchoolSide.DCPBatch.Status', compact('batchDeliveryDate',  'batchName', 'batch', 'items', 'itemTypes', 'conditions', 'batchId', 'batchStatus', 'batch_approved'));
     }
+    public function assigned_for_items(Request $request)
+    {
+        $request->validate([
+            'pk_dcp_batch_items_id' => 'required|integer',
+            'assigned_user_type_id' => 'required|integer',
+            'assigned_user_name' => 'required|string|max:255',
+            'assigned_user_location_id' => 'nullable|integer',
+        ]);
+
+        $item = DCPBatchItem::findOrFail($request->pk_dcp_batch_items_id);
+        $batch_delivery_date = $item->dcpBatch->delivery_date;
+
+        // Update or create assigned user
+        $assignedUser = DCPItemAssignedUser::where('dcp_batch_item_id', $item->pk_dcp_batch_items_id)->first();
+
+        if ($assignedUser) {
+            $assignedUser->update([
+                'assignment_type_id' => $request->assigned_user_type_id,
+                'assigned_user_name' => $request->assigned_user_name,
+                'date_assigned' => $batch_delivery_date,
+            ]);
+        } else {
+            $item->dcpAssignedUsers()->create([
+                'assignment_type_id' => $request->assigned_user_type_id,
+                'assigned_user_name' => $request->assigned_user_name,
+                'date_assigned' => $batch_delivery_date,
+            ]);
+        }
+
+        // Update or create assigned location
+        $assignedLocation = DCPItemAssignedLocation::where('dcp_batch_item_id', $item->pk_dcp_batch_items_id)->first();
+
+        if ($assignedLocation) {
+            $assignedLocation->update([
+                'assigned_location_id' => $request->assigned_user_location_id,
+            ]);
+        } else {
+            $item->dcpBatchItemLocation()->create([
+                'assigned_location_id' => $request->assigned_user_location_id,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Item assignment updated successfully.');
+    }
+
+
+
     public function showItems($code)
     {
         $items =   DCPBatchItem::where('generated_code', $code)->get();
 
-        return view('SchoolSide.DCPInventory.ShowItems', compact('items'));
+        $items_val =   DCPBatchItem::where('generated_code', $code)->first();
+
+        $user_type = $items_val->dcpAssignedUsers->dcpAssignedType->name ?? 'N/A';
+        $user_name = $items_val->dcpAssignedUsers->assigned_user_name ?? 'N/A';
+        $item_location = $items_val->dcpBatchItemLocation->dcpAssignedLocation->name ?? 'N/A';
+        $user_date_assigned = $items_val->dcpAssignedUsers->date_assigned ?? 'N/A';
+        return view('SchoolSide.DCPInventory.ShowItems', compact('items', 'user_name', 'item_location', 'user_type', 'user_date_assigned'));
     }
     public function updateItem(Request $request, $itemId)
     {
-        $item = DCPBatchItem::findOrFail($itemId);
+        try {
+            $item = DCPBatchItem::findOrFail($itemId);
 
-        $validated = $request->validate([
-            'unit' => 'nullable|string|max:50',
-            'quantity' => 'nullable|integer',
-            'condition_id' => 'nullable|integer',
-            'brand' => 'nullable|string|max:100',
-            'serial_number' => 'nullable|string|max:100',
-            // 'iar_ref_code' => 'nullable|string|max:100',
-            // 'iar_value' => 'nullable|string|max:100',
-            // 'iar_date' => 'nullable|date',
-            // 'itr_value' => 'nullable|string|max:100',
+            $validated = $request->validate([
+                'unit' => 'nullable|string|max:50',
+                'quantity' => 'nullable|integer',
+                'condition_id' => 'nullable|integer',
+                'brand' => 'nullable|string|max:100',
+                'serial_number' => [
+                    'nullable',
+                    'string',
+                    'max:100',
+                    Rule::unique('dcp_batch_items', 'serial_number')->ignore($itemId, 'pk_dcp_batch_items_id'),
+                ],
+                'date_approved' => 'nullable|date',
+            ]);
 
-            // 'itr_ref_code' => 'nullable|string|max:100',
-            // 'itr_date' => 'nullable|date',
-            // 'certificate_of_completion' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'date_approved' => 'nullable|date',
-        ]);
+            if ($validated['condition_id'] == 1) {
+                $condition_id = DCPCurrentCondition::where('name', 'Good')->value('pk_dcp_current_conditions_id');
 
-        // Handle file upload if present
-        if ($request->hasFile('certificate_of_completion')) {
-            $file = $request->file('certificate_of_completion');
-            $filename = date('d-m-Y') . '_' . $file->getClientOriginalName();
-            $destination = public_path('certificates');
-            $file->move($destination, $filename);
-            $validated['certificate_of_completion'] =  $filename;
+                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
+
+                if ($getCondition) {
+                    $getCondition->update([
+                        'current_condition_id' => $condition_id,
+                    ]);
+                } else {
+                    DCPItemCondition::create([
+                        'dcp_batch_item_id' => $itemId,
+                        'current_condition_id' => $condition_id,
+                    ]);
+                }
+            } elseif ($validated['condition_id'] == 2) {
+                $condition_id = DCPCurrentCondition::where('name', 'Needs Repair')->value('pk_dcp_current_conditions_id');
+
+                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
+
+                if ($getCondition) {
+                    $getCondition->update([
+                        'current_condition_id' => $condition_id,
+                    ]);
+                } else {
+                    DCPItemCondition::create([
+                        'dcp_batch_item_id' => $itemId,
+                        'current_condition_id' => $condition_id,
+                    ]);
+                }
+            } elseif ($validated['condition_id'] == 3) {
+                $condition_id = DCPCurrentCondition::where('name', 'Damaged')->value('pk_dcp_current_conditions_id');
+
+                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
+
+                if ($getCondition) {
+                    $getCondition->update([
+                        'current_condition_id' => $condition_id,
+                    ]);
+                } else {
+                    DCPItemCondition::create([
+                        'dcp_batch_item_id' => $itemId,
+                        'current_condition_id' => $condition_id,
+                    ]);
+                }
+            } else {
+                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
+
+                if ($getCondition) {
+                    $getCondition->update([
+                        'current_condition_id' => 1,
+                    ]);
+                } else {
+                    DCPItemCondition::create([
+                        'dcp_batch_item_id' => $itemId,
+                        'current_condition_id' => 1,
+                    ]);
+                }
+            }
+
+
+
+
+            if ($request->hasFile('certificate_of_completion')) {
+                $file = $request->file('certificate_of_completion');
+                $filename = date('d-m-Y') . '_' . $file->getClientOriginalName();
+                $destination = public_path('certificates');
+                $file->move($destination, $filename);
+                $validated['certificate_of_completion'] =  $filename;
+            }
+
+            $item->update($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Item updated successfully!',
+                'data' => $item
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This serial number is already assigned to another item.',
+                'errors' => $e->errors(), // will include 'serial_number' => ['The serial number has already been taken.']
+            ], 422);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Database error: ' . $e->getMessage(),
+            ], 500);
         }
-
-        $item->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Item updated successfully!',
-            'data' => $item
+    }
+    public function insertCondition(Request $request)
+    {
+        $validated = $request->validate([
+            'dcp_batch_item_id' => 'required',
+            'current_condition_id' => 'required|Integer'
         ]);
+        $results =  DCPItemCondition::create($validated);
+        return response()->json($results);
     }
 }

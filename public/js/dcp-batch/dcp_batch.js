@@ -9,14 +9,14 @@ $('#searchBatch').on('keyup', function () {
             let rows = '';
             if (data.length > 0) {
 
-                  data.sort((a, b) => b.pk_dcp_batches_id - a.pk_dcp_batches_id);
+                data.sort((a, b) => b.pk_dcp_batches_id - a.pk_dcp_batches_id);
 
 
-                data.forEach(batch => {
+                data.forEach((batch, index) => {
                     const approved = (batch.submission_status ?? '').toUpperCase() === 'APPROVED';
                     rows += `
                         <tr id="row-${batch.pk_dcp_batches_id}" class="hover:bg-blue-50 transition">
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.pk_dcp_batches_id}</td>
+                            <td class="px-4 py-3 border-r border-gray-200">${index + 1}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.batch_label}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.description}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.school_id ?? 'N/A'}</td>
@@ -28,15 +28,30 @@ $('#searchBatch').on('keyup', function () {
                             <td class="px-4 py-3 border-r border-gray-200">${batch.supplier_name ?? 'N/A'}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.mode_of_delivery ?? 'N/A'}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.submission_status}</td>
+                               <td class="px-4 py-3 border-r border-gray-200 whitespace-nowrap">
+                                <div class="flex flex-col">
+
+
+                                     ${batch.approval_status ?? ''}
+                                    ${batch.approval_status === 'Pending'
+                            ? `<form method="POST" action="${batch.pk_dcp_batches_id}/approve" style="display:inline;">
+                                            <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                                            <button type="submit"
+                                            class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 ${approved ? 'opacity-50 cursor-not-allowed' : ''}"
+                                            ${approved ? 'disabled' : ''}>
+                                            Approve
+                                            </button>
+                                        </form>`
+                            : batch.approval_status === 'Approved'
+                                ? `<span class="text-green-600 font-bold">${batch.date_approved}</span>`
+                                : `<span class="text-blue-600">For Submission</span>`
+                        }
+ 
+                                </div>
+
+                            </td>
                             <td class="px-4 py-3 flex flex-wrap gap-2">
-                                <form method="POST" action="${batch.pk_dcp_batches_id}/approve" style="display:inline;">
-                                    <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
-                                    <button type="submit"
-                                        class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 ${approved ? 'opacity-50 cursor-not-allowed' : ''}"
-                                        ${approved ? 'disabled' : ''}>
-                                        Approve
-                                    </button>
-                                </form>
+                               
                                 <a href="/dcp-batch/${batch.pk_dcp_batches_id}/items"
                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                                    Items
@@ -58,12 +73,12 @@ $('#searchBatch').on('keyup', function () {
             $('#batchTableBody').html(rows);
         }
     });
- 
+
 
     // Add form submission
     const form = document.getElementById('dcp_add_form');
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(form);
 
@@ -72,26 +87,26 @@ $('#searchBatch').on('keyup', function () {
                 body: formData,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                } 
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const resultDiv = document.getElementById('result');
-                    const resultMsg = document.getElementById('result-message');
-                    resultMsg.innerText = "Batch saved: " + data.data.batch_label;
-                    resultDiv.classList.remove('hidden');
-                    form.reset();
-                       $('#searchBatch').val(''); // clear search bar if needed
-                $('#searchBatch').trigger('keyup'); // trigger table refresh
-                } else {
-                    alert('Error: ' + (data.message || 'Unknown error'));
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while submitting the form.');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const resultDiv = document.getElementById('result');
+                        const resultMsg = document.getElementById('result-message');
+                        resultMsg.innerText = "Batch saved: " + data.data.batch_label;
+                        resultDiv.classList.remove('hidden');
+                        form.reset();
+                        $('#searchBatch').val(''); // clear search bar if needed
+                        $('#searchBatch').trigger('keyup'); // trigger table refresh
+                    } else {
+                        alert('Error: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the form.');
+                });
         });
     }
 
@@ -120,12 +135,12 @@ function deleteBatch(batchId) {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const row = document.getElementById(`row-${batchId}`);
-                if (row) {
-                    row.innerHTML = `
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const row = document.getElementById(`row-${batchId}`);
+                    if (row) {
+                        row.innerHTML = `
                         <td colspan="100%" class="bg-green-100 text-green-700 text-center py-4 rounded">
                             <svg class="w-6 h-6 inline-block mr-2 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -133,14 +148,14 @@ function deleteBatch(batchId) {
                             DCP Batch deleted successfully!
                         </td>
                     `;
+                    }
+                } else {
+                    alert('Error deleting batch');
                 }
-            } else {
-                alert('Error deleting batch');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            })
+            .catch(error => console.error('Error:', error));
     }
 
 
-    
+
 }

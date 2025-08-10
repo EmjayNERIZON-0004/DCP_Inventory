@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\DCPBatchItem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class SchoolInventoryController extends Controller
+{
+    public function searchBatchItems(Request $request)
+    {
+
+        try {
+            $search = $request->input('query');
+
+            $results = DB::table('dcp_batch_items')
+                ->leftJoin('dcp_item_types', 'dcp_batch_items.item_type_id', '=', 'dcp_item_types.pk_dcp_item_types_id')
+                ->leftJoin('dcp_batches', 'dcp_batch_items.dcp_batch_id', '=', 'dcp_batches.pk_dcp_batches_id') // ✅ join to dcp_batch
+                ->select(
+                    'dcp_batch_items.pk_dcp_batch_items_id',
+                    'dcp_batch_items.generated_code',
+                    'dcp_batches.batch_label', // ✅ select from joined table
+                    'dcp_batch_items.brand',
+                    'dcp_batch_items.created_at',
+                    'dcp_item_types.name as item_name'
+                )
+                ->where(function ($query) use ($search) {
+                    $query->where('dcp_batch_items.generated_code', 'like', "%$search%")
+                        ->orWhere('dcp_batches.batch_label', 'like', "%$search%")
+                        ->orWhere('dcp_batch_items.brand', 'like', "%$search%")
+                        ->orWhere('dcp_item_types.name', 'like', "%$search%");
+                })
+                ->where('dcp_batches.school_id', Auth::guard('school')->user()->school->pk_school_id) // ✅ filter by school_id
+                ->orderBy('dcp_batches.created_at', 'desc')
+                ->get();
+
+
+            return response()->json($results);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+}

@@ -17,7 +17,7 @@ class DCPItemTypes extends Model
   ];
   public function dcpBatchItems()
   {
-    return $this->hasMany(DCPBatchItem::class, 'item_types_id', 'pk_dcp_item_types_id');
+    return $this->hasMany(DCPBatchItem::class, 'item_type_id', 'pk_dcp_item_types_id');
   }
   public function dcpPackageContents()
   {

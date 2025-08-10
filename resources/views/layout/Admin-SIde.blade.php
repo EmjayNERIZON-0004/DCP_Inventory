@@ -7,12 +7,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     <!-- Dashboard-specific CDN assets -->
+    <link rel="icon" type="image/png" href="{{ asset('icon/logo.png') }}">
+
     <!-- Tailwind CSS via JSDelivr (CSS version - CSP-compatible) -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
 
 <body class="antialiased bg-gray-100 flex flex-col min-h-screen">
-    <header class="bg-blue-600 text-white shadow-md">
+    <header class="bg-green-700 text-white shadow-md">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-6">
@@ -25,38 +32,55 @@
             </div>
         </div>
     </header>
+
     <div class="bg-white border-b border-gray-200">
-        <div class="flex flex-wrap gap-2 justify-center sm:justify-start px-2 py-2">
-            <a href="{{ url('Admin/DCP-Dashboard') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/DCP-Dashboard') ? ' text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">Home</a>
-            <a href="{{ route('index.schools') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Schools/index') ? '  text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">School Profile</a>
-            <a href="{{ route('user.schools') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/Schools-User') ? '  text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">School Users</a>
-            <a href="{{ route('index.package_type') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('package-type/create') ? '  text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">DCP Packages</a>
-            <a href="{{ route('index.item_type') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('item-type') ? '  text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">DCP Items</a>
-            <a href="{{ route('index.batch') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200 {{ Request::is('Admin/DCPBatch/index') ? '  text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">DCP Batch</a>
+        <div class="flex flex-wrap gap-3 justify-center sm:justify-start px-4 py-2">
+            @php
+                $navLinks = [
+                    [
+                        'label' => 'Home',
+                        'url' => url('Admin/DCP-Dashboard'),
+                        'active' => Request::is('Admin/DCP-Dashboard'),
+                    ],
+                    [
+                        'label' => 'School Profile',
+                        'url' => route('index.schools'),
+                        'active' => Request::is('Schools/index'),
+                    ],
+                    [
+                        'label' => 'School Users',
+                        'url' => route('user.schools'),
+                        'active' => Request::is('Admin/Schools-User'),
+                    ],
+                    [
+                        'label' => 'DCP Packages',
+                        'url' => route('index.package_type'),
+                        'active' => Request::is('package-type/create'),
+                    ],
+                    ['label' => 'DCP Items', 'url' => route('index.item_type'), 'active' => Request::is('item-type')],
+                    [
+                        'label' => 'DCP Batch',
+                        'url' => route('index.batch'),
+                        'active' => Request::is('Admin/DCPBatch/index'),
+                    ],
+                    [
+                        'label' => 'DCP Inventory',
+                        'url' => route('index.SchoolsInventory'),
+                        'active' => request()->routeIs('index.SchoolsInventory'),
+                    ],
+                ];
+            @endphp
 
-            <a href="{{ route('index.SchoolsInventory') }}"
-                class="px-4 py-2 font-semibold text-blue-700 hover:underline hover:text-blue-900 transition-all duration-200
-       {{ request()->routeIs('index.SchoolsInventory') ? 'text-blue-900 font-bold underline' : '' }}"
-                style="width: fit-content;">
-                DCP Inventory
-            </a>
-
+            @foreach ($navLinks as $link)
+                <a href="{{ $link['url'] }}"
+                    class="px-5 py-2 rounded-lg font-semibold border transition-all duration-200
+                {{ $link['active'] ? 'bg-green-700 text-white border-green-800' : 'bg-white text-green-700 border-green-800 hover:bg-green-50 hover:border-green-700' }}">
+                    {{ $link['label'] }}
+                </a>
+            @endforeach
         </div>
-
-
     </div>
+
     <main class="flex-grow">
 
         @if ($errors->any())

@@ -35,4 +35,8 @@ class DCPBatch extends Model
     {
         return $this->belongsTo(School::class, 'school_id', 'pk_school_id');
     }
+    public function approval()
+    {
+        return $this->hasOne(DCPBatchApproval::class, 'dcp_batches_id', 'dcp_batches_id');
+    }
 }

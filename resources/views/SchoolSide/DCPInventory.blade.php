@@ -1,53 +1,73 @@
 @extends('layout.SchoolSideLayout')
 
-@section('title', 'DCP Documents')
+@section('title', 'DCP Inventory')
 
 @section('content')
-    <div class="max-w-7xl mx-auto bg-white rounded shadow p-8 mt-8">
-        <h1 class="text-2xl font-bold text-blue-700 mb-4">DCP Inventory</h1>
+    <div class="max-w-full mx-5 bg-white rounded shadow p-6 px-5  mt-8" style="border:1px solid #ccc">
+        <h1 class="text-2xl font-bold text-blue-700 ">DCP Inventory</h1>
         <p class="mb-2">Below is a sample list of DCP equipment assigned to your school.</p>
-        <table class="min-w-full bg-white border mt-4">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 border">Batch Label</th>
-                    <th class="px-4 py-2 border">School</th>
-                    <th class="px-4 py-2 border">Item</th>
-                    <th class="px-4 py-2 border">Code</th>
-                    <th class="px-4 py-2 border">Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($batch_items as $batch_item)
+        <input type="text" id="searchBatchItem" placeholder="Search for items..."
+            class="border border-gray-300 rounded-lg px-4 py-2 mb-4 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+
+        <div class="overflow-x-auto border border-gray-200 h-96  rounded-sm md:border-b shadow-md md:shadow-none">
+
+            <table class="min-w-full w-full md:w-full bg-white border  ">
+                <thead class="bg-gray-700 text-white text-left sticky top-0">
                     <tr>
-                        <td class="px-4 py-2 border">{{ $batch_item->batch_label }}</td>
-                        <td class="px-4 py-2 border">
-                            @php
-                                $school = \App\Models\School::firstWhere('pk_school_id', $batch_item->school_id);
-                            @endphp
-                            {{ $school->SchoolName }}
-                        </td>
-                        <td class="px-4 py-2 border">
-                            @php
-                                $item_name = \App\Models\DCPItemTypes::firstWhere(
-                                    'pk_dcp_item_types_id',
-                                    $batch_item->item_type_id,
-                                );
-                            @endphp
-                            {{ $item_name->name }}</td>
+                        <th class="px-4 py-2  ">Code</th>
+                        <th class="px-4 py-2  ">Warranty</th>
+                        <th class="px-4 py-2  whitespace-nowrap">Batch Label</th>
 
-                        <td class="px-4 py-2 border">
-                            {{ $batch_item->generated_code }}
-                        </td>
-                        <td>
-                            <a href="{{ route('school.dcp_inventory.items', $batch_item->generated_code) }}"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1   px-5 rounded">
-                                View
-                            </a>
-                        </td>
+                        <th class="px-4 py-2  ">Item</th>
+                        <th class="px-4 py-2  ">Brand</th>
+                        <th class="px-4 py-2   whitespace-nowrap">Other Details</th>
                     </tr>
-                @endforeach
+                </thead>
+                <tbody id="batchItemsTableBody">
+                    @foreach ($batch_items as $batch_item)
+                        <tr>
+                            <td class="px-4 py-2 border border-gray-300">
+                                {{ $batch_item->generated_code }}
+                            </td>
+                            <td class="px-4 py-2 w-fit  border border-gray-300">
 
-            </tbody>
-        </table>
+                                <a href="{{ route('school.dcp_item_warranty', $batch_item->pk_dcp_batch_items_id) }}"
+                                    class="text-green-600 rounded  whitespace-nowrap   py-1 underline hover:text-green-700">
+                                    Show Status
+                                </a>
+                            </td>
+                            <td class="px-4 py-2  md:w-fit border border-gray-300">{{ $batch_item->batch_label }}</td>
+                            <td class="px-4 py-2 border border-gray-300">
+                                @php
+                                    $item_name = \App\Models\DCPItemTypes::firstWhere(
+                                        'pk_dcp_item_types_id',
+                                        $batch_item->item_type_id,
+                                    );
+                                @endphp
+                                {{ $item_name->name }}</td>
+                            <td class="px-4 py-2 border border-gray-300">
+
+                                {{ $batch_item->brand }}
+                            </td>
+                            <td class="px-4 py-2 w-fit  border border-gray-300">
+                                <a href="{{ route('school.dcp_inventory.items', $batch_item->generated_code) }}"
+                                    style="font-size:16px"
+                                    class="  text-xs font-semibold  text-blue-500 rounded hover:text-blue-600 underline">
+                                    Show More
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ asset('js/search/school.inventory.js') }}"></script>
 @endsection

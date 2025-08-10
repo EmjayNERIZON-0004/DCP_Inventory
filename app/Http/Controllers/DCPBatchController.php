@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\DCPBatch;
+use App\Models\DCPBatchApproval;
 use App\Models\DCPBatchItem;
+use App\Models\DCPBatchItemBrand;
 use App\Models\DCPItemTypes;
+use App\Models\DCPItemWarrantyStatus;
 use App\Models\DCPPackageContent;
 use App\Models\DCPPackageTypes;
 use App\Models\School;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +28,8 @@ class DCPBatchController extends Controller
         // Also update all related DCPBatchItem date_approved fields
         DCPBatchItem::where('dcp_batch_id', $batch->pk_dcp_batches_id ?? $batch->id)
             ->update(['date_approved' => $batch->date_approved]);
+        DCPBatchApproval::where('dcp_batches_id', $batch->pk_dcp_batches_id ?? '')
+            ->update(['status' => 'Approved']);
 
         return redirect()->back()->with('success', 'DCP Batch approved successfully!');
     }
@@ -34,15 +40,18 @@ class DCPBatchController extends Controller
         $dcpBatches = DB::table('dcp_batches')
             ->join('dcp_package_types', 'dcp_batches.dcp_package_type_id', '=', 'dcp_package_types.pk_dcp_package_types_id')
             ->join('schools', 'dcp_batches.school_id', '=', 'schools.pk_school_id')
+            ->leftJoin('dcp_batch_approval', 'dcp_batch_approval.dcp_batches_id', '=', 'dcp_batches.pk_dcp_batches_id')
             ->select(
                 'dcp_batches.*',
                 'dcp_package_types.name as package_type_name',
                 'schools.SchoolName as school_name',
                 'schools.SchoolLevel as school_level',
-                'schools.SchoolID as school_id'
+                'schools.SchoolID as school_id',
+                'dcp_batch_approval.status as approval_status'
             )
-            ->orderBy('dcp_batches.created_at', 'desc')
+            ->orderBy('dcp_batches.delivery_date', 'desc')
             ->get();
+
 
         $schools = School::all();
         return view('AdminSide.DCPBatch.Batch', compact('dcpBatches', 'packageTypes', 'schools'));
@@ -87,6 +96,7 @@ class DCPBatchController extends Controller
         $batch = DCPBatch::findOrFail($batchId);
         $packageType = DCPPackageTypes::findOrFail($batch->dcp_package_type_id);
         $itemType = DCPItemTypes::findOrFail($packageContent->dcp_item_types_id);
+        $brand = DCPBatchItemBrand::findOrFail($packageContent->dcp_batch_item_brands_id);
         $school = School::findOrFail($batch->school_id);
 
         // Normalize school level
@@ -114,12 +124,21 @@ class DCPBatchController extends Controller
             $itemCountPadded = str_pad($lastCount + $i, 5, '0', STR_PAD_LEFT);
             $generatedCode = $codePrefix . $itemCountPadded;
 
-            DCPBatchItem::create([
+            $batchItem = DCPBatchItem::create([
                 'dcp_batch_id' => $batch->pk_dcp_batches_id,
                 'item_type_id' => $itemType->pk_dcp_item_types_id,
                 'generated_code' => $generatedCode,
                 'unit' => 'unit ',
+                'brand' => $brand->brand_name,
                 'quantity' => 1
+            ]);
+            DCPItemWarrantyStatus::create([
+                'dcp_batch_item_id' => $batchItem->pk_dcp_batch_items_id,
+                'warranty_start_date' => $batch->delivery_date,
+                'warranty_end_date' => Carbon::parse($batch->delivery_date)->addYears(3)->toDateString(),
+                'warranty_contract' => 'Standard 3-Year Warranty',
+                'warranty_remaining' => '3 years',
+                'warranty_status_id' => 1, // assuming 1 = "Active"
             ]);
         }
 
@@ -155,12 +174,14 @@ class DCPBatchController extends Controller
         $dcpBatches = DB::table('dcp_batches')
             ->join('dcp_package_types', 'dcp_batches.dcp_package_type_id', '=', 'dcp_package_types.pk_dcp_package_types_id')
             ->join('schools', 'dcp_batches.school_id', '=', 'schools.pk_school_id')
+            ->leftJoin('dcp_batch_approval', 'dcp_batch_approval.dcp_batches_id', '=', 'dcp_batches.pk_dcp_batches_id')
             ->select(
                 'dcp_batches.*',
                 'dcp_package_types.name as package_type_name',
                 'schools.SchoolName as school_name',
                 'schools.SchoolLevel as school_level',
-                'schools.SchoolID as school_id'
+                'schools.SchoolID as school_id',
+                'dcp_batch_approval.status as approval_status'
             )
             ->where(function ($q) use ($query) {
                 $q->where('batch_label', 'like', "%{$query}%")

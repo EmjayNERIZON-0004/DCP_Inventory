@@ -19,19 +19,30 @@ class DCPSchoolsInventoryController extends Controller
 
     public function inventory(Request $request)
     {
-        $schools =  School::all();
+        $schools = School::all();
         $selectedSchool = $request->input('school');
+        $selectedBudgetYear = $request->input('budget_year');
+
+        // Get distinct budget years from DCPBatch
+        $budgetYears = DCPBatch::select('budget_year')
+            ->distinct()
+            ->orderByDesc('budget_year')
+            ->pluck('budget_year');
+
         $school_items = collect(); // always initialize
 
+        // Build query conditionally
+        $query = DCPBatch::with('dcpBatchItems', 'school');
+
         if ($selectedSchool) {
-            // If a specific school is selected
-            $batches =  DCPBatch::with('dcpBatchItems', 'school')
-                ->where('school_id', $selectedSchool)
-                ->get();
-        } else {
-            // Otherwise, show all
-            $batches =  DCPBatch::with('dcpBatchItems', 'school')->get();
+            $query->where('school_id', $selectedSchool);
         }
+
+        if ($selectedBudgetYear) {
+            $query->where('budget_year', $selectedBudgetYear);
+        }
+
+        $batches = $query->get();
 
         // Transform for Blade view
         $school_items = $batches->map(function ($batch) {
@@ -41,9 +52,16 @@ class DCPSchoolsInventoryController extends Controller
                 'items' => $batch->dcpBatchItems ?? collect(), // fallback to empty collection
             ];
         });
-
-        return view('AdminSide.SchoolsInventory.inventory', compact('schools', 'school_items', 'selectedSchool'));
+        // dd($school_items);
+        return view('AdminSide.SchoolsInventory.inventory', compact(
+            'schools',
+            'school_items',
+            'selectedSchool',
+            'budgetYears',
+            'selectedBudgetYear'
+        ));
     }
+
     public function showItems($code)
     {
         $items =  DCPBatchItem::where('generated_code', $code)->get();

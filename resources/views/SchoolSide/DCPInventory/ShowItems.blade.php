@@ -2,7 +2,16 @@
 <title>@yield('title', 'DCP Inventory')</title>
 
 @section('content')
-    <div class="px-6 py-10 max-w-5xl mx-auto">
+    </div>
+    <div class="px-6 py-2 max-w-5xl mx-auto">
+        <a href="{{ route('school.dcp_inventory') }}" style="font-size:16px"
+            class="inline-flex mt- items-center text-blue-600 text-md font-semibold hover:underline mb-2">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            DCP Inventory
+        </a>
         @foreach ($items as $item)
             @php
                 $batch = \App\Models\DCPBatch::where('pk_dcp_batches_id', $item->dcp_batch_id)->first();
@@ -27,15 +36,19 @@
 
             <div class="bg-white border border-gray-300 rounded-2xl shadow-sm p-6 mb-8">
                 <div class="border-b border-gray-200 pb-4 mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800">📦 DCP Item Details</h2>
+                    <h2 class="text-2xl font-bold text-gray-800"> DCP Item Details</h2>
                     <p class="text-lg text-gray-600 mt-1">Code: <span
                             class="font-mono text-gray-800">{{ $item->generated_code }}</span></p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10 text-lg text-gray-800">
-                    <div><span class="font-semibold text-gray-700">Batch:</span> {{ $batchName }}</div>
+                <div class="grid  grid-cols-2 gap-y-4 text-lg text-gray-800">
+                    <div class=" col-span-2 md:col-span-1  flex   gap-2">
 
-                    <div><span class="font-semibold text-gray-700">Product Type:</span>
+                        <span class="font-semibold text-gray-700">Batch:</span> {{ $batchName }}
+                    </div>
+
+                    <div class=" col-span-2 md:col-span-1  flex gap-2">
+                        <span class="font-semibold text-gray-700">Product Type:</span>
                         @php
                             $itemType = \App\Models\DCPItemTypes::where(
                                 'pk_dcp_item_types_id',
@@ -43,14 +56,30 @@
                             )->first();
                             $itemTypeName = $itemType->name;
                         @endphp
-                        {{ $itemTypeName }}</div>
-
-
-                    <div><span class="font-semibold text-gray-700">Quantity:</span> {{ $item->quantity }}</div>
-                    <div><span class="font-semibold text-gray-700">Unit:</span> {{ trim($item->unit) }}</div>
-                    <div><span class="font-semibold text-gray-700">Brand:</span> {{ $item->brand ?? 'N/A' }}</div>
-                    <div><span class="font-semibold text-gray-700">Serial Number:</span> {{ $item->serial_number ?? 'N/A' }}
+                        {{ $itemTypeName }}
                     </div>
+
+
+                    <div class="col-span-2 md:col-span-1 ">
+                        <span class="font-semibold text-gray-700">Quantity:</span> {{ $item->quantity }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Unit:</span>
+                        {{ trim($item->unit) }}</div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Brand:</span>
+                        {{ $item->brand ?? 'N/A' }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Serial Number:</span>
+                        {{ $item->serial_number ?? 'N/A' }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Assigned User for this
+                            Item:</span>
+                        {{ $user_type ?? 'N/A' }} - {{ $user_name ?? 'N/A' }}</div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Location of the
+                            Item:</span>
+                        {{ $item_location ?? 'N/A' }} </div>
+                    <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Date Assigned:</span>
+                        {{ $user_date_assigned ?? 'N/A' }} </div>
+
 
                     {{-- IAR Section --}}
                     <div class="grid grid-cols-3 gap-1 mt-1 text-lg text-gray-800 col-span-2">
@@ -116,42 +145,60 @@
                     {{-- Files --}}
                     @if ($hasAnyFile)
                         @if ($iarPath)
-                            <div><span class="font-semibold text-gray-700">IAR File:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">IAR
+                                    File:</span>
                                 <a href="{{ $iarPath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
 
                         @if ($itrPath)
-                            <div><span class="font-semibold text-gray-700">ITR File:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">ITR
+                                    File:</span>
                                 <a href="{{ $itrPath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
 
                         @if ($cocPath)
-                            <div><span class="font-semibold text-gray-700">Certificate of Completion:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Certificate of
+                                    Completion:</span>
                                 <a href="{{ $cocPath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
 
                         @if ($trainingPath)
-                            <div><span class="font-semibold text-gray-700">Training Acceptance:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Training
+                                    Acceptance:</span>
                                 <a href="{{ $trainingPath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
 
                         @if ($deliveryPath)
-                            <div><span class="font-semibold text-gray-700">Delivery Receipt:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Delivery
+                                    Receipt:</span>
                                 <a href="{{ $deliveryPath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
 
                         @if ($invoicePath)
-                            <div><span class="font-semibold text-gray-700">Invoice Receipt:</span>
+                            <div class="col-span-2 md:col-span-1 "><span class="font-semibold text-gray-700">Invoice
+                                    Receipt:</span>
                                 <a href="{{ $invoicePath }}" class="text-blue-600 underline ml-1" target="_blank">View</a>
                             </div>
                         @endif
                     @else
-                        <div class="text-gray-600 italic">No uploaded file found for this item.</div>
+                        <div class="col-span-2 md:col-span-1 text-gray-600 italic">Training Acceptance Report : N/A
+                        </div>
+                        <div class="col-span-2 md:col-span-1 text-gray-600 italic">Delivery Receipt: N/A
+                        </div>
+                        <div class="col-span-2 md:col-span-1 text-gray-600 italic">Invoice Receipt: N/A
+                        </div>
+                        <div class="col-span-2 md:col-span-1 text-gray-600 italic">
+
+                            Certificate of Completion: N/A
+                        </div>
+
+                        <div class="col-span-2 md:col-span-1 text-gray-600 italic">No uploaded file found for this item.
+                        </div>
                     @endif
 
                 </div>

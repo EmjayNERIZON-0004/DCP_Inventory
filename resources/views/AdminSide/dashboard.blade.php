@@ -5,33 +5,7 @@
 
 
 @section('content')
-    <div class="mx-5 my-5 bg-white shadow-xl rounded-lg overflow-hidden p-6">
-
-        <div class="flex flex-col md:flex-row items-center justify-between gap-5">
-            <div class="items-center justify-center">
-                <h2 class="text-2xl text-center font-bold text-gray-800 mb-4" style="font-weight: 600">Inventory Management
-                    System</h2>
-                <div class="flex  items-center justify-center md:items-start md:justify-start md:mx-0">
-                    <img src="{{ asset('icon/logo.png') }}" width="70" height="70" alt="">
-                    <img src="{{ asset('icon/bagong-pilipinas.jpg') }}" width="70" height="70" alt="">
-                </div>
-                <div class="text-center md:text-left md:mx-0">
-                    <h3 class="text-lg font-semibold text-gray-700">
-                        Schools Division Office
-                    </h3>
-                    <p>
-                        San Carlos City, Pangasinan
-                    </p>
-                </div>
-
-            </div>
-            <img class="rounded-full shadow-lg  " style="border:1px solid #ccc"
-                src="{{ asset('icon/logo-dcpinventory.jpg') }}" width="200" height="200" alt="">
-        </div>
-
-    </div>
-
-    <div class="     my-5 mx-5     ">
+    {{-- <div class="     my-5 mx-5     ">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
@@ -83,9 +57,18 @@
 
 
         </div>
+    </div> --}}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-1">
+
+            <h2 class="text-lg font-semibold text-gray-900">Admin Dashboard </h2>
+
+            <div class="text-sm text-gray-500">
+                <span id="last-updated">Last updated: Jun 24, 2025 at 9:19 PM</span>
+            </div>
+        </div>
     </div>
-    <div class="   rounded-lg overflow-hidden p-6">
-        <div class="text-2xl font-bold text-gray-800 mb-4">Infomation about the system</div>
+    <div class="rounded-lg overflow-hidden px-6 py-2">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
             <!-- Total Schools -->
@@ -182,16 +165,48 @@
 
 
     </div>
-    <!-- <div class="bg-white shadow-sm border-b border-gray-200">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="flex justify-between items-center py-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h2 class="text-lg font-semibold text-gray-900">Admin Dashboard   </h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="text-sm text-gray-500">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span id="last-updated">Last updated: Jun 24, 2025 at 9:19 PM</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
+    <div class="mx-5 my-1 bg-white shadow-xl rounded-lg overflow-hidden p-6">
+
+        <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+            <div class="items-center justify-center">
+                <h2 class="text-2xl text-center font-bold text-gray-800 mb-4" style="font-weight: 600">Inventory Management
+                    System</h2>
+                <div class="flex  items-center justify-center md:items-start md:justify-start md:mx-0">
+                    <img src="{{ asset('icon/logo.png') }}" width="70" height="70" alt="">
+                    <img src="{{ asset('icon/bagong-pilipinas.jpg') }}" width="70" height="70" alt="">
+                </div>
+                <div class="text-center md:text-left md:mx-0">
+                    <h3 class="text-lg font-semibold text-gray-700">
+                        Schools Division Office
+                    </h3>
+                    <p>
+                        San Carlos City, Pangasinan
+                    </p>
+                </div>
+
+            </div>
+            <style>
+                @keyframes float {
+
+                    0%,
+                    100% {
+                        transform: translateY(0);
+                    }
+
+                    50% {
+                        transform: translateY(-10px);
+                    }
+                }
+
+                .animate-float {
+                    animation: float 2.5s ease-in-out infinite;
+                }
+            </style>
+
+            <img src="{{ asset('icon/logo-dcpinventory.jpg') }}" alt="DCP Logo"
+                class="rounded-full border-2 border-blue-600 shadow-lg animate-float" width="200" height="200">
+
+        </div>
+
+    </div>
 @endsection
