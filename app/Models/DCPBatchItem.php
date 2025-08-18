@@ -63,4 +63,8 @@ class DCPBatchItem extends Model
     {
         return $this->hasMany(DCPItemWarrantyStatus::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
     }
+    public function dcpItemCurrentCondition()
+    {
+        return $this->hasOne(DCPItemCondition::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
+    }
 }

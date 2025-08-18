@@ -21,11 +21,12 @@
             ];
         @endphp
         @foreach ($packageContent as $index => $package)
-            <div class="mb-4">
+            <div class="mb-4 bg-white rounded-lg py-2 border border-gray-500  px-4">
 
 
-                <div class="font-normal bg-gray-200  border border-gray-800  text-gray-800 p-2">
-                    <div><span class="font-semibold">Package Name:</span> {{ $package['package_name'] }}
+                <div class="font-normal  text-gray-800  ">
+                    <div>
+                        <span class="font-semibold">Package Name:</span> {{ $package['package_name'] }}
                     </div>
                     <div>
                         <span class="font-semibold">Total Items:</span>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolData extends Model
 {
     protected $table = 'school_grade_data';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'ID';
     public $timestamps = true;
 
     protected $fillable = [

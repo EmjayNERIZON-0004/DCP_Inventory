@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\School;
 use App\Models\SchoolCoordinates;
+use App\Models\SchoolData;
 use App\Models\SchoolUser;
+use Exception;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+
+use function Laravel\Prompts\error;
 
 class SchoolDetailsController extends Controller
 {
@@ -24,15 +29,34 @@ class SchoolDetailsController extends Controller
             'Teachers' => 'required|integer|min:0',
             'Sections' => 'required|integer|min:0',
             'Classrooms' => 'required|integer|min:0',
-            'NonTeachingPersonnel' => 'required|integer|min:0',
+
         ]);
 
         // Save to SchoolData model (make sure you have this model and table)
-        \App\Models\SchoolData::create($validated);
+        SchoolData::create($validated);
 
         return back()->with('success', 'School data submitted successfully!');
     }
+    public function updateSchoolDataForm(Request $request)
+    {
+        try {
 
+            $result = SchoolData::where('ID', $request->pk)->first();
+            if ($result) {
+                $result->update([
+                    'RegisteredLearners' => $request->RegisteredLearners,
+                    'Teachers' => $request->Teachers,
+                    'Sections' => $request->Section,
+                    'Classrooms' => $request->Classrooms,
+                ]);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+
+        return redirect()->back()->with('success', 'School Data updated successfully');
+    }
 
     public function index(Request $request)
     {

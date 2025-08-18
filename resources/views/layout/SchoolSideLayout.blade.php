@@ -69,11 +69,23 @@
                     ['label' => 'School Profile', 'route' => 'school.profile', 'match' => 'School/profile'],
                     ['label' => 'DCP Batch Profile', 'route' => 'school.dcp_batch', 'match' => 'School/dcp-batch'],
                     ['label' => 'DCP Inventory', 'route' => 'school.dcp_inventory', 'match' => 'School/DCPInventory'],
+                    [
+                        'label' => 'Packages Information',
+                        'route' => 'schools.packages.info',
+                        'match' => 'School/packages-info/0',
+                        'params' => [0],
+                    ],
+                    [
+                        'label' => 'Item Condition',
+                        'route' => 'schools.item.condition',
+                        'match' => 'School/item-condition/0',
+                        'params' => [0],
+                    ],
                 ];
             @endphp
 
             @foreach ($navLinks as $link)
-                <a href="{{ route($link['route']) }}"
+                <a href="{{ route($link['route'], $link['params'] ?? []) }}"
                     class="px-5 py-2 rounded-lg font-semibold border transition-all duration-200 text-sm
                {{ Request::is($link['match'])
                    ? 'bg-green-700 text-white border-green-800'

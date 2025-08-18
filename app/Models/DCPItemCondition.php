@@ -16,10 +16,10 @@ class DCPItemCondition extends Model
     ];
     public function dcpBatchItem()
     {
-        return $this->belongsTo(DCPBatchItem::class, 'dcp_batch_item_id', 'pk_dcp_batch_item_id');
+        return $this->belongsTo(DCPBatchItem::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
     }
     public function dcpCurrentCondition()
     {
-        return $this->belongsTo(DCPCurrentCondition::class, 'current_condition_id', 'pk_dcp_current_condition_id');
+        return $this->belongsTo(DCPCurrentCondition::class, 'current_condition_id', 'pk_dcp_current_conditions_id');
     }
 }

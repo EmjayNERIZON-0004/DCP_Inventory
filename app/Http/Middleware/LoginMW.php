@@ -22,7 +22,7 @@ class LoginMW
 
         // Redirect school user
         if (Auth::guard('school')->check()) {
-            return redirect()->route('school.profile'); // define this named route
+            return redirect()->route('school.dashboard'); // define this named route
         }
 
         return $next($request);

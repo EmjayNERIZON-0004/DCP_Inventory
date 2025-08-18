@@ -39,7 +39,7 @@ class LoginController extends Controller
                     Auth::guard('school')->login($user, $request->has('remember'));
                     $user->last_login = now();
                     $user->save();
-                    return redirect()->intended('School/profile');
+                    return redirect()->intended('School/dashboard');
                 }
             }
         }

@@ -270,7 +270,16 @@
                                     @endphp
                                     {{ $condition ? $condition->name : '--' }}
                                 </td>
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $item->brand ?? '--' }}</td>
+                                @php
+                                    $brandName = null;
+                                    if ($item->brand) {
+                                        $brandName = App\Models\DCPBatchItemBrand::where(
+                                            'pk_dcp_batch_item_brands_id',
+                                            $item->brand,
+                                        )->value('brand_name');
+                                    }
+                                @endphp
+                                <td class="px-4 py-3 border-r border-gray-400">{{ $brandName ?? '--' }}</td>
                                 <td class="px-4 py-3 border-r border-gray-400">{{ $item->serial_number ?? '--' }}</td>
                             </tr>
                         @endforeach

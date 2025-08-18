@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\DCPBatch;
 use App\Models\DCPBatchItem;
+use App\Models\DCPBatchItemBrand;
 use App\Models\DCPCurrentCondition;
 use App\Models\DCPDeliveryCondintion;
 use App\Models\DCPItemAssignedLocation;
 use App\Models\DCPItemAssignedUser;
+use App\Models\DCPItemBrand;
 use App\Models\DCPItemCondition;
 use App\Models\DCPItemTypes;
 use App\Models\School;
@@ -143,7 +145,7 @@ class SchoolDCPBatchController extends Controller
 
 
 
-        return redirect()->route('school.dcp_inventory')->with('success', 'Batch status updated successfully.');
+        return redirect()->back()->with('success', 'Batch Information submitted successfully.');
     }
     public function index()
     {
@@ -181,8 +183,8 @@ class SchoolDCPBatchController extends Controller
         $batchStatus = DCPBatchItem::where('dcp_batch_id', $batchId)->first();
         $batch_approved = DCPBatchItem::where('dcp_batch_id', $batchId)->value('date_approved');
         $batchName = $batch->batch_label;
-
-        return view('SchoolSide.DCPBatch.Items', compact('batchId', 'batchName', 'batch', 'items', 'itemTypes', 'conditions', 'batchId', 'batchStatus', 'batch_approved'));
+        $brand_list = DCPBatchItemBrand::all();
+        return view('SchoolSide.DCPBatch.Items', compact('batchId', 'brand_list', 'batchName', 'batch', 'items', 'itemTypes', 'conditions', 'batchId', 'batchStatus', 'batch_approved'));
     }
     public function warranty($batchItemId)
     {

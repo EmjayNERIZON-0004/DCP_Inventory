@@ -1,0 +1,154 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ISP\ISPAreaAvailable;
+use App\Models\ISP\ISPAreaDetails;
+use App\Models\ISP\ISPConnectionType;
+use App\Models\ISP\ISPInternetQuality;
+use App\Models\ISP\ISPList;
+use Exception;
+use Illuminate\Http\Request;
+
+class ISPController extends Controller
+{
+    function indexISPList()
+    {
+        $ISPList = ISPList::all();
+        $ISPConnectionType = ISPConnectionType::all();
+        $ISPArea = ISPAreaAvailable::all();
+        $ISPInternetQ = ISPInternetQuality::all();
+        return view('AdminSide.ISP.isp-index', compact('ISPList', 'ISPInternetQ', 'ISPArea', 'ISPConnectionType'));
+    }
+    function storeISPList(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_name' => 'string|required'
+        ]);
+        try {
+            $isp_create = ISPList::create([
+                'name' => $validated['isp_name']
+            ]);
+
+            return redirect()->route('isp.index.list')->with('success', 'New Internet Service Provider has been added.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops there was problem with your request.' . $e);
+        }
+    }
+    function storeConnectionType(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_connection_name' => 'string|required'
+        ]);
+        try {
+            $isp_create = ISPConnectionType::create([
+                'name' => $validated['isp_connection_name']
+            ]);
+
+            return redirect()->route('isp.index.list')->with('success', 'New ISP Connection Type has been added.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops there was problem with your request.' . $e);
+        }
+    }
+    function storeArea(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_area_name' => 'string|required'
+        ]);
+        try {
+            $isp_create = ISPAreaAvailable::create([
+                'name' => $validated['isp_area_name']
+            ]);
+
+            return redirect()->route('isp.index.list')->with('success', 'New ISP Area has been added.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops there was problem with your request.' . $e);
+        }
+    }
+    function updateISPList(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_name' => 'required|string',
+            'isp_list_id' => 'required|integer'
+        ]);
+
+        try {
+            $list = ISPList::findOrFail($validated['isp_list_id']);
+            $list->update([
+                'name' => $validated['isp_name']
+            ]);
+            return redirect()->back()->with('success', 'The Internet Service Provider has been updated.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops, there was unexpected error in your request' . $e);
+        }
+    }
+    function updateConnectionType(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_connection_type_id' => 'required|integer',
+            'isp_connection_type_name' => 'required|string'
+        ]);
+
+        try {
+            $list = ISPConnectionType::findOrFail($validated['isp_connection_type_id']);
+            $list->update([
+                'name' => $validated['isp_connection_type_name']
+            ]);
+            return redirect()->back()->with('success', 'The ISP Connection type has been updated.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops, there was unexpected error in your request' . $e);
+        }
+    }
+    function updateArea(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_area_id' => 'required|integer',
+            'isp_area_name' => 'required|string'
+        ]);
+
+        try {
+            $list = ISPAreaAvailable::findOrFail($validated['isp_area_id']);
+            $list->update([
+                'name' => $validated['isp_area_name']
+            ]);
+            return redirect()->back()->with('success', 'The ISP Area has been updated.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops, there was unexpected error in your request' . $e);
+        }
+    }
+    function deleteISPList(int $isp_list_id)
+    {
+
+        try {
+            $deleteConn = ISPList::findOrFail($isp_list_id);
+            $deleteConn->delete();
+            return response()->json(['message' => 'ISP deleted successfully']);
+        } catch (Exception $e) {
+
+            return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
+        }
+    }
+
+    function deleteConnectionType(int $isp_connection_id)
+    {
+
+        try {
+            $deleteConn = ISPConnectionType::findOrFail($isp_connection_id);
+            $deleteConn->delete();
+            return response()->json(['message' => 'The connection type has been deleted']);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
+        }
+    }
+    function deleteArea(int $isp_area_id)
+    {
+
+        try {
+            $deleteArea = ISPAreaDetails::findOrFail($isp_area_id);
+            $deleteArea->delete();
+            return response()->json(['message' => 'The ISP Area has been deleted']);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
+        }
+    }
+}

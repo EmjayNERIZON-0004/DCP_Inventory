@@ -44,15 +44,15 @@
             </div>
         </div>
         <!-- <div class="bg-white shadow-sm border-b border-gray-200">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="flex justify-between items-center py-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h2 class="text-lg font-semibold text-gray-900">School Dashboard</h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="text-sm text-gray-500">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span id="last-updated">Last updated: Jun 24, 2025 at 9:19 PM</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div class="flex justify-between items-center py-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h2 class="text-lg font-semibold text-gray-900">School Dashboard</h2>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="text-sm text-gray-500">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span id="last-updated">Last updated: Jun 24, 2025 at 9:19 PM</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
 
         <div class="max-w-full  py-6   sm:px-0 lg:px-0 pt-0" style=" font-family:Verdana, Geneva, Tahoma, sans-serif">
             @if (Auth::guard('school')->user() && Auth::guard('school')->user()->school)
@@ -336,30 +336,26 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="font-semibold">Registered Learners</label>
+                                <label class="font-normal">Total Number of <b>Registered Learners</b> </label>
                                 <input type="number" name="RegisteredLearners" min="0"
                                     class="w-full border  border-gray-300 rounded px-2 py-1" required>
                             </div>
                             <div>
-                                <label class="font-semibold">Teachers</label>
+                                <label class="font-normal">Total Number of <b>Teachers</b></label>
                                 <input type="number" name="Teachers" min="0"
                                     class="w-full border border-gray-300  rounded px-2 py-1" required>
                             </div>
                             <div>
-                                <label class="font-semibold">Sections</label>
+                                <label class="font-normal">Total Number of <b>Sections</b></label>
                                 <input type="number" name="Sections" min="0"
                                     class="w-full border border-gray-300  rounded px-2 py-1" required>
                             </div>
                             <div>
-                                <label class="font-semibold">Classrooms</label>
+                                <label class="font-normal"> Total Number of <b>Classrooms</b></label>
                                 <input type="number" name="Classrooms" min="0"
                                     class="w-full border border-gray-300 rounded px-2 py-1" required>
                             </div>
-                            <div>
-                                <label class="font-semibold">Non-Teaching Personnel</label>
-                                <input type="number" name="NonTeachingPersonnel" min="0"
-                                    class="w-full border border-gray-300  rounded px-2 py-1" required>
-                            </div>
+
                         </div>
                         <input type="hidden" name="pk_school_id"
                             value="{{ Auth::guard('school')->user()->school->pk_school_id }}">
@@ -371,6 +367,94 @@
                     </form>
                 </div>
 
+
+                <div
+                    class="modal fixed inset-0 bg-black bg-opacity-40 flex items-center border border-red-800 justify-center z-50 hidden  ">
+                    <div class="modal-content bg-white rounded-md shadow-md p-6 mx-10">
+
+                        <div class="text-blue-600 text-2xl font-bold mb-4">Update School Data Form</div>
+                        <form id="school-data-form_update" method="POST"
+                            action="{{ route('school.update.schooldata') }}">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="hidden" id="pk" name="pk">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="font-semibold">Grade Level <span class="text-red-500">*</span></label>
+                                    <select name="GradeLevelID" id="GradeLevelID" class="w-full border rounded px-2 py-1"
+                                        required>
+
+                                        <option value="">-- Select Grade Level --</option>
+                                        @foreach ($gradeLevels as $level)
+                                            <option value="{{ $level['id'] }}"
+                                                {{ in_array($level['id'], $submittedGradeLevels ?? []) ? 'disabled' : '' }}>
+                                                {{ $level['name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-normal">Total Number of <b>Registered Learners</b> </label>
+                                    <input type="number" name="RegisteredLearners" id="RegisteredLearners"
+                                        min="0" class="w-full border  border-gray-300 rounded px-2 py-1" required>
+                                </div>
+                                <div>
+                                    <label class="font-normal">Total Number of <b>Teachers</b></label>
+                                    <input type="number" name="Teachers" id="Teachers" min="0"
+                                        class="w-full border border-gray-300  rounded px-2 py-1" required>
+                                </div>
+                                <div>
+                                    <label class="font-normal">Total Number of <b>Sections</b></label>
+                                    <input type="number" name="Sections" id="Sections" min="0"
+                                        class="w-full border border-gray-300  rounded px-2 py-1" required>
+                                </div>
+                                <div>
+                                    <label class="font-normal"> Total Number of <b>Classrooms</b></label>
+                                    <input type="number" name="Classrooms" id="Classrooms" min="0"
+                                        class="w-full border border-gray-300 rounded px-2 py-1" required>
+                                </div>
+
+                            </div>
+                            <input type="hidden" name="pk_school_id"
+                                value="{{ Auth::guard('school')->user()->school->pk_school_id }}">
+                            <div class="mt-6 text-right flex justify-end gap-2">
+                                <button type="submit"
+                                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Update
+                                    Data</button>
+                                <button type="button"
+                                    class="px-6 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600"
+                                    onclick="closeEditModal()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <script>
+                    function closeEditModal() {
+                        document.querySelector('.modal').classList.add('hidden');
+                    }
+
+                    function showEditForm(pk_id, gradeLevelId, registeredLearners, teachers, sections, classrooms) {
+
+                        const select = document.getElementById('GradeLevelID');
+
+                        // Set the selected value
+                        select.value = gradeLevelId;
+
+                        // Disable all other options
+                        for (let option of select.options) {
+                            option.disabled = option.value !== gradeLevelId;
+                        }
+                        document.getElementById('RegisteredLearners').value = registeredLearners;
+                        document.getElementById('Teachers').value = teachers;
+                        document.getElementById('Sections').value = sections;
+                        document.getElementById('Classrooms').value = classrooms;
+                        document.getElementById('pk').value = pk_id;
+                        document.querySelector('.modal').classList.remove('hidden');
+                    }
+                </script>
                 <!-- Table of Submitted Data -->
                 @if (isset($schoolData) && count($schoolData))
                     <div class="bg-white rounded-md shadow-md p-6 mt-6 " style="border:1px solid #ccc">
@@ -395,7 +479,12 @@
 
                         @foreach ($schoolData as $data)
                             <div class="mb-6    rounded border border-gray-200 shadow-sm">
-                                <div class="grid grid-cols-1 md:grid-cols-6 gap-2">
+                                <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+                                    <div class="md:col-span-5 col-span-1 w-full p-0">
+                                        <button
+                                            onclick="showEditForm({{ $data->ID }}, '{{ $data->GradeLevelID }}',{{ $data->RegisteredLearners }},{{ $data->Teachers }},{{ $data->Sections }},{{ $data->Classrooms }})"
+                                            class="text-blue-500 hover:text-blue-700 underline">Edit</button>
+                                    </div>
                                     <div class="flex flex-col text-center px-2 py-2 items-center justify-center bg-green-200 "
                                         style="border:1px solid #282828">
                                         <label class="text-gray-700 font-normal">Grade Level</label>
@@ -424,12 +513,7 @@
                                         <label class="text-gray-700 font-normal  font-xl">Classrooms</label>
                                         <div class="text-gray-800 text-2xl font-bold">{{ $data->Classrooms }}</div>
                                     </div>
-                                    <div
-                                        class="flex flex-col p-2 text-center items-center justify-center  bg-gray-200"style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal font-xl">Non-Teaching Personnel</label>
-                                        <div class="text-gray-800 text-2xl font-bold">{{ $data->NonTeachingPersonnel }}
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         @endforeach

@@ -16,6 +16,19 @@
     html {
         scroll-behavior: smooth;
     }
+
+    /* in your global CSS file */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari */
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 </style>
 
 <body class="antialiased bg-gray-100 flex flex-col min-h-screen">
@@ -68,6 +81,11 @@
                         'url' => route('index.SchoolsInventory'),
                         'active' => request()->routeIs('index.SchoolsInventory'),
                     ],
+                    [
+                        'label' => 'Other Details',
+                        'url' => route('index.crud'),
+                        'active' => request()->routeIs('index.crud'),
+                    ],
                 ];
             @endphp
 
@@ -116,7 +134,7 @@
 
 
     </main>
-    <!-- Footer -->
+    {{-- <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-12">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div class="text-center text-sm text-gray-500">
@@ -126,7 +144,7 @@
                 </p>
             </div>
         </div>
-    </footer>
+    </footer> --}}
 </body>
 
 </html>

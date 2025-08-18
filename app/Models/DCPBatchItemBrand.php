@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+//item brand
 class DCPBatchItemBrand extends Model
 {
     protected $table = "dcp_batch_item_brands";

@@ -15,6 +15,6 @@ class DCPCurrentCondition extends Model
     ];
     public function dcpItemCondition()
     {
-        return $this->hasMany(DCPItemCondition::class, 'dcp_current_conditions_id', 'pk_dcp_current_conditions_id');
+        return $this->hasMany(DCPItemCondition::class, 'dcp_current_condition_id', 'pk_dcp_current_conditions_id');
     }
 }

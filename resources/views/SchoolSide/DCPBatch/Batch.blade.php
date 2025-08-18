@@ -62,7 +62,17 @@
                                             class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">Submit</button>
                                     </form>
                                 @else
-                                    <span class="text-yellow-500 font-bold">{{ $b->status_submitted }}</span>
+                                    @php
+                                        $text_color = '';
+                                        if ($b->status_submitted == 'Approved') {
+                                            $text_color = 'text-green-500';
+                                        } elseif ($b->status_submitted == 'Rejected') {
+                                            $text_color = 'text-red-500';
+                                        } elseif ($b->status_submitted == 'Pending') {
+                                            $text_color = 'text-yellow-500';
+                                        }
+                                    @endphp
+                                    <span class="{{ $text_color }} font-bold">{{ $b->status_submitted }}</span>
                                 @endif
                             </td>
 

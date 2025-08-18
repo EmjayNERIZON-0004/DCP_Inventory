@@ -20,7 +20,8 @@ class DCPBatchItemController extends Controller
         $itemTypes = DCPItemTypes::all();
         $conditions = DCPDeliveryCondintion::all();
 
-        return view('AdminSide.DCPBatch.Items', compact('batch', 'items', 'itemTypes', 'conditions'));
+
+        return view('AdminSide.DCPBaatch.Items', compact('batch', 'items', 'itemTypes', 'conditions'));
     }
 
 

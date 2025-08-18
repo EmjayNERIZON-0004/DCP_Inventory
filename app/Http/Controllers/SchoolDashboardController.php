@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\DCPBatch;
 use App\Models\DCPBatchItem;
 use App\Models\DCPItemCondition;
+use App\Models\DCPItemTypes;
 use App\Models\DCPPackageTypes;
+use App\Models\SchoolData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,6 +77,49 @@ class SchoolDashboardController extends Controller
 
         $totalBatches = $batches->count();
         $totalItems = $items->count();
-        return view('SchoolSide.dashboard', compact('packagesWithCounts', 'totalItems', 'totalGood', 'totalForRepair', 'totalDamaged', 'totalForDisposal', 'nostatus', 'totalBatches'));
+
+
+        $schoolData = SchoolData::where('pk_school_id', Auth::guard('school')->user()->school->pk_school_id)->get();
+        $totalLearners = 0;
+        $totalClassrooms = 0;
+        $totalTeachers = 0;
+        $totalSections = 0;
+
+
+        foreach ($schoolData as $data) {
+            $totalLearners = $totalLearners + $data->RegisteredLearners;
+            $totalClassrooms = $totalClassrooms + $data->Classrooms;
+            $totalTeachers = $totalTeachers + $data->Teachers;
+            $totalSections = $totalSections + $data->Sections;
+        }
+        $item_names_collect = collect();
+        foreach ($batches as $batch) {
+
+            $item_types = DCPBatchItem::where('dcp_batch_id', $batch->pk_dcp_batches_id)->pluck('item_type_id');
+            foreach ($item_types as $types) {
+                $item_names = DCPItemTypes::where('pk_dcp_item_types_id', $types)->value('name');
+                $item_names_collect->push([
+                    'items' => $item_names
+                ]);
+            }
+        }
+        $item_sorted =   $item_names_collect->groupBy('items')->map->count()->sortDesc();
+
+        return view('SchoolSide.dashboard', compact(
+            'totalLearners',
+            'item_sorted',
+            'totalClassrooms',
+            'totalTeachers',
+            'totalSections',
+            'packagesWithCounts',
+            'schoolData',
+            'totalItems',
+            'totalGood',
+            'totalForRepair',
+            'totalDamaged',
+            'totalForDisposal',
+            'nostatus',
+            'totalBatches'
+        ));
     }
 }

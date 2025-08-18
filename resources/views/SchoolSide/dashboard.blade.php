@@ -9,7 +9,8 @@
 
 
     <div class="py-5 px-4 border borer-gray-800">
-        <div class=" flex gap-5 bg-white text-gray-900 border text-[Verdana]   px-5 py-4 rounded-lg">
+        <div
+            class=" flex gap-5 md:flex-row flex-col bg-white border border-gray-800 text-gray-900 border text-[Verdana]   px-5 py-4 rounded-lg">
             <div class="w-full   ">
                 @php
                     $school = Auth::guard('school')->user()->school->SchoolName;
@@ -30,9 +31,9 @@
                     @php
                         $bgColor = ['bg-blue-200', 'bg-green-200', 'bg-yellow-200', 'bg-pink-200'];
                     @endphp
-                    <div class="flex gap-2 flex-row ">
+                    <div class="flex gap-2 flex-row mt-2">
                         @foreach ($packagesWithCounts as $index => $package)
-                            <a href="{{ route('schools.packages.info') }}">
+                            <a href="{{ route('schools.packages.info', $package['id']) }}">
                                 <div
                                     class="  transform scale-100 hover:scale-105
                             py-1 px-4 rounded-sm text-gray-800 border border-gray-800
@@ -44,25 +45,84 @@
                     </div>
 
                 </div>
+
+
+                <div
+                    class="max-w-md   bg-white shadow-lg mt-4 border border-gray-500 rounded-lg p-4 border border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">School Data</h2>
+
+                    <div class="flex justify-between border-b py-1">
+                        <span class="text-gray-600">Total Learners:</span>
+                        <b class="text-gray-800">{{ $totalLearners }}</b>
+                    </div>
+
+                    <div class="flex justify-between border-b py-1">
+                        <span class="text-gray-600">Total Teachers:</span>
+                        <b class="text-gray-800">{{ $totalTeachers }}</b>
+                    </div>
+
+                    <div class="flex justify-between border-b py-1">
+                        <span class="text-gray-600">Total Sections:</span>
+                        <b class="text-gray-800">{{ $totalSections }}</b>
+                    </div>
+
+                    <div class="flex justify-between py-1">
+                        <span class="text-gray-600">Total Classrooms:</span>
+                        <b class="text-gray-800">{{ $totalClassrooms }}</b>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="w-1/4 flex flex-col gap-1">
+            <div class="md:w-1/2 w-full flex flex-col gap-1">
+                <div>
+                    Item Received from DCP Batches
+                </div>
+
+                @foreach ($item_sorted as $item => $count)
+                    <div class="bg-blue-200 text-gray-800 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+                        <b>{{ $count }}</b> - {{ $item }}
+                    </div>
+                @endforeach
+                <div>
+
+                </div>
+            </div>
+            <div class="md:w-1/2 w-full flex flex-col gap-1">
                 <div>
                     Conditions of Items
                 </div>
-                <div class="bg-green-200 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
-                    <b>{{ $totalGood }}</b> - Good
-                </div>
-                <div class="bg-red-200 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
-                    <b>{{ $totalDamaged }}</b> - Damaged
-                </div>
-                <div class="bg-yellow-200 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
-                    <b>{{ $totalForRepair }}</b> - For Repair
-                </div>
-                <div class="bg-purple-200 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
-                    <b>{{ $totalForDisposal }}</b> - For Disposal
-                </div>
-                <div class="bg-gray-200 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+
+                <a href="{{ route('schools.item.condition', 1) }}">
+                    <div
+                        class="bg-green-200 transform scale-100 hover:scale-105 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+                        <b>{{ $totalGood }}</b> - Good
+                    </div>
+                </a>
+                <a href="{{ route('schools.item.condition', 4) }}">
+
+                    <div
+                        class="bg-red-200 transform scale-100 hover:scale-105 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+                        <b>{{ $totalDamaged }}</b> - Damaged
+                    </div>
+                </a>
+                <a href="{{ route('schools.item.condition', 2) }}">
+
+
+                    <div
+                        class="bg-yellow-200 transform scale-100 hover:scale-105 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+                        <b>{{ $totalForRepair }}</b> - For Repair
+                    </div>
+                </a>
+                <a href="{{ route('schools.item.condition', 5) }}">
+
+                    <div
+                        class="bg-purple-200 transform scale-100 hover:scale-105 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
+                        <b>{{ $totalForDisposal }}</b> - For Disposal
+                    </div>
+                </a>
+                <div
+                    class="bg-gray-200 transform scale-100 hover:scale-105 text-gray-900 border text-[Verdana] border-gray-800 px-4 py-2 rounded-sm">
                     <b>{{ $nostatus }}</b> - No Status
                 </div>
 
