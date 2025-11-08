@@ -12,6 +12,7 @@ class DCPPackageContent extends Model
         'dcp_package_types_id',
         'dcp_item_types_id',
         'dcp_batch_item_brands_id',
+        'unit_price',
         'quantity',
         'created_at',
         'updated_at'

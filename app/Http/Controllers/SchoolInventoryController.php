@@ -17,13 +17,15 @@ class SchoolInventoryController extends Controller
 
             $results = DB::table('dcp_batch_items')
                 ->leftJoin('dcp_item_types', 'dcp_batch_items.item_type_id', '=', 'dcp_item_types.pk_dcp_item_types_id')
-                ->leftJoin('dcp_batches', 'dcp_batch_items.dcp_batch_id', '=', 'dcp_batches.pk_dcp_batches_id') // ✅ join to dcp_batch
+                ->leftJoin('dcp_batches', 'dcp_batch_items.dcp_batch_id', '=', 'dcp_batches.pk_dcp_batches_id')
+                ->leftJoin('dcp_batch_item_brands', 'dcp_batch_items.brand', '=', 'dcp_batch_item_brands.pk_dcp_batch_item_brands_id')
                 ->select(
                     'dcp_batch_items.pk_dcp_batch_items_id',
                     'dcp_batch_items.generated_code',
                     'dcp_batches.batch_label', // ✅ select from joined table
                     'dcp_batch_items.brand',
                     'dcp_batch_items.created_at',
+                    'dcp_batch_item_brands.brand_name as the_brand',
                     'dcp_item_types.name as item_name'
                 )
                 ->where(function ($query) use ($search) {

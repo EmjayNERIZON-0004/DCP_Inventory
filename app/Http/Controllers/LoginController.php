@@ -24,8 +24,24 @@ class LoginController extends Controller
 
         if ($request->fromAdmin) {
             session()->flush();
+            $users = SchoolUser::where('username', $request->username)->get();
+            // dd($request->password);
+            session(['UserRole' => 'School']);
+
+            foreach ($users as $user) {
+                if ($request->password == $user->default_password) {
+                    Auth::guard('school')->login($user, $request->has('remember'));
+                    $user->last_login = now();
+                    $user->save();
+                    return redirect()->intended('School/dashboard');
+                }
+            }
         }
-        if ($request->username == "admin" && $request->password == "admin") {
+        if ($request->username == "admin") {
+            $password = SchoolUser::where('username', 'admin')->value('password');
+            if (!Hash::check($request->password, $password)) {
+                return back()->withErrors(['login' => 'Invalid credentials']);
+            }
             session(['UserRole' => 'Admin']);
             session(['admin_logged_in' => true]);
             return redirect()->route('AdminSide-Dashboard');

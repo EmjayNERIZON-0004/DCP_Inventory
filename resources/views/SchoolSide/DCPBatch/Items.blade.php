@@ -14,7 +14,7 @@
 
     <div style="transform:translateY(1rem)" class=" p-0 mx-5 ">
 
-        <a href="{{ route('school.dcp_batch') }}" style="font-size:16px"
+        <a href="{{ route('school.dcp_batch') }}"
             class="inline-flex items-center text-blue-600 text-md font-semibold hover:underline mb-2">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
@@ -24,40 +24,7 @@
         </a>
     </div>
 
-    <div id="print-qr-section" style="display:none;">
-        <div style="width:210mm;min-height:297mm;padding:0;margin:0;">
-            <h2 style="text-align:center;font-size:24px;margin:16px 0;">Batch Items QR Codes</h2>
-            <div
-                style="
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0;
-            width: 140%;
-            margin: 0;
-            padding: 0;
-        ">
-                @foreach ($items as $item)
-                    <div style="padding:0;box-sizing:border-box;page-break-inside:avoid;">
-                        <div style="border:1px solid #ccc;padding:10px;text-align:center;">
-                            <div>
-                                @php
-                                    $url = url("/School/DCPInventory/{$item->generated_code}");
-                                    $svg = SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
-                                        ->size(120)
-                                        ->generate($url);
-                                @endphp
-                                {!! $svg !!}
-                            </div>
-                            <div style="font-size:14px;margin-top:8px;">
-                                <b>{{ $item->generated_code }}</b><br>
 
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
     <script>
         function printAllQRCodes() {
             const printContents = document.getElementById('print-qr-section').innerHTML;
@@ -76,370 +43,117 @@
             }, 500);
         }
     </script>
-    @if ($batch_approved === null)
-        <div class="mx-5 px-2 my-5">
-            <h2 class="text-2xl font-bold text-gray-800   text-blue-600">My DCP Batch Item</h2>
-            <p class="mb-2">Encode the serial number of the item and other important information.</p>
+    @if ($batch_approved != 'APPROVED')
+        <div id="print-qr-section" style="display:none;">
+            <div style="width:210mm;min-height:297mm;padding:0;margin:0;">
+                <h2 style="text-align:center;font-size:24px;margin:16px 0;">Batch Items QR Codes</h2>
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(5, 1fr);
+                        gap: 0;
+                        width: 140%;
+                        margin: 0;
+                        padding: 0;">
+                    @foreach ($items as $item)
+                        <div style="padding:0;box-sizing:border-box;page-break-inside:avoid;">
+                            <div style="border:1px solid #ccc;padding:10px;text-align:center;">
+                                <div>
+                                    @php
+                                        $url = url("/School/DCPInventory/{$item->generated_code}");
+                                        $svg = SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
+                                            ->size(120)
+                                            ->generate($url);
+                                    @endphp
+                                    {!! $svg !!}
+                                </div>
+                                <div style="font-size:14px;margin-top:8px;">
+                                    <b>{{ $item->generated_code }}</b><br>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-        <div class="bg-white border border-gray-800 rounded-md overflow-hidden p-6 mx-5 my-5  ">
-
-
-            {{-- Check if we're in display mode (all data submitted) --}}
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden p-4 border border-gray-300 mx-5 my-5">
+            <div class="  px-2 ">
+                <h2 class="text-2xl font-bold text-gray-800   text-blue-600">School DCP Batch Item</h2>
+                <p class="mb-2">Encode the serial number of the item and other important information.</p>
+            </div>
             @php
-                $displayMode =
-                    ($batchStatus->coc_status === 'yes' || $batchStatus->coc_status === 'no') &&
-                    ($batchStatus->delivery_receipt_status === 'yes' ||
-                        $batchStatus->delivery_receipt_status === 'no') &&
-                    ($batchStatus->invoice_receipt_status === 'yes' || $batchStatus->invoice_receipt_status === 'no') &&
-                    ($batchStatus->training_acceptance_status === 'yes' ||
-                        $batchStatus->training_acceptance_status === 'no') &&
-                    ($batchStatus->iar_value === 'with IAR' || $batchStatus->iar_value === 'without IAR') &&
-                    ($batchStatus->itr_value === 'with ITR' || $batchStatus->itr_value === 'without ITR');
+                $batch_items = App\Models\DCPBatchItem::where('dcp_batch_id', $batchId)->get();
+
+                $completed_count = $batch_items
+                    ->filter(function ($b) {
+                        return isset($b->brand) &&
+                            $b->dcpItemCurrentCondition &&
+                            $b->dcpItemCurrentCondition->current_condition_id;
+                    })
+                    ->count();
+
+                $isCompleted = $batch_items->count() > 0 && $completed_count === $batch_items->count();
             @endphp
 
-            <h2 class="text-2xl font-bold text-gray-800  mb-4 flex items-center gap-2">
-                DCP Batch Status
-                @if ($displayMode)
-                    <div class="ml-3 text-green-600 font-semibold text-lg">Submitted</div>
-                @else
-                @endif
-            </h2>
-            @if ($displayMode)
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
-                    <div class="bg-blue-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Delivery Receipt: <span
-                                class="font-medium">{{ ucfirst($batchStatus->delivery_receipt_status) }}</span></label>
-                        @if ($batchStatus->delivery_receipt_status === 'yes' && $batchStatus->delivery_receipt_file)
-                            <p class="text-gray-800 font-semibold mt-2">Submitted File: <a
-                                    href="{{ asset('certificates/delivery-receipt/' . $batchStatus->delivery_receipt_file) }}"
-                                    class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                        @endif
+            <div class="  px-2 flex md:flex-row flex-col gap-2">
+                <div
+                    class="rounded-md border border-gray-400  w-full  px-4  shadow-sm p-2 transition duration-300 
+                   {{ $isCompleted ? 'bg-gray-100  ' : 'bg-gray-100  ' }}">
+
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-700">Batch Progress</h2>
+                        <span
+                            class="text-md px-3 py-1 rounded-full 
+                        {{ $isCompleted ? 'bg-green-500 text-white' : 'bg-blue-500 text-white' }}">
+                            {{ $isCompleted ? 'Completed' : 'In Progress' }}
+                        </span>
                     </div>
-                    <div class="bg-green-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Training Acceptance: <span
-                                class="font-medium">{{ ucfirst($batchStatus->training_acceptance_status) }}</span></label>
-                        @if ($batchStatus->training_acceptance_status === 'yes' && $batchStatus->training_acceptance_file)
-                            <p class="text-gray-800 font-semibold mt-2">Submitted File: <a
-                                    href="{{ asset('certificates/training-acceptance/' . $batchStatus->training_acceptance_file) }}"
-                                    class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                        @endif
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-gray-300 rounded-full h-3 mb-4">
+                        <div class="h-3 rounded-full 
+                        {{ $isCompleted ? 'bg-green-500' : 'bg-blue-500' }}"
+                            style="width: {{ $batch_items->count() > 0 ? ($completed_count / $batch_items->count()) * 100 : 0 }}%">
+                        </div>
                     </div>
-                    <div class="bg-yellow-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Invoice Receipt: <span
-                                class="font-medium">{{ ucfirst($batchStatus->invoice_receipt_status) }}</span></label>
-                        @if ($batchStatus->invoice_receipt_status === 'yes' && $batchStatus->invoice_receipt_file)
-                            <p class="text-gray-800 font-semibold mt-2">Submitted File: <a
-                                    href="{{ asset('certificates/invoice-receipt/' . $batchStatus->invoice_receipt_file) }}"
-                                    class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                        @endif
-                    </div>
-                    <div class="bg-red-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Inventory Acceptance Report (IAR): <span
-                                class="font-medium">{{ $batchStatus->iar_value ? ucfirst(str_replace('_', ' ', $batchStatus->iar_value)) : 'Not Set' }}</span></label>
-                        @if ($batchStatus->iar_value === 'with IAR')
-                            <div class="mt-2 space-y-2">
-                                <p class="font-semibold text-gray-800">IAR Ref Code:
-                                    {{ $batchStatus->iar_ref_code ?? 'Not provided' }}</p>
-                                <p class="font-semibold text-gray-800">IAR Date:
-                                    {{ $batchStatus->iar_date ? date('F j, Y', strtotime($batchStatus->iar_date)) : 'Not provided' }}
-                                </p>
-                                @if ($batchStatus->iar_file)
-                                    <p class="font-semibold text-gray-800">IAR File: <a
-                                            href="{{ asset('certificates/iar/' . $batchStatus->iar_file) }}"
-                                            class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                                @endif
-                            </div>
-                        @endif
-                    </div>
-                    <div class="bg-purple-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Inventory Transfer Report (ITR): <span
-                                class="font-medium">{{ $batchStatus->itr_value ? ucfirst(str_replace('_', ' ', $batchStatus->itr_value)) : 'Not Set' }}</span></label>
-                        @if ($batchStatus->itr_value === 'with ITR')
-                            <div class="mt-2 space-y-2">
-                                <p class="font-semibold text-gray-800">ITR Ref Code:
-                                    {{ $batchStatus->itr_ref_code ?? 'Not provided' }}</p>
-                                <p class="font-semibold text-gray-800">ITR Date:
-                                    {{ $batchStatus->itr_date ? date('F j, Y', strtotime($batchStatus->itr_date)) : 'Not provided' }}
-                                </p>
-                                @if ($batchStatus->itr_file)
-                                    <p class="font-semibold text-gray-800">ITR File: <a
-                                            href="{{ asset('certificates/itr/' . $batchStatus->itr_file) }}"
-                                            class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                                @endif
-                            </div>
-                        @endif
-                    </div>
-                    <div class="bg-indigo-200 border border-gray-800 p-3">
-                        <label class="font-semibold text-gray-800">Certificate of Completion: <span
-                                class="font-medium">{{ ucfirst($batchStatus->coc_status) }}</span></label>
-                        @if ($batchStatus->coc_status === 'yes' && $batchStatus->certificate_of_completion)
-                            <p class="text-gray-800 font-semibold mt-2">Submitted File: <a
-                                    href="{{ asset('certificates/certificate-completion/' . $batchStatus->certificate_of_completion) }}"
-                                    class="text-sm text-blue-800 underline" target="_blank">View File</a></p>
-                        @endif
+
+                    <!-- Stats -->
+                    <div class="flex justify-between items-center text-md text-gray-600">
+                        <span>{{ $completed_count }} / {{ $batch_items->count() }} Items</span>
+                        <span>{{ round(($completed_count / max($batch_items->count(), 1)) * 100, 0) }}%</span>
                     </div>
                 </div>
 
-                <div class="mt-4 flex justify-start">
-                    <button type="button"
-                        class="px-2 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md transition"
-                        onclick="toggleEditMode()">Edit </button><span class="font-semibold text-gray-600"> Not Yet
-                        Functional</span>
-                </div>
-            @else
-                {{-- EDIT MODE - Show form inputs --}}
-                <form action="{{ route('school.update.batch_status', ['batchId' => $batchId]) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
-
-                        {{-- DELIVERY RECEIPT --}}
-                        <div class="bg-blue-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">Delivery Receipt:</label>
-                            <select name="delivery_receipt_status" id="delivery_receipt_status"
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800"
-                                onchange="toggleFileInput('delivery_receipt')" required>
-                                <option value="">Select</option>
-                                <option value="yes"
-                                    {{ $batchStatus->delivery_receipt_status == 'yes' ? 'selected' : '' }}>
-                                    Yes</option>
-                                <option value="no"
-                                    {{ $batchStatus->delivery_receipt_status == 'no' ? 'selected' : '' }}>No
-                                </option>
-                            </select>
-
-                            <div id="delivery_receipt_input"
-                                class="mt-2 {{ $batchStatus->delivery_receipt_status === 'yes' ? '' : 'hidden' }}">
-                                @if ($batchStatus->delivery_receipt_status == 'yes' && !empty($batchStatus->delivery_receipt_file))
-                                    <p class="text-gray-800 font-semibold">Submitted File:</p>
-                                    <p class="text-sm text-blue-800 underline"><a
-                                            href="{{ asset('storage/' . $batchStatus->delivery_receipt_file) }}"
-                                            target="_blank">View File</a></p>
-                                @else
-                                    <label class="font-semibold text-gray-800">Upload File:</label>
-                                    <input type="file" name="delivery_receipt_file"
-                                        class="border rounded px-3 py-2 w-full mt-1 text-gray-800 bg-white" />
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- TRAINING ACCEPTANCE --}}
-                        <div class="bg-green-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">Training Acceptance:</label>
-                            <select name="training_acceptance_status" id="training_acceptance_status"
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800"
-                                onchange="toggleFileInput('training_acceptance')" required>
-                                <option value="">Select</option>
-                                <option value="yes"
-                                    {{ $batchStatus->training_acceptance_status == 'yes' ? 'selected' : '' }}>Yes</option>
-                                <option value="no"
-                                    {{ $batchStatus->training_acceptance_status == 'no' ? 'selected' : '' }}>No</option>
-                            </select>
-
-                            <div id="training_acceptance_input"
-                                class="mt-2 {{ $batchStatus->training_acceptance_status === 'yes' ? '' : 'hidden' }}">
-                                @if ($batchStatus->training_acceptance_status == 'yes' && !empty($batchStatus->training_acceptance_file))
-                                    <p class="text-gray-800 font-semibold">Submitted File:</p>
-                                    <p class="text-sm text-blue-800 underline"><a
-                                            href="{{ asset('storage/' . $batchStatus->training_acceptance_file) }}"
-                                            target="_blank">View File</a></p>
-                                @else
-                                    <label class="font-semibold text-gray-800">Upload File:</label>
-                                    <input type="file" name="training_acceptance_file"
-                                        class="border rounded px-3 py-2 w-full mt-1 text-gray-800 bg-white" />
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- INVOICE RECEIPT --}}
-                        <div class="bg-yellow-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">Invoice Receipt:</label>
-                            <select name="invoice_receipt_status" id="invoice_receipt_status"
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800"
-                                onchange="toggleFileInput('invoice_receipt')"required>
-                                <option value="">Select</option>
-                                <option value="yes"
-                                    {{ $batchStatus->invoice_receipt_status == 'yes' ? 'selected' : '' }}>
-                                    Yes</option>
-                                <option value="no"
-                                    {{ $batchStatus->invoice_receipt_status == 'no' ? 'selected' : '' }}>No
-                                </option>
-                            </select>
-
-                            <div id="invoice_receipt_input"
-                                class="mt-2 {{ $batchStatus->invoice_receipt_status === 'yes' ? '' : 'hidden' }}">
-                                @if ($batchStatus->invoice_receipt_status == 'yes' && !empty($batchStatus->invoice_receipt_file))
-                                    <p class="text-gray-800 font-semibold">Submitted File:</p>
-                                    <p class="text-sm text-blue-800 underline"><a
-                                            href="{{ asset('storage/' . $batchStatus->invoice_receipt_file) }}"
-                                            target="_blank">View File</a></p>
-                                @else
-                                    <label class="font-semibold text-gray-800">Upload File:</label>
-                                    <input type="file" name="invoice_receipt_file"
-                                        class="border rounded px-3 py-2 w-full mt-1 text-gray-800 bg-white" />
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- IAR SECTION --}}
-                        <div class="bg-red-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">IAR Status:</label>
-                            <select name="iar_value" id="iar_status" required
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800" onchange="toggleIARFields()">
-                                <option value="">Select</option>
-                                <option value="yes" {{ $batchStatus->iar_value == 'with IAR' ? 'selected' : '' }}>Yes
-                                </option>
-                                <option value="no" {{ $batchStatus->iar_value == 'without IAR' ? 'selected' : '' }}>No
-                                </option>
-                            </select>
-
-                            <div id="iar_fields"
-                                class="mt-2 {{ $batchStatus->iar_value == 'with IAR' ? '' : 'hidden' }}">
-                                <label class="font-semibold text-gray-800">IAR Ref Code:</label>
-                                <input type="text" name="iar_ref_code"
-                                    class="border rounded px-3 py-2 w-full mb-2 text-gray-800 bg-white"
-                                    value="{{ $batchStatus->iar_ref_code ?? '' }}" />
-
-                                <label class="font-semibold text-gray-800">IAR Date:</label>
-                                <input type="date" name="iar_date"
-                                    class="border rounded px-3 py-2 w-full mb-2 text-gray-800 bg-white"
-                                    value="{{ $batchStatus->iar_date ?? '' }}" />
-
-                                <label class="font-semibold text-gray-800">Upload IAR File:</label>
-                                <input type="file" name="iar_file"
-                                    class="border rounded px-3 py-2 w-full text-gray-800 bg-white" />
-
-                                @if (!empty($batchStatus->iar_file))
-                                    <p class="text-sm text-gray-700 mt-1">Current file: {{ $batchStatus->iar_file }}</p>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- ITR SECTION --}}
-                        <div class="bg-purple-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">ITR Status:</label>
-                            <select name="itr_value" id="itr_status" required
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800" onchange="toggleITRFields()">
-                                <option value="">Select</option>
-                                <option value="yes" {{ $batchStatus->itr_value == 'with ITR' ? 'selected' : '' }}>Yes
-                                </option>
-                                <option value="no" {{ $batchStatus->itr_value == 'without ITR' ? 'selected' : '' }}>No
-                                </option>
-                            </select>
-
-                            <div id="itr_fields"
-                                class="mt-2 {{ $batchStatus->itr_value == 'with ITR' ? '' : 'hidden' }}">
-                                <label class="font-semibold text-gray-800">ITR Ref Code:</label>
-                                <input type="text" name="itr_ref_code"
-                                    class="border rounded px-3 py-2 w-full mb-2 text-gray-800 bg-white"
-                                    value="{{ $batchStatus->itr_ref_code ?? '' }}" />
-
-                                <label class="font-semibold text-gray-800">ITR Date:</label>
-                                <input type="date" name="itr_date"
-                                    class="border rounded px-3 py-2 w-full mb-2 text-gray-800 bg-white"
-                                    value="{{ $batchStatus->itr_date ?? '' }}" />
-
-                                <label class="font-semibold text-gray-800">Upload ITR File:</label>
-                                <input type="file" name="itr_file"
-                                    class="border rounded px-3 py-2 w-full text-gray-800 bg-white" />
-
-                                @if (!empty($batchStatus->itr_file))
-                                    <p class="text-sm text-gray-700 mt-1">Current file: {{ $batchStatus->itr_file }}</p>
-                                @endif
-                            </div>
-                        </div>
-
-                        {{-- CERTIFICATE OF COMPLETION --}}
-                        <div class="bg-indigo-200 border border-gray-800 p-3">
-                            <label class="font-semibold text-gray-800">Certificate of Completion:</label>
-                            <select name="coc_status" id="cert_completion_status"
-                                class="border rounded px-3 py-2 w-full mt-1 text-gray-800"
-                                onchange="toggleFileInput('cert_completion')" required>
-                                <option value="">Select</option>
-                                <option value="yes" {{ $batchStatus->coc_status == 'yes' ? 'selected' : '' }}>Yes
-                                </option>
-                                <option value="no" {{ $batchStatus->coc_status == 'no' ? 'selected' : '' }}>No
-                                </option>
-                            </select>
-
-                            <div id="cert_completion_input"
-                                class="mt-2 {{ $batchStatus->coc_status === 'yes' ? '' : 'hidden' }}">
-                                @if ($batchStatus->coc_status == 'yes' && !empty($batchStatus->certificate_of_completion))
-                                    <p class="text-gray-800 font-semibold">Submitted File:</p>
-                                    <p class="text-sm text-blue-800 underline"><a
-                                            href="{{ asset('storage/' . $batchStatus->certificate_of_completion) }}"
-                                            target="_blank">View File</a></p>
-                                @else
-                                    <label class="font-semibold text-gray-800">Upload File:</label>
-                                    <input type="file" name="certificate_of_completion"
-                                        class="border rounded px-3 py-2 w-full mt-1 text-gray-800 bg-white" />
-                                @endif
-                            </div>
-                        </div>
+                <div
+                    class="bg-white w-full shadow-md border border-gray-300 rounded-md p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <!-- Left: Batch Label -->
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800">
+                            Items for Batch:
+                            <span class="text-blue-600">{{ $batch->batch_label ?? '' }}</span>
+                        </h2>
                     </div>
 
-                    <div class="mt-4 flex justify-start">
-                        <button type="submit"
-                            class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition">
-                            Submit
+                    <div><button type="button" onclick="printAllQRCodes()"
+                            class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 transition duration-200 shadow-sm">
+                            Print All QR Codes
                         </button>
                     </div>
-                </form>
-            @endif
+                    <!-- Right: Action Button -->
 
+                </div>
+            </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                toggleFileInput('delivery_receipt');
-                toggleFileInput('training_acceptance');
-                toggleFileInput('invoice_receipt');
-                toggleFileInput('cert_completion');
-                toggleIARFields();
-                toggleITRFields();
-            });
 
-            function toggleFileInput(name) {
-                const select = document.getElementById(`${name}_status`);
-                const inputWrapper = document.getElementById(`${name}_input`);
-                if (!inputWrapper || !select) return;
-                inputWrapper.classList.toggle('hidden', select.value !== 'yes');
-            }
 
-            function toggleIARFields() {
-                const select = document.getElementById('iar_status');
-                const fields = document.getElementById('iar_fields');
-                if (!fields || !select) return;
-                fields.classList.toggle('hidden', select.value !== 'yes');
-            }
+        <div class="   overflow-hidden p-2 mx-5  ">
 
-            function toggleITRFields() {
-                const select = document.getElementById('itr_status');
-                const fields = document.getElementById('itr_fields');
-                if (!fields || !select) return;
-                fields.classList.toggle('hidden', select.value !== 'yes');
-            }
 
-            function toggleEditMode() {
-                // You can implement this to switch back to edit mode
-                // This would typically involve reloading the page with edit=true parameter
-                // or making an AJAX call to switch modes
-                window.location.href = window.location.href + '?edit=true';
-            }
-        </script>
 
-        <div class="   overflow-hidden p-6 mx-5 my-1">
-
-            <div class="flex justify-between py-1 px-4 bg-blue-200 border border-gray-800 ">
-                <h2 class="text-2xl font-semibold text-gray-800 ">Items for Batch:
-                    {{ $batch->batch_label ?? '' }}
-                </h2>
-                <button type="button" onclick="printAllQRCodes()"
-                    class="   text-gray-700 font-[Verdana] text-lg  underline hover:text-gray-800  ">
-                    Print All QR Codes
-                </button>
-            </div>
             <!-- Place this somewhere above your table, e.g. after <h2> -->
             <div id="result" class="hidden mt-4">
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex items-center gap-2"
@@ -451,21 +165,17 @@
                     <span id="result-message"></span>
                 </div>
             </div>
-
-
-
-
             <div class="overflow-x-auto">
-                <table class="min-w-full   text-left border border-gray-200 table-fixed font-medium  text-gray-700 mb-4"
+                <table class="min-w-full   text-left   table-fixed font-medium  text-gray-700 mb-4"
                     style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif  ">
                     <!-- <thead style="background: #2563eb;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <th class="px-4 py-3 text-white border-r border-blue-700 w-32">Generated Code</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </thead> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <th class="px-4 py-3 text-white border-r border-blue-700 w-32">Generated Code</th>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </thead> -->
                     <tbody class="  divide-y divide-gray-200 space-y-6">
                         @forelse($items as $index => $item)
-                            <tr style="border:1px solid white">
-                                <td style="height: 30px; border:none; color:white"></td>
+                            <tr>
+                                <td style="height: 30px; "></td>
                             </tr>
 
                             <tr>
@@ -481,23 +191,23 @@
 
                                             $status_button = '';
                                             $status_button_bg = ' ';
+                                            $condition_current =
+                                                $item->dcpItemCurrentCondition->current_condition_id ?? 0;
 
-                                            if ($item->condition_id && $item->brand && $item->serial_number) {
-                                                echo '<span class="bg-green-600 px-2 py-1 rounded text-white">Completed</span>';
-                                                $status_button = 'Update ';
-                                                $status_button_bg = 'bg-yellow-500 ';
-                                            } else {
-                                                echo '<span class="text-gray-600">Not Completed</span>';
-                                                $status_button = 'Submit ';
-                                                $status_button_bg = 'bg-blue-600 ';
-                                            }
                                         @endphp
-
+                                        <span id="status-badge-{{ $item->pk_dcp_batch_items_id }}"
+                                            class="{{ $condition_current && $item->brand ? 'bg-green-600 px-2 py-1 rounded text-white' : 'text-gray-600' }}">
+                                            {{ $condition_current && $item->brand ? 'Completed' : 'Not Completed' }}
+                                        </span>
                                         {{-- Header --}}
                                         <div @click="open = !open"
-                                            class="flex items-center flex-col font-bold cursor-pointer transform scale-100 hover:scale-105 transition duration-200   text-2xl pb-0 "
-                                            style="font-family:'Courier New', Courier, monospace; ">
+                                            class="flex items-center  flex-col font-bold cursor-pointer tracking-wider transform scale-100 hover:scale-105 transition duration-200  text-center md:text-2xl text-md pb-0 ">
+
                                             {{ $item->generated_code }}
+
+
+
+
 
 
 
@@ -509,6 +219,13 @@
                                                         ->first();
                                                 @endphp
                                                 ({{ $item_type->name }})
+                                            </div>
+                                            <div>
+                                                <span class="text-gray-600 text-sm font-normal"
+                                                    style="font-family:'Verdana', Geneva, Tahoma, sans-serif;">Unit
+                                                    Price:
+                                                    &#8369; {{ number_format($item->unit_price, 2) }}</span>
+
                                             </div>
 
 
@@ -526,22 +243,31 @@
                                                 <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
                                                     <div>
                                                         <label class="font-semibold">Quantity:</label>
-                                                        <input type="number" name="quantity"
-                                                            value="{{ $item->quantity }}"
-                                                            class="border rounded px-3 py-2 w-full" />
+                                                        <input type="number" name="quantity" value="{{ $item->quantity }}"
+                                                            class="border rounded px-3 py-2 w-full" disabled />
+                                                        <div class="text-blue-600 text-sm">View Only</div>
+
                                                     </div>
                                                     <div>
-                                                        <label class="font-semibold">Condition:</label>
-                                                        <select name="condition_id"
-                                                            class="border rounded px-3 py-2 w-full">
+                                                        <label class="font-semibold">Current Condition:</label>
+                                                        <select name="condition_id" class="border rounded px-3 py-2 w-full">
                                                             <option value="">Select Condition</option>
                                                             @foreach ($conditions as $cond)
-                                                                <option value="{{ $cond->pk_dcp_delivery_conditions_id }}"
-                                                                    {{ $item->condition_id == $cond->pk_dcp_delivery_conditions_id ? 'selected' : '' }}>
+                                                                @php
+                                                                    $condition_is =
+                                                                        $item->dcpItemCurrentCondition
+                                                                            ->current_condition_id ?? 0;
+
+                                                                @endphp
+                                                                <option value="{{ $cond->pk_dcp_current_conditions_id }}"
+                                                                    {{ $condition_is == $cond->pk_dcp_current_conditions_id ? 'selected' : '' }}>
+                                                                    {{ $cond->pk_dcp_current_conditions_id }} -
                                                                     {{ $cond->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                        <div class="text-red-600 text-sm">Required</div>
+
                                                     </div>
                                                     <div>
                                                         <label class="font-semibold">Brand:</label>
@@ -566,26 +292,63 @@
                                                                     {{ $brand->brand_name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        <div class="text-blue-600 text-sm">View Only</div>
                                                     </div>
                                                     <div>
-                                                        <label class="font-semibold">Serial Number:</label>
+                                                        <label class="font-semibold">Serial Number: </label>
                                                         <input type="text" name="serial_number"
                                                             id="selectedSerialNumber_{{ $item->pk_dcp_batch_items_id }}"
                                                             value="{{ $item->serial_number }}"
                                                             class="border rounded px-3 py-2 w-full" />
+                                                        <div class="text-red-600 text-sm">Leave Blank if no serial
+                                                            number</div>
+
                                                     </div>
                                                 </div>
 
                                                 {{-- Second row: action buttons --}}
                                                 <div class="flex space-x-2">
+
+
                                                     <button type="button"
                                                         onclick="update({{ $item->pk_dcp_batch_items_id }})"
-                                                        class="px-4 py-2 text-md font-semibold text-white {{ $status_button_bg }} rounded transform scale-100 hover:scale-105 transition duration-200">
-                                                        {{ $status_button }}
+                                                        id="status-button-{{ $item->pk_dcp_batch_items_id }}"
+                                                        class="px-4 py-2 text-md font-semibold text-white rounded transform scale-100 hover:scale-105 transition duration-200 {{ $condition_current && $item->brand ? 'bg-green-600' : 'bg-blue-600' }}">
+                                                        {{ $condition_current && $item->brand ? 'Update' : 'Submit' }}
                                                     </button>
                                                     <a href="/School/DCPInventory/{{ $item->generated_code }}"
-                                                        class="px-4 py-2 text-md font-semibold text-white bg-gray-400 rounded hover:bg-gray-500">
-                                                        Show in Inventory
+                                                        title="Show in Inventory"
+                                                        class="px-4 py-2 text-md font-semibold text-white bg-gray-200 border border-gray-800 rounded hover:bg-gray-300">
+                                                        <div class="flex items-center ">
+                                                            <svg class="h-6 " viewBox="0 0 24 24" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_iconCarrier">
+                                                                    <path d="M3.17004 7.43994L12 12.5499L20.77 7.46991"
+                                                                        stroke="#292D32" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path d="M12 21.6099V12.5399" stroke="#292D32"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round"></path>
+                                                                    <path
+                                                                        d="M21.61 12.83V9.17C21.61 7.79 20.62 6.11002 19.41 5.44002L14.07 2.48C12.93 1.84 11.07 1.84 9.92999 2.48L4.59 5.44002C3.38 6.11002 2.39001 7.79 2.39001 9.17V14.83C2.39001 16.21 3.38 17.89 4.59 18.56L9.92999 21.52C10.5 21.84 11.25 22 12 22C12.75 22 13.5 21.84 14.07 21.52"
+                                                                        stroke="#292D32" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M19.2 21.4C20.9673 21.4 22.4 19.9673 22.4 18.2C22.4 16.4327 20.9673 15 19.2 15C17.4327 15 16 16.4327 16 18.2C16 19.9673 17.4327 21.4 19.2 21.4Z"
+                                                                        stroke="#292D32" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path d="M23 22L22 21" stroke="#292D32"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
                                                     </a>
                                                 </div>
                                             </div>
@@ -631,15 +394,33 @@
             </div>
         </div>
     @else
-        <div class="mx-5 my-5 bg-white rounded shadow-xl overflow-hidden p-6 flex flex-col px-auto justify-center">
-            <h2 class="text-2xl font-bold text-blue-700">Batch: {{ $batchName }}</h2>
-            <h2 class="text-2xl font-bold text-gray-800  ">Check Status of the Items.</h2>
-            <span class="text-gray-600">This batch has been approved by admin.</span>
-            <div class="mt-5"> <span class="text-sm text-gray-600">Click here.</span>
+        <div
+            class="mx-5 my-5 flex flex-row justify-between bg-white rounded border border-gray-300 shadow-xl  p-6  px-auto ">
 
-                <a href="{{ route('school.dcp_item_status', $batchId) }}"
-                    class="px-8 py-2 text-md font-semibold text-white bg-blue-600 rounded hover:bg-blue-700">DCP Batch
-                    Status</a>
+            <div>
+                <h2 class="text-2xl font-bold text-blue-700">Batch: {{ $batchName }}</h2>
+                <h2 class="text-2xl font-bold text-gray-800  ">Check Status of the Items.</h2>
+                <span class="text-gray-600">This batch has been approved by admin.</span>
+                <div class="mt-5"> <span class="text-sm text-gray-600">Click here. </span>
+
+                    <a href="{{ route('school.dcp_item_status', $batchId) }}"
+                        class="px-4 py-1 ml-2 text-md font-semibold text-white bg-blue-600 rounded hover:bg-blue-700">DCP
+                        Batch
+                        Status</a>
+                </div>
+            </div>
+
+            <div class="h-32 w-32 md:block hidden text-blue-600">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M20.5 7.27783L12 12.0001M12 12.0001L3.49997 7.27783M12 12.0001L12 21.5001M14 20.889L12.777 21.5684C12.4934 21.726 12.3516 21.8047 12.2015 21.8356C12.0685 21.863 11.9315 21.863 11.7986 21.8356C11.6484 21.8047 11.5066 21.726 11.223 21.5684L3.82297 17.4573C3.52346 17.2909 3.37368 17.2077 3.26463 17.0893C3.16816 16.9847 3.09515 16.8606 3.05048 16.7254C3 16.5726 3 16.4013 3 16.0586V7.94153C3 7.59889 3 7.42757 3.05048 7.27477C3.09515 7.13959 3.16816 7.01551 3.26463 6.91082C3.37368 6.79248 3.52345 6.70928 3.82297 6.54288L11.223 2.43177C11.5066 2.27421 11.6484 2.19543 11.7986 2.16454C11.9315 2.13721 12.0685 2.13721 12.2015 2.16454C12.3516 2.19543 12.4934 2.27421 12.777 2.43177L20.177 6.54288C20.4766 6.70928 20.6263 6.79248 20.7354 6.91082C20.8318 7.01551 20.9049 7.13959 20.9495 7.27477C21 7.42757 21 7.59889 21 7.94153L21 12.5001M7.5 4.50008L16.5 9.50008M16 18.0001L18 20.0001L22 16.0001"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </g>
+                </svg>
             </div>
 
 
@@ -672,7 +453,22 @@
                         resultDiv.classList.remove('hidden');
                         const serialInput = document.getElementById('selectedSerialNumber_' + itemId);
                         serialInput.classList.remove('border-red-500');
-                        console.log(data);
+
+                        const statusBadge = document.getElementById('status-badge-' + itemId);
+                        if (statusBadge) {
+                            statusBadge.innerText = "Completed";
+                            statusBadge.classList.remove('text-gray-600');
+                            statusBadge.classList.add('bg-green-600', 'text-white', 'px-2', 'py-1', 'rounded');
+                        }
+
+                        // ✅ Update button
+                        const statusButton = document.getElementById('status-button-' + itemId);
+                        if (statusButton) {
+                            statusButton.innerText = "Update";
+                            statusButton.classList.remove('bg-blue-600');
+                            statusButton.classList.add('bg-green-600');
+                        }
+
 
                     } else {
                         const serialInput = document.getElementById('selectedSerialNumber_' + itemId);

@@ -163,34 +163,44 @@
             }
         }
     </script>
+    <div id="school-errors" class="hidden mt-2">
+        <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-md" id="school-errors-list"></ul>
 
-    <div class="w-full p-4 ">
+
+    </div>
+
+
+    <div id="school-result" class="hidden mt-2">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex items-center gap-2 text-md">
+            <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="school-result-message"></span>
+        </div>
+    </div>
+    <div id="add-school-modal"
+        class="modal fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+
         <div class="flex flex-col lg:flex-row-reverse gap-4 ">
             <!-- Add School Form -->
             <div class="w-full mx-auto p-0 flex-1 flex flex-col justify-stretch">
 
 
-                <div id="school-errors" class="hidden mt-2">
-                    <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-md"
-                        id="school-errors-list"></ul>
 
 
-                </div>
-
-                <div id="school-result" class="hidden mt-2">
-                    <div
-                        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex items-center gap-2 text-md">
-                        <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span id="school-result-message"></span>
-                    </div>
-                </div>
                 <form id="school_add_form" action="{{ route('store.schools') }}" enctype="multipart/form-data"
-                    class="bg-white border border-green-500  shadow-lg rounded-lg mt-5 w-full max-full mx-0">
+                    class="bg-white px-4 py-2 border border-green-500  shadow-lg rounded-lg mt-5 w-full max-full mx-0">
                     @csrf
+                    <div class="w-full flex justify-end">
+                        <button type="button" onclick="document.getElementById('add-school-modal').classList.add('hidden')"
+                            class="    text-gray-600 hover:text-gray-900 text-xl font-bold">
+                            &times;
+                        </button>
+                    </div>
                     <div class=" flex flex-col md:flex-row gap-0 md:gap-4">
+
+
                         <!-- Left: Logo -->
                         <div class="add-school-col justify-start md:justify-center" style="flex:1">
                             <img src="{{ asset('icon/logo.png') }}" alt="School Logo"
@@ -273,7 +283,11 @@
     </div>
 
 
-
+    <script>
+        function openAddModal() {
+            document.getElementById('add-school-modal').classList.remove('hidden');
+        }
+    </script>
 
 
 
@@ -335,94 +349,98 @@
         });
     </script>
 
-    <div class="bg-white border border-blue-500 shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5">
-        <h2 class="text-xl font-bold text-blue-700  " style="font-family: Verdana, Geneva, Tahoma, sans-serif;">School
-        </h2>
-        <div class="text-md text-gray-600  mb-5">List of Schools under DepEd Computerization Program</div>
+    <div class="bg-white border border-gray-300 shadow-xl rounded-lg p-6 md:mx-5 md:my-5 mx-0 my-0">
+        <div class="flex md:flex-row flex-col md:justify-between justify-start items-center text-md"
+            style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <div class="w-full">
+                <h2 class="text-2xl font-bold text-gray-700">School</h2>
+                <div class="text-md text-gray-600 md:mb-5 mb-2">List of Schools under DepEd Computerization Program</div>
+            </div>
+            <div class="flex items-center md:justify-end justify-start w-full mb-2">
+                <button class="bg-blue-600 hover:bg-blue-700 shadow-md text-md text-white py-2 px-4 rounded"
+                    onclick="openAddModal()" type="button">
+                    + Add New School
+                </button>
+            </div>
+        </div>
+
         <input type="text" id="searchSchool" placeholder="Search School..."
             class="w-1/3 mb-4 px-3 py-2 border rounded shadow focus:outline-blue-400" />
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left border border-gray-200"
-                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <thead class="bg-gray-700">
-                    <tr>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School ID</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School Name</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School Level</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School Head</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School Contact</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            School Email</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            Last Login</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white   ">
-                            Mail</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="schoolTableBody" class="bg-white divide-y divide-gray-200">
-                    @foreach ($schools as $school)
-                        <tr class="hover:bg-blue-50 transition" id="row-{{ $school->pk_school_id }}">
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolID }}</td>
-                            <td class="px-4 py-3 font-medium text-gray-900 border-r border-gray-200">
-                                {{ $school->SchoolName }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolLevel }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $school->PrincipalName }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolContactNumber }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $school->SchoolEmailAddress }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">
-                                @php
-                                    $user_login = App\Models\SchoolUser::where(
-                                        'pk_school_id',
-                                        $school->pk_school_id,
-                                    )->value('last_login');
+        <!-- Card Grid -->
+        <div id="schoolCardGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach ($schools as $school)
+                <div id="row-{{ $school->pk_school_id }}"
+                    class="bg-white border border-gray-300 shadow-md rounded-md p-4 hover:shadow-lg transition flex flex-col">
 
-                                @endphp
-                                {{ $user_login }}</td>
-                            <form action="{{ route('notify.school', $school->pk_school_id) }}" method="POST">
-                                @csrf
-                                <td class="px-4 py-3 border-r border-gray-200">
-                                    <button type="submit"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">
-                                        Notify
-                                    </button>
-                                </td>
-                            </form>
+                    <!-- School Logo -->
+                    <div class="flex justify-center">
+                        <img class="object-cover rounded-full border w-28 h-28"
+                            src="{{ $school->image_path ? asset('school-logo/' . $school->image_path) : asset('icon/logo.png') }}"
+                            alt="">
+                    </div>
 
-                            <td class="px-4 py-3">
-                                <div class="flex flex-col gap-2 items-stretch">
-                                    <a href="{{ route('schools.show', $school->SchoolID) }}"
-                                        class="px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 text-center">View</a>
-                                    <button
-                                        onclick="showEditSchoolForm(
-                                        '{{ $school->pk_school_id }}',
-                                        '{{ $school->SchoolID }}',
-                                        '{{ $school->SchoolName }}',
-                                        '{{ $school->SchoolLevel }}',
-                                        '{{ $school->SchoolEmailAddress }}',
-                                
-                                          )"
-                                        class="px-3 py-1 text-xs font-semibold text-white bg-green-500 rounded hover:bg-green-600 text-center">
-                                        Edit
-                                    </button>
+                    <!-- School Info -->
+                    <div class="mt-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-800">{{ $school->SchoolName }}</h3>
+                        <p class="text-sm text-gray-500">{{ $school->SchoolID }} • {{ $school->SchoolLevel }}</p>
+                        <p class="text-sm text-gray-600 mt-2">{{ $school->SchoolEmailAddress }}</p>
+                        <p class="text-xs text-gray-400 mt-1">
+                            Last Login:
+                            @php
+                                $user_login = App\Models\SchoolUser::where(
+                                    'pk_school_id',
+                                    $school->pk_school_id,
+                                )->value('last_login');
+                            @endphp
+                            {{ $user_login ? \Carbon\Carbon::parse($user_login)->format('F j, Y, g:iA') : 'No login yet' }}
+                        </p>
+                    </div>
 
+                    <!-- Actions -->
+                    <div class="mt-4">
+                        <form action="{{ route('notify.school', $school->pk_school_id) }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="w-full bg-green-600  shadow-md text-md hover:bg-green-700 text-white py-1 px-4 rounded">
+                                Notify School's ICT Coor.
+                            </button>
+                        </form>
+                    </div>
 
-                                    <button type="button" onclick="deleteSchool('{{ $school->pk_school_id }}')"
-                                        class="px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600 text-center">Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    <div class=" flex flex-row gap-2">
+
+                        <a href="{{ route('schools.show', $school->pk_school_id) }}"
+                            class="w-full text-center px-3 py-1 text-md  shadow-md  font-normal text-white bg-blue-600 rounded hover:bg-blue-700">
+                            Details
+                        </a>
+
+                        <button
+                            onclick="showEditSchoolForm(
+                        '{{ $school->pk_school_id }}',
+                        '{{ $school->SchoolID }}',
+                        '{{ $school->SchoolName }}',
+                        '{{ $school->SchoolLevel }}',
+                        '{{ $school->SchoolEmailAddress }}'
+                    )"
+                            class="w-full px-3 py-1 font-normal shadow-md text-md  text-white bg-yellow-500 rounded hover:bg-yellow-500">
+                            Edit
+                        </button>
+
+                        <button type="button" onclick="deleteSchool('{{ $school->pk_school_id }}')"
+                            class="w-full px-3 py-1 font-normal shadow-md   text-md text-white bg-red-600 rounded hover:bg-red-700">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="mt-6">
+            {{ $schools->links() }}
         </div>
     </div>
+
 
     <div id="school-edit-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
         <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-green-500 w-full max-w-4xl relative">
@@ -444,12 +462,12 @@
                     <div class="w-full md:w-1/2">
                         <label class="block text-gray-700 font-semibold mb-2">School ID</label>
                         <input type="text" name="SchoolID" id="edit_SchoolID"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                            class="shadow border border-gray-300 rounded w-full py-2 px-3 text-gray-700" required>
                     </div>
                     <div class="w-full md:w-1/2">
                         <label class="block text-gray-700 font-semibold mb-2">School Name</label>
                         <input type="text" name="SchoolName" id="edit_SchoolName"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                            class="shadow border border-gray-300 rounded w-full py-2 px-3 text-gray-700" required>
                     </div>
                 </div>
 
@@ -459,7 +477,7 @@
 
 
                         <select name="SchoolLevel" id="edit_SchoolLevel"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                            class="shadow border border-gray-300 rounded w-full py-2 px-3 text-gray-700" required>
 
 
 
@@ -471,7 +489,7 @@
                     <div class="w-full md:w-1/2">
                         <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
                         <input type="email" name="SchoolEmailAddress" id="edit_SchoolEmailAddress"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700" required>
+                            class="shadow border border-gray-300 rounded w-full py-2 px-3 text-gray-700" required>
                     </div>
                 </div>
 
@@ -509,5 +527,83 @@
         }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('js/search/school.js') }}"></script>
+    <script>
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        $('#searchSchool').on('keyup', function() {
+            const keyword = $(this).val();
+
+            $.ajax({
+                url: '/Admin/schools/search',
+                type: 'GET',
+                data: {
+                    query: keyword
+                },
+                success: function(data) {
+                    let cards = '';
+                    if (data.length > 0) {
+                        data.forEach(school => {
+                            cards += `
+                        <div class="bg-white rounded-lg shadow-md border border-gray-200 p-4 flex flex-col items-center text-center transition hover:shadow-lg">
+                            <img class="w-24 h-24 object-cover rounded-full mb-3"
+                                src="${school.image_path ? '/school-logo/' + school.image_path : '/icon/logo.png'}"
+                                alt="School Logo">
+                            <h3 class="text-lg font-semibold text-gray-800">${school.SchoolName}</h3>
+                            <p class="text-sm text-gray-600">${school.SchoolLevel}</p>
+                            <p class="text-sm text-gray-500">${school.SchoolEmailAddress ?? ''}</p>
+                            <p class="text-xs text-gray-400 mt-1">
+                                ${school.school_user && school.school_user.last_login
+                                    ? new Date(school.school_user.last_login).toLocaleString("en-US", {
+                                        month: "long",
+                                        day: "numeric",
+                                        year: "numeric",
+                                        hour: "numeric",
+                                        minute: "2-digit",
+                                        hour12: true
+                                      })
+                                    : 'No login yet'}
+                            </p>
+                            <div class="  mt-4 w-full">
+                                 <form action="/send-mail/${school.pk_school_id}" method="POST" class="w-full">
+                                    <input type="hidden" name="_token" value="${csrfToken}">
+                                    <button type="submit"
+                                        class="w-full bg-green-600 shadow-md  text-md hover:bg-green-700 text-white py-1 px-4 rounded">
+                                        Notify School ICT Coor.
+                                    </button>
+                                </form>
+                                 </div>
+                            <div class=" flex flex-row gap-2 w-full">
+                               
+                                <a href="/schools/${school.pk_school_id}"
+                                    class="w-full px-3 py-1 text-white  shadow-md text-md bg-blue-600 rounded hover:bg-blue-700 text-center">
+                                    Details
+                                </a>
+                                <button
+                                    onclick="showEditSchoolForm(
+                                        '${school.pk_school_id}',
+                                        '${school.SchoolID}',
+                                        '${school.SchoolName}',
+                                        '${school.SchoolLevel}',
+                                        '${school.SchoolEmailAddress}'
+                                    )"
+                                    class="w-full px-3 py-1 text-md text- shadow-md  bg-yellow-500 rounded hover:bg-yellow-500">
+                                    Edit
+                                </button>
+                                <button type="button" onclick="deleteSchool('${school.pk_school_id}')"
+                                    class="w-full px-3 py-1 text-md text- shadow-md  bg-red-600 rounded hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>`;
+                        });
+                    } else {
+                        cards =
+                            `<p class="col-span-full text-center text-gray-500">No results found.</p>`;
+                    }
+
+                    $('#schoolCardGrid').html(cards); // target your card grid container
+                }
+            });
+        });
+    </script>
 @endsection

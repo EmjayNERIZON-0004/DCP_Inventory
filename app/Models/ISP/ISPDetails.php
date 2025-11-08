@@ -13,7 +13,7 @@ class ISPDetails extends Model
     protected $fillable = [
         'school_id', //FK
         'isp_list_id', //FK done
-        'purpose',
+        'isp_purpose_id',
         'isp_connection_type_id', //FK donr
         'isp_internet_quality_id', //FK Done
         'created_at',
@@ -44,5 +44,9 @@ class ISPDetails extends Model
     public function ispSpeedTest()
     {
         return $this->hasMany(ISPSpeedTest::class, 'isp_details_id', 'pk_isp_details_id');
+    }
+    public function ispPurpose()
+    {
+        return $this->belongsTo(ISPPurpose::class, 'isp_purpose_id', 'pk_isp_purpose_id');
     }
 }
