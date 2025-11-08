@@ -41,7 +41,18 @@
                     class="w-40 h-40 rounded-full object-contain border border-gray-300 shadow-md">
             </div>
             <h2 class="text-center text-xl font-semibold mb-4">Login Form</h2>
-
+            @if ($errors->any())
+                <div class="mb-4">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        <strong>Whoops!</strong> There were some problems with your input.<br>
+                        <ul class="mt-2 list-disc list-inside text-sm">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
             @if (session('error'))
                 <div class="mb-4">
