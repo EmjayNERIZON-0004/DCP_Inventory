@@ -27,9 +27,10 @@ class DCPBatch extends Model
         return $this->hasMany(DCPBatchItem::class, 'dcp_batch_id', 'pk_dcp_batches_id');
     }
 
+
     public function dcpPackageType()
     {
-        return $this->belongsTo(DCPPackageTypes::class, 'dcp_package_types_id', 'pk_dcp_packages_type_id');
+        return $this->belongsTo(DCPPackageTypes::class, 'dcp_package_type_id', 'pk_dcp_package_types_id');
     }
     public function school()
     {
@@ -37,6 +38,6 @@ class DCPBatch extends Model
     }
     public function approval()
     {
-        return $this->hasOne(DCPBatchApproval::class, 'dcp_batches_id', 'dcp_batches_id');
+        return $this->hasOne(DCPBatchApproval::class, 'dcp_batches_id', 'pk_dcp_batches_id');
     }
 }

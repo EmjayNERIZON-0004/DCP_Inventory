@@ -16,6 +16,6 @@ class DCPItemWarrantyType extends Model
     ];
     public function dcpItemWarranties()
     {
-        return $this->hasMany(DCPItemWarrantyStatus::class, 'warranty_status_id', 'pk_dcp_warranty_statuses_id');
+        return $this->hasOne(DCPItemWarrantyStatus::class, 'warranty_status_id', 'pk_dcp_warranty_statuses_id');
     }
 }

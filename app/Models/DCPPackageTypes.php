@@ -16,7 +16,7 @@ class DCPPackageTypes extends Model
     ];
     public function dcpBatches()
     {
-        return $this->hasMany(DCPBatch::class, 'dcp_package_types_id', 'pk_dcp_package_types_id');
+        return $this->hasMany(DCPBatch::class, 'dcp_package_type_id', 'pk_dcp_package_types_id');
     }
 
     public function dcpPackageContents()

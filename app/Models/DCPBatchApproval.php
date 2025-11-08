@@ -17,6 +17,6 @@ class DCPBatchApproval extends Model
     ];
     public function dcpBatch()
     {
-        return $this->belongsTo(DCPBatch::class, 'dcp_batches_id', 'dcp_batches_id');
+        return $this->belongsTo(DCPBatch::class, 'dcp_batches_id', 'pk_dcp_batches_id');
     }
 }

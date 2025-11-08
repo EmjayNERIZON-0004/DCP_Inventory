@@ -72,7 +72,7 @@ class SchoolDCPBatchController extends Controller
         if ($request->hasFile('certificate_of_completion')) {
             $file = $request->file('certificate_of_completion');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/certificate-completion');
+            $destination = base_path('certificates/certificate-completion');
             $file->move($destination, $filename);
             $validated['certificate_of_completion'] =  $filename;
         }
@@ -80,7 +80,7 @@ class SchoolDCPBatchController extends Controller
         if ($request->hasFile('training_acceptance_file')) {
             $file = $request->file('training_acceptance_file');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/training-acceptance');
+            $destination = base_path('certificates/training-acceptance');
             $file->move($destination, $filename);
             $validated['training_acceptance_file'] =  $filename;
         }
@@ -88,7 +88,7 @@ class SchoolDCPBatchController extends Controller
         if ($request->hasFile('delivery_receipt_file')) {
             $file = $request->file('delivery_receipt_file');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/delivery-receipt');
+            $destination = base_path('certificates/delivery-receipt');
             $file->move($destination, $filename);
             $validated['delivery_receipt_file'] =  $filename;
         }
@@ -96,21 +96,21 @@ class SchoolDCPBatchController extends Controller
         if ($request->hasFile('invoice_receipt_file')) {
             $file = $request->file('invoice_receipt_file');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/invoice-receipt');
+            $destination = base_path('certificates/invoice-receipt');
             $file->move($destination, $filename);
             $validated['invoice_receipt_file'] =  $filename;
         }
         if ($request->hasFile('itr_file')) {
             $file = $request->file('itr_file');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/itr');
+            $destination = base_path('certificates/itr');
             $file->move($destination, $filename);
             $validated['itr_file'] =  $filename;
         }
         if ($request->hasFile('iar_file')) {
             $file = $request->file('iar_file');
             $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
-            $destination = public_path('certificates/iar');
+            $destination = base_path('certificates/iar');
             $file->move($destination, $filename);
             $validated['iar_file'] =  $filename;
         }
@@ -147,27 +147,197 @@ class SchoolDCPBatchController extends Controller
 
         return redirect()->back()->with('success', 'Batch Information submitted successfully.');
     }
+    public function editUpdateBatchStatus(Request $request, $batchId)
+    {
+        $school = Auth::guard('school')->user()->school;
+        $validated = $request->validate([
+            'status' => 'string|required',
+            'type' => 'string|required',
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'code_of_file' => 'string|nullable',
+            'date_of_file' => 'date|nullable',
+        ]);
+        $item_remove = DCPBatchItem::where('dcp_batch_id', $batchId)->first();
+        if ($validated['type'] == "delivery-receipt") {
+            $oldFile = $item_remove->delivery_receipt_file;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/delivery-receipt/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($validated['type'] == "certificate-completion") {
+            $oldFile = $item_remove->certificate_of_completion;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/certificate-completion/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($validated['type'] == "invoice-receipt") {
+            $oldFile = $item_remove->invoice_receipt_file;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/invoice-receipt/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($validated['type'] == "training-acceptance") {
+            $oldFile = $item_remove->training_acceptance_file;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/training-acceptance/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($validated['type'] == "itr") {
+            $oldFile = $item_remove->itr_file;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/itr/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($validated['type'] == "iar") {
+            $oldFile = $item_remove->iar_file;
+            if ($oldFile) {
+                $oldPath = base_path('certificates/iar/' . $oldFile);
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath); // delete the old file
+                }
+            }
+        }
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = date('d-m-Y') . '-' . $school->SchoolID . '-' . $file->getClientOriginalName();
+            $destination = base_path('certificates/' . $validated['type']);
+            $file->move($destination, $filename);
+            $validated['file'] =  $filename;
+        }
+
+        $batchItems = DCPBatchItem::where('dcp_batch_id', $batchId)->get();
+
+        foreach ($batchItems as $item) {
+            if ($validated['type'] == 'delivery-receipt') {
+                if ($request->hasFile('file')) {
+
+                    $item->update([
+                        'delivery_receipt_status' => $validated['status'] ?? null,
+                        'delivery_receipt_file' => $validated['file'] ?? null,
+
+                    ]);
+                } else {
+                    $item->update([
+                        'delivery_receipt_status' => $validated['status'] ?? null,
+                    ]);
+                }
+            } else if ($validated['type'] == 'certificate-completion') {
+                if ($request->hasFile('file')) {
+
+                    $item->update([
+                        'coc_status' => $validated['status'] ?? null,
+                        'certificate_of_completion' => $validated['file'] ?? null,
+
+                    ]);
+                } else {
+                    $item->update([
+                        'coc_status' => $validated['status'] ?? null,
+
+                    ]);
+                }
+            } else if ($validated['type'] == 'invoice-receipt') {
+                if ($request->hasFile('file')) {
+                    $item->update([
+                        'invoice_receipt_status' => $validated['status'] ?? null,
+                        'invoice_receipt_file' => $validated['file'] ?? null,
+
+                    ]);
+                } else {
+                    if ($request->hasFile('file')) {
+                        $item->update([
+                            'invoice_receipt_status' => $validated['status'] ?? null,
+
+                        ]);
+                    }
+                }
+            } else if ($validated['type'] == 'training-acceptance') {
+                if ($request->hasFile('file')) {
+                    $item->update([
+                        'training_acceptance_status' => $validated['status'] ?? null,
+                        'training_acceptance_file' => $validated['file'] ?? null,
+
+                    ]);
+                } else {
+                    $item->update([
+                        'training_acceptance_status' => $validated['status'] ?? null,
+                    ]);
+                }
+            } else if ($validated['type'] == 'iar') {
+                if ($validated['status'] == "yes") {
+                    $validated['status'] = "with IAR";
+                } else {
+                    $validated['status'] = "without IAR";
+                }
+                if ($request->hasFile('file')) {
+
+                    $item->update([
+                        'iar_value' => $validated['status'] ?? null,
+                        'iar_file' => $validated['file'] ?? null,
+                        'iar_ref_code' => $validated['code_of_file'] ?? null,
+                        'iar_date' => $validated['date_of_file'] ?? null,
+
+                    ]);
+                } else {
+                    $item->update([
+                        'iar_value' => $validated['status'] ?? null,
+                        'iar_ref_code' => $validated['code_of_file'] ?? null,
+                        'iar_date' => $validated['date_of_file'] ?? null,
+
+                    ]);
+                }
+            } else if ($validated['type'] == 'itr') {
+                if ($validated['status'] == "yes") {
+                    $validated['status'] = "with ITR";
+                } else {
+                    $validated['status'] = "without ITR";
+                }
+                if ($request->hasFile('file')) {
+                    $item->update([
+                        'itr_value' => $validated['status'] ?? null,
+                        'itr_file' => $validated['file'] ?? null,
+                        'itr_ref_code' => $validated['code_of_file'] ?? null,
+                        'itr_date' => $validated['date_of_file'] ?? null,
+
+                    ]);
+                } else {
+                    $item->update([
+                        'itr_value' => $validated['status'] ?? null,
+                        'itr_ref_code' => $validated['code_of_file'] ?? null,
+                        'itr_date' => $validated['date_of_file'] ?? null,
+
+                    ]);
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Batch Information submitted successfully.');
+    }
     public function index()
     {
 
         $school = Auth::guard('school')->user()->school;
-        $batch = DB::table('dcp_batches')
-            ->join('dcp_package_types', 'dcp_batches.dcp_package_type_id', '=', 'dcp_package_types.pk_dcp_package_types_id')
-            ->join('schools', 'dcp_batches.school_id', '=', 'schools.pk_school_id')
-            ->leftJoin('dcp_batch_approval', 'dcp_batch_approval.dcp_batches_id', "=", 'dcp_batches.pk_dcp_batches_id')
-
-            ->select(
-                'dcp_batches.*',
-                'dcp_package_types.name as package_type_name',
-                'schools.SchoolName as school_name',
-                'schools.SchoolLevel as school_level',
-                'schools.SchoolID as school_id',
-                'dcp_batches.pk_dcp_batches_id as id',
-                'dcp_batch_approval.status as status_submitted',
-                'dcp_batch_approval.submitted_at'
-            )
-            ->where('dcp_batches.school_id', $school->pk_school_id) // Only batches for this school
-            ->orderBy('dcp_batches.created_at', 'desc')
+        $batch =  DCPBatch::where('school_id', $school->pk_school_id) // Only batches for this school
+            ->orderBy('dcp_batches.delivery_date', 'desc')
             ->get();
 
         return view('SchoolSide.DCPBatch.Batch', compact('batch'));
@@ -179,12 +349,18 @@ class SchoolDCPBatchController extends Controller
 
         $itemTypes = DCPItemTypes::all();
         $items = DCPBatchItem::where('dcp_batch_id', $batchId)->get();
-        $conditions = DCPDeliveryCondintion::all();
+        $conditions = DCPCurrentCondition::all();
         $batchStatus = DCPBatchItem::where('dcp_batch_id', $batchId)->first();
-        $batch_approved = DCPBatchItem::where('dcp_batch_id', $batchId)->value('date_approved');
+        $batch_approved = DCPBatch::where('school_id')->value('submission_status');
         $batchName = $batch->batch_label;
         $brand_list = DCPBatchItemBrand::all();
         return view('SchoolSide.DCPBatch.Items', compact('batchId', 'brand_list', 'batchName', 'batch', 'items', 'itemTypes', 'conditions', 'batchId', 'batchStatus', 'batch_approved'));
+    }
+
+    public function batch_status($batchId)
+    {
+        $batchStatus = DCPBatchItem::where('dcp_batch_id', $batchId)->first();
+        return view('SchoolSide.DCPBatch.BatchStatus', compact('batchStatus', 'batchId'));
     }
     public function warranty($batchItemId)
     {
@@ -286,66 +462,44 @@ class SchoolDCPBatchController extends Controller
                 ],
                 'date_approved' => 'nullable|date',
             ]);
+            // $put_condition = 0;
+            // //GOOD
+            // if ($validated['condition_id'] == 1) {
+            //     $put_condition = 1;
+            // }
+            // //WITH DEFECTS
+            // if ($validated['condition_id'] == 2) {
+            //     $put_condition = 4;
+            // }
+            // //BROKEN
+            // if ($validated['condition_id'] == 3) {
+            //     $put_condition = 2;
+            // }
+            // //MISSING
+            // if ($validated['condition_id'] == 5) {
+            //     $put_condition = 7;
+            // }
+            // //FOR DISPOSAL
+            // if ($validated['condition_id'] == 6) {
+            //     $put_condition = 5;
+            // }
+            // if ($validated['condition_id'] == 7) {
+            //     $put_condition = 4;
+            // }
 
-            if ($validated['condition_id'] == 1) {
-                $condition_id = DCPCurrentCondition::where('name', 'Good')->value('pk_dcp_current_conditions_id');
+            $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
 
-                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
-
-                if ($getCondition) {
-                    $getCondition->update([
-                        'current_condition_id' => $condition_id,
-                    ]);
-                } else {
-                    DCPItemCondition::create([
-                        'dcp_batch_item_id' => $itemId,
-                        'current_condition_id' => $condition_id,
-                    ]);
-                }
-            } elseif ($validated['condition_id'] == 2) {
-                $condition_id = DCPCurrentCondition::where('name', 'Needs Repair')->value('pk_dcp_current_conditions_id');
-
-                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
-
-                if ($getCondition) {
-                    $getCondition->update([
-                        'current_condition_id' => $condition_id,
-                    ]);
-                } else {
-                    DCPItemCondition::create([
-                        'dcp_batch_item_id' => $itemId,
-                        'current_condition_id' => $condition_id,
-                    ]);
-                }
-            } elseif ($validated['condition_id'] == 3) {
-                $condition_id = DCPCurrentCondition::where('name', 'Damaged')->value('pk_dcp_current_conditions_id');
-
-                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
-
-                if ($getCondition) {
-                    $getCondition->update([
-                        'current_condition_id' => $condition_id,
-                    ]);
-                } else {
-                    DCPItemCondition::create([
-                        'dcp_batch_item_id' => $itemId,
-                        'current_condition_id' => $condition_id,
-                    ]);
-                }
+            if ($getCondition) {
+                $getCondition->update([
+                    'current_condition_id' => $validated['condition_id'],
+                ]);
             } else {
-                $getCondition = DCPItemCondition::where('dcp_batch_item_id', $itemId)->first();
-
-                if ($getCondition) {
-                    $getCondition->update([
-                        'current_condition_id' => 1,
-                    ]);
-                } else {
-                    DCPItemCondition::create([
-                        'dcp_batch_item_id' => $itemId,
-                        'current_condition_id' => 1,
-                    ]);
-                }
+                DCPItemCondition::create([
+                    'dcp_batch_item_id' => $itemId,
+                    'current_condition_id' => $validated['condition_id'],
+                ]);
             }
+
 
 
 
@@ -353,12 +507,12 @@ class SchoolDCPBatchController extends Controller
             if ($request->hasFile('certificate_of_completion')) {
                 $file = $request->file('certificate_of_completion');
                 $filename = date('d-m-Y') . '_' . $file->getClientOriginalName();
-                $destination = public_path('certificates');
+                $destination = base_path('certificates');
                 $file->move($destination, $filename);
                 $validated['certificate_of_completion'] =  $filename;
             }
-
-            $item->update($validated);
+            $validated["condition_id"] = null;
+            $item =  $item->update($validated);
 
             return response()->json([
                 'success' => true,

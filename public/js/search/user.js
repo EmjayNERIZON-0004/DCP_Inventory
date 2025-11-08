@@ -28,7 +28,7 @@ $('#searchSchoolUser').on('keyup', function () {
                                         <input type="text" id="password" name="password" required
                                             value="${user.default_password}"
                                             class="w-full px-3 hidden py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 pr-10">
-                                       <input type="text" value="fromAdmin" name="fromAdmin">
+                                       <input type="hidden" value="fromAdmin" name="fromAdmin">
                                             <button type="submit" class="bg-blue-600 rounded-md px-4 py-1 text-white">Log in
                                         </button>
                                     </form>
@@ -37,7 +37,7 @@ $('#searchSchoolUser').on('keyup', function () {
                             </td>
                             </tr>
                         `;
-                });
+                }); 
             } else {
                 rows = `<tr><td colspan="5" class="px-4 py-3 text-center text-gray-500">No results found.</td></tr>`;
             }
