@@ -49,6 +49,8 @@
                     fostering a productive environment!
                 </p>
             </div>
+            <h2 class="text-center text-xl font-semibold mb-4">Login Form</h2>
+
 
             <!-- RIGHT: Login -->
             <div class="flex justify-center lg:justify-end   ">
