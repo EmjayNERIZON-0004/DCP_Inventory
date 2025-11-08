@@ -21,13 +21,13 @@
 
 
                      <button
-                         class="px-6 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          id="delivery_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Add
                      </button>
 
 
                      <button id="delivery_updateBtn"
-                         class="px-6 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
+                         class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
                      </button>
 
@@ -40,7 +40,7 @@
                  <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white">No.</th>
 
                              <th class="text-white px-4 py-2 whitespace-nowrap  ">Delivery Mode</th>
                              <th class="text-white px-4 py-2  whitespace-nowrap   ">Action </th>
@@ -61,7 +61,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editItemDelivery('{{ $mode->pk_dcp_item_mode_delivery_id }}', '{{ $mode->name }}')"
-                                             class="px-6 py-1 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-all m-0">
+                                             class="px-4 py-1 shadow-md  bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition-all m-0">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -73,7 +78,12 @@
                                              @method('DELETE')
                                              <button type="submit"
                                                  onclick="return confirm('Are you sure you want to delete this delivery mode?')"
-                                                 class="px-6 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 class="px-4 py-1  shadow-md bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -119,14 +129,14 @@
 
 
                      <button
-                         class="px-6 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          id="delivery_condition_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
                          type="submit">Add
                      </button>
 
 
                      <button id="delivery_condition_updateBtn"
-                         class="px-6 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
+                         class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
                      </button>
 
@@ -139,7 +149,7 @@
                  <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white ">No.</th>
 
                              <th class="text-white px-4 py-2 whitespace-nowrap  ">Item Condition</th>
                              <th class="text-white px-4 py-2  whitespace-nowrap   ">Action </th>
@@ -160,7 +170,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editItemDeliveryCondition('{{ $d_condition->pk_dcp_delivery_conditions_id }}', '{{ $d_condition->name }}')"
-                                             class="px-6 py-1 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-all m-0">
+                                             class="px-4 py-1  shadow-md bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition-all m-0">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -172,7 +187,13 @@
                                              @method('DELETE')
                                              <button type="submit"
                                                  onclick="return confirm('Are you sure you want to delete this condition of item upon delivery?')"
-                                                 class="px-6 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 class="px-4 py-1 shadow-md  bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -220,14 +241,14 @@
 
                      <!-- Add Button -->
                      <button id="supplier_addBtn" type="submit"
-                         class="px-6 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                          Add
                      </button>
 
                      <!-- Update Button -->
                      <button id="supplier_updateBtn" type="submit"
-                         class="hidden px-6 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                         class="hidden px-4 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                          Update
                      </button>
@@ -241,7 +262,7 @@
                  <table class="table-auto w-full  " style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 border text-white">No.</th>
+                             <th class="px-4 py-2  text-white">No.</th>
                              <th class="text-white px-4 py-2 ">Supplier Name</th>
                              <th class="text-white px-4 py-2 ">Action </th>
                          </tr>
@@ -262,7 +283,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editSupplier('{{ $brand->pk_dcp_item_brand_id }}', '{{ $brand->name }}')"
-                                             class="px-6 py-1 h-[36px] bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition">
+                                             class="px-4 py-1 h-[36px]  shadow-md  bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -274,7 +300,13 @@
                                              @csrf
                                              @method('DELETE')
                                              <button type="submit"
-                                                 class="px-6 py-1 h-[36px] bg-red-600 hover:bg-red-700 text-white rounded-sm transition">
+                                                 class="px-4 py-1 h-[36px]  shadow-md  bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -308,14 +340,14 @@
 
                      <!-- Add Button -->
                      <button id="brand_addBtn" type="submit"
-                         class="px-6 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                          Add
                      </button>
 
                      <!-- Update Button -->
                      <button id="brand_updateBtn" type="submit"
-                         class="hidden px-6 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                         class="hidden px-4 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                          Update
                      </button>
@@ -328,7 +360,7 @@
                  <table class="table-auto w-full " style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white ">No.</th>
 
                              <th class="text-white px-4 py-2  ">Brand</th>
                              <th class="text-white px-4 py-2  ">Action </th>
@@ -349,7 +381,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editBrand('{{ $brand->pk_dcp_batch_item_brands_id }}', '{{ $brand->brand_name }}')"
-                                             class="px-6 py-1 h-[36px] bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition">
+                                             class="px-4 py-1 h-[36px] bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -361,7 +398,13 @@
                                              @csrf
                                              @method('DELETE')
                                              <button type="submit"
-                                                 class="px-6 py-1 h-[36px] bg-red-600 hover:bg-red-700 text-white rounded-sm transition">
+                                                 class="px-4 py-1 h-[36px] bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -428,14 +471,14 @@
 
 
                      <button
-                         class="px-6 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          id="current_condition_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
                          type="submit">Add
                      </button>
 
 
                      <button id="current_condition_updateBtn"
-                         class="px-6 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
+                         class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
                      </button>
 
@@ -448,7 +491,8 @@
                  <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white 
+                             ">No.</th>
 
                              <th class="text-white px-4 py-2 whitespace-nowrap  ">Item Current Condition</th>
                              <th class="text-white px-4 py-2  whitespace-nowrap   ">Action </th>
@@ -461,7 +505,7 @@
 
                          @foreach ($current_condition as $index => $c_condition)
                              <tr>
-                                 <td class="border text-center  ">{{ $index + 1 }}</td>
+                                 <td class="border text-center  ">{{ $c_condition->pk_dcp_current_conditions_id }}</td>
 
                                  <td class="px-4 py-1 border border-gray-300">{{ $c_condition->name }}</td>
                                  <td class="  border border-gray-300 px-4 py-1">
@@ -469,7 +513,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editItemCondition('{{ $c_condition->pk_dcp_current_conditions_id }}', '{{ $c_condition->name }}')"
-                                             class="px-6 py-1 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-all m-0">
+                                             class="px-4 py-1 shadow-md bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition-all m-0">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -481,7 +530,13 @@
                                              @method('DELETE')
                                              <button type="submit"
                                                  onclick="return confirm('Are you sure you want to delete this current mode?')"
-                                                 class="px-6 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 class="px-4 py-1  shadow-md  bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -530,14 +585,14 @@
 
 
                      <button
-                         class="px-6 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          id="assigned_user_type_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
                          type="submit">Add
                      </button>
 
 
                      <button id="assigned_user_type_updateBtn"
-                         class="px-6 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
+                         class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
                      </button>
 
@@ -550,7 +605,7 @@
                  <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white  ">No.</th>
 
                              <th class="text-white px-4 py-2 whitespace-nowrap  ">Assigned Type of User</th>
                              <th class="text-white px-4 py-2  whitespace-nowrap   ">Action </th>
@@ -571,7 +626,12 @@
                                          <!-- Edit Button -->
                                          <button
                                              onclick="editAssignedUserType('{{ $assigned_user->pk_dcp_assignment_types_id }}', '{{ $assigned_user->name }}')"
-                                             class="px-6 py-1 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-all m-0">
+                                             class="px-4 py-1  shadow-md  bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition-all m-0">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -583,7 +643,13 @@
                                              @method('DELETE')
                                              <button type="submit"
                                                  onclick="return confirm('Are you sure you want to delete this Assigned Type?')"
-                                                 class="px-6 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 class="px-4  shadow-md  py-1 bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>
@@ -630,14 +696,14 @@
 
 
                      <button
-                         class="px-6 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                         class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                          id="assigned_location_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
                          type="submit">Add
                      </button>
 
 
                      <button id="assigned_location_updateBtn"
-                         class="px-6 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
+                         class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
                          style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
                      </button>
 
@@ -650,7 +716,7 @@
                  <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
-                             <th class="px-4 py-2 text-white border">No.</th>
+                             <th class="px-4 py-2 text-white ">No.</th>
 
                              <th class="text-white px-4 py-2 whitespace-nowrap  ">Assigned Type of User</th>
                              <th class="text-white px-4 py-2  whitespace-nowrap   ">Action </th>
@@ -672,7 +738,12 @@
 
                                          <button
                                              onclick='editAssignedLocation({{ $assigned_loc->pk_dcp_assigned_locations_id }}, @json($assigned_loc->name))'
-                                             class="px-6 py-1 bg-yellow-500 text-white rounded-sm hover:bg-yellow-600 transition-all m-0">
+                                             class="px-4 py-1  shadow-md  bg-blue-500 flex items-center text-white rounded-sm hover:bg-blue-500 transition-all m-0">
+                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                 <path stroke-linecap="round" stroke-linejoin="round"
+                                                     d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M16.5 3.5a2.121 2.121 0 113 3L12 14l-4 1 1-4 7.5-7.5z" />
+                                             </svg>
                                              Edit
                                          </button>
 
@@ -685,7 +756,13 @@
                                              @method('DELETE')
                                              <button type="submit"
                                                  onclick="return confirm('Are you sure you want to delete this Assigned Type?')"
-                                                 class="px-6 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 class="px-4 py-1  shadow-md  bg-red-600 flex items-center hover:bg-red-700 text-white rounded-sm transition-all m-0">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2"
+                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                     stroke-width="2">
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                 </svg>
                                                  Delete
                                              </button>
                                          </form>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Equipment\EquipmentBiometricDetails;
 use App\Models\ISP\ISPDetails;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,8 @@ class School extends Model
         'SchoolID',
         'SchoolName',
         'SchoolLevel',
+        'total_no_teaching',
+        'classroom_with_tv',
         'Region',
         'Division',
         'District',
@@ -33,9 +36,15 @@ class School extends Model
         'CustodianName',
         'CustodianContact',
         'CustodianEmail',
+
         'created_at',
         'updated_at'
     ];
+
+    public function dcpBatches()
+    {
+        return $this->hasMany(DCPBatch::class, 'school_id', 'pk_school_id');
+    }
 
     public function schoolUser()
     {
@@ -53,5 +62,13 @@ class School extends Model
     public function ispDetails()
     {
         return $this->hasMany(ISPDetails::class, 'school_id', 'pk_school_id');
+    }
+    public function nonDCPItems()
+    {
+        return $this->hasMany(NonDCPItem::class, 'school_id', 'pk_school_id');
+    }
+    public function biometricDetails()
+    {
+        return $this->hasMany(EquipmentBiometricDetails::class, 'school_id', 'pk_school_id');
     }
 }

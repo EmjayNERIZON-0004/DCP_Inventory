@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DCPBatch;
 use App\Models\DCPBatchItem;
+use App\Models\DCPCurrentCondition;
 use App\Models\DCPItemCondition;
 use App\Models\DCPItemTypes;
 use App\Models\DCPPackageTypes;
@@ -56,6 +57,7 @@ class SchoolDashboardController extends Controller
         $totalForRepair = 0;
         $nostatus = 0;
         $totalForDisposal = 0;
+        $totalForMissing = 0;
         foreach ($items as $batch_items) {
             $current_condition =  DCPItemCondition::where(
                 'dcp_batch_item_id',
@@ -69,6 +71,8 @@ class SchoolDashboardController extends Controller
                 $totalDamaged++;
             } elseif ($current_condition == 5) {
                 $totalForDisposal++;
+            } elseif ($current_condition == 7) {
+                $totalForMissing++;
             } else {
                 $nostatus++;
             }
@@ -104,7 +108,22 @@ class SchoolDashboardController extends Controller
             }
         }
         $item_sorted =   $item_names_collect->groupBy('items')->map->count()->sortDesc();
+        $total_under_warranty = 0;
+        $total_out_of_warranty = 0;
+        foreach ($batches as $batch) {
+            $batch_items = DCPBatchItem::where('dcp_batch_id', $batch->pk_dcp_batches_id)->get();
 
+            foreach ($batch_items as $item) {
+                // check if item is under warranty
+                $warranty = $item->dcpItemWarranties->first();
+
+                if ($warranty && now()->between($warranty->warranty_start_date, $warranty->warranty_end_date)) {
+                    $total_under_warranty++;
+                } else {
+                    $total_out_of_warranty++;
+                }
+            }
+        }
         return view('SchoolSide.dashboard', compact(
             'totalLearners',
             'item_sorted',
@@ -118,8 +137,50 @@ class SchoolDashboardController extends Controller
             'totalForRepair',
             'totalDamaged',
             'totalForDisposal',
+            'totalForMissing',
             'nostatus',
-            'totalBatches'
+            'totalBatches',
+            'items',
+            'total_out_of_warranty',
+            'total_under_warranty'
         ));
+    }
+
+    public function getItemConditionCounts()
+    {
+        $school = Auth::guard('school')->user()->school;
+
+        // Get all DCP batches for this school
+        $batches = DCPBatch::where('school_id', $school->pk_school_id)->get();
+
+        // Collect all batch items
+        $items = collect();
+        foreach ($batches as $batch) {
+            $batch_items = DCPBatchItem::where('dcp_batch_id', $batch->pk_dcp_batches_id)->get();
+            $items = $items->merge($batch_items);
+        }
+
+        // Initialize counter
+        $conditionCounts = [];
+
+        // Loop through items and get their condition names
+        foreach ($items as $item) {
+            $condition_id = DCPItemCondition::where('dcp_batch_item_id', $item->pk_dcp_batch_items_id)
+                ->value('current_condition_id');
+
+            if ($condition_id) {
+                $condition_name = DCPCurrentCondition::where('pk_dcp_current_conditions_id', $condition_id)
+                    ->value('name');
+
+                if ($condition_name) {
+                    if (!isset($conditionCounts[$condition_name])) {
+                        $conditionCounts[$condition_name] = 0;
+                    }
+                    $conditionCounts[$condition_name]++;
+                }
+            }
+        }
+
+        return response()->json($conditionCounts);
     }
 }

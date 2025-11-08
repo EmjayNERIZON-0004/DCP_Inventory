@@ -10,4 +10,9 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    base: '/public/', // <-- add this line
+    build: {
+        outDir: 'public/build', // keep this
+        emptyOutDir: true,
+    },
 });

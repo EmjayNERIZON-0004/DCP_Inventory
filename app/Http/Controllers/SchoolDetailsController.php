@@ -9,6 +9,7 @@ use App\Models\SchoolUser;
 use Exception;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -20,6 +21,31 @@ class SchoolDetailsController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function insertNonTeaching(Request $request)
+    {
+        $validated = $request->validate([
+            'total_no_teaching' => 'required|integer|min:0',
+            'classroom_with_tv' => 'required|integer|min:0',
+
+        ]);
+        $school_id = Auth::guard('school')->user()->school->pk_school_id;
+        $school_data = School::where('pk_school_id', $school_id)
+            ->first();
+        $school_data->update([
+            'total_no_teaching' => $validated['total_no_teaching'],
+            'classroom_with_tv' => $validated['classroom_with_tv'],
+        ]);
+
+
+        if ($school_data) {
+            return back()->with('success', 'Non-Teaching Staff data submitted successfully!');
+        } else {
+            return back()->with('error', 'Non-Teaching Staff data not submitted successfully!');
+        }
+
+        return back()->with('success', 'Non-Teaching Staff data submitted successfully!');
+    }
     public function store_data(Request $request)
     {
         $validated = $request->validate([
@@ -46,7 +72,7 @@ class SchoolDetailsController extends Controller
                 $result->update([
                     'RegisteredLearners' => $request->RegisteredLearners,
                     'Teachers' => $request->Teachers,
-                    'Sections' => $request->Section,
+                    'Sections' => $request->Sections,
                     'Classrooms' => $request->Classrooms,
                 ]);
             }
@@ -56,6 +82,21 @@ class SchoolDetailsController extends Controller
 
 
         return redirect()->back()->with('success', 'School Data updated successfully');
+    }
+    public function delete_school_data(int $id)
+    {
+        try {
+
+            $result = SchoolData::where('ID', $id)->first();
+            if ($result) {
+                $result->delete();
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+
+        return redirect()->back()->with('success', 'School Data deleted successfully');
     }
 
     public function index(Request $request)
@@ -67,8 +108,9 @@ class SchoolDetailsController extends Controller
             $query->where('schools.pk_school_id', $request->input('pk_school_id'));
         }
         $query->orderBy('schools.SchoolName', 'asc');
-        $schools = $query->get();
-        $schools_count = $schools->count();
+        $schools = $query->paginate(6)->withQueryString();
+        $schools_c = $query->get();
+        $schools_count = $schools_c->count();
         return view('AdminSide.schools.index')->with('schools', $schools)
             ->with('schools_count', $schools_count);
     }
@@ -76,7 +118,8 @@ class SchoolDetailsController extends Controller
     {
         $keyword = $request->query('query');
 
-        $results = School::where('SchoolID', 'like', "%{$keyword}%")
+        $results = School::with('schoolUser:pk_school_id,pk_school_id,last_login')
+            ->where('SchoolID', 'like', "%{$keyword}%")
             ->orWhere('SchoolName', 'like', "%{$keyword}%")
             ->orWhere('SchoolLevel', 'like', "%{$keyword}%")
             ->orWhere('PrincipalName', 'like', "%{$keyword}%")
@@ -112,12 +155,12 @@ class SchoolDetailsController extends Controller
         // This method is intentionally left empty.
         $query = School::query()
             ->join('school_users', 'schools.pk_school_id', '=', 'school_users.pk_school_id')
-            ->select('schools.*', 'school_users.username as user_username', 'school_users.password as password', 'school_users.default_password as default_password')
+            ->select('schools.*', 'school_users.username as user_username', 'school_users.password as password', 'school_users.default_password as default_password', 'school_users.id as user_id')
             ->orderBy('schools.schoolName', 'asc');
         if (request()->has('pk_school_id')) {
             $query->where('schools.pk_school_id', request()->input('pk_school_id'));
         }
-        $users = $query->get();
+        $users = $query->paginate(6)->withQueryString();
         return view('AdminSide.schools.user')->with('users', $users);
     }
 
@@ -128,8 +171,9 @@ class SchoolDetailsController extends Controller
             ->select(
                 'schools.*',
                 'school_users.username as user_username',
-                'school_users.default_password as default_password'
-            );
+                'school_users.default_password as default_password',
+                'school_users.id as user_id'
+            )->orderBy('schools.schoolName', 'asc');
 
         if ($request->has('query')) {
             $search = $request->query('query');
@@ -211,7 +255,7 @@ class SchoolDetailsController extends Controller
 
     public function show($SchoolID)
     {
-        $school = School::where('SchoolID', $SchoolID)->firstOrFail();
+        $school = School::where('pk_school_id', $SchoolID)->firstOrFail();
         return view('AdminSide.schools.show', compact('school'));
     }
 

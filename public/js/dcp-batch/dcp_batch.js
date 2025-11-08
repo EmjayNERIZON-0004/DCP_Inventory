@@ -19,15 +19,9 @@ $('#searchBatch').on('keyup', function () {
                             <td class="px-4 py-3 border-r border-gray-200">${index + 1}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.batch_label}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${batch.description}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.school_id ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.school_name ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.school_level ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.package_type_name ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.budget_year}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.delivery_date ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.supplier_name ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.mode_of_delivery ?? 'N/A'}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">${batch.submission_status}</td>
+                             <td class="px-4 py-3 border-r border-gray-200">${batch.school_name ?? 'N/A'} - ${batch.school_level ?? 'N/A'}</td>
+                         
+                            <td class="px-4 py-3 border-r border-gray-200">${batch.delivery_date ?? 'N/A'}</td>  
                                <td class="px-4 py-3 border-r border-gray-200 whitespace-nowrap">
                                 <div class="flex flex-col">
 

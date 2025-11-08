@@ -12,6 +12,7 @@ class DCPBatchItem extends Model
         'dcp_batch_id',
         'item_type_id',
         'generated_code',
+        'unit_price',
         'quantity',
         'unit',
         'condition_id',
@@ -37,10 +38,19 @@ class DCPBatchItem extends Model
         'dcp_assigned_users',
 
     ];
+    protected $casts = [
+        'unit_price' => 'decimal:2',
+        'quantity'   => 'integer',
+    ];
+    public function brand_details()
+    {
+        return $this->belongsTo(DCPBatchItemBrand::class, 'brand', 'pk_dcp_batch_item_brands_id');
+    }
     public function dcpBatch()
     {
         return $this->belongsTo(DCPBatch::class, 'dcp_batch_id', 'pk_dcp_batches_id');
     }
+
     public function dcpItemType()
     {
         return $this->belongsTo(DCPItemTypes::class, 'item_type_id', 'pk_dcp_item_types_id');
@@ -48,7 +58,7 @@ class DCPBatchItem extends Model
 
     public function dcpCondition()
     {
-        return $this->belongsTo(DCPDeliveryCondintion::class, 'condition_id', 'pk_dcp_condition_id');
+        return $this->belongsTo(DCPDeliveryCondintion::class, 'condition_id', 'pk_dcp_delivery_conditions_id');
     }
 
     public function dcpAssignedUsers()
@@ -61,7 +71,7 @@ class DCPBatchItem extends Model
     }
     public function dcpItemWarranties()
     {
-        return $this->hasMany(DCPItemWarrantyStatus::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
+        return $this->hasOne(DCPItemWarrantyStatus::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
     }
     public function dcpItemCurrentCondition()
     {

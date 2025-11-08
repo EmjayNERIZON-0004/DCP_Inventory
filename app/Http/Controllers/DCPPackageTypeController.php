@@ -18,6 +18,7 @@ class DCPPackageTypeController extends Controller
             'insert_package_id' => 'required|exists:dcp_package_content,dcp_package_types_id',
             'insert_package_content_id' => 'required|exists:dcp_item_types,pk_dcp_item_types_id',
             'insert_quantity' => 'required|integer|min:1',
+            'insert_unit_price' => 'required|numeric|min:0',
             'insert_item_brand_id' => 'required|exists:dcp_batch_item_brands,pk_dcp_batch_item_brands_id',
         ]);
 
@@ -33,6 +34,7 @@ class DCPPackageTypeController extends Controller
             'dcp_package_types_id' => $validated['insert_package_id'],
             'dcp_item_types_id' => $validated['insert_package_content_id'],
             'quantity' => $validated['insert_quantity'],
+            'unit_price' => $validated['insert_unit_price'],
             'dcp_batch_item_brands_id' => $validated['insert_item_brand_id'],
         ]);
 
@@ -63,6 +65,7 @@ class DCPPackageTypeController extends Controller
                 'dcp_package_types.pk_dcp_package_types_id as dcp_packages_id',
                 'dcp_item_types.name as item_name',
                 'dcp_package_content.quantity',
+                'dcp_package_content.unit_price',
                 'dcp_package_content.dcp_batch_item_brands_id',
 
             )
@@ -87,6 +90,7 @@ class DCPPackageTypeController extends Controller
             $packageContent->dcp_package_types_id = $packageType->pk_dcp_package_types_id;
             $packageContent->dcp_item_types_id = $itemTypeId;
             $packageContent->quantity = $request->input('quantity')[$key];
+            $packageContent->unit_price = $request->input('unit_price')[$key];
             $packageContent->dcp_batch_item_brands_id = $request->input('item_brand_id')[$key];
             $packageContent->save();
         }
@@ -106,16 +110,18 @@ class DCPPackageTypeController extends Controller
             'quantity' => 'required',
             'package_id' => 'required',
             'edit_item_brand_id' => 'required',
+            'unit_price' => 'required|numeric|min:0'
+
         ]);
 
-        $package = DCPPackageContent::where('dcp_package_types_id', $validated['package_id'])->get();
-
-
         $package = DCPPackageContent::findOrFail($validated['id']);
-        $package->dcp_item_types_id = $validated['package_content_name'];
-        $package->quantity = $validated['quantity'];
-        $package->dcp_batch_item_brands_id = $validated['edit_item_brand_id'];
-        $package->save();
+
+        $package->update([
+            'dcp_item_types_id'       => $validated['package_content_name'],
+            'quantity'                => $validated['quantity'],
+            'unit_price'              => $validated['unit_price'],
+            'dcp_batch_item_brands_id' => $validated['edit_item_brand_id'],
+        ]);
 
         return redirect()->back()->with('success', 'Package updated successfully.');
     }

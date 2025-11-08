@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use App\Models\SchoolUser;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -18,7 +21,7 @@ class AdminController extends Controller
         }
 
         $validated = $request->validate([
-       
+
             'Region' => 'required|string|max:100',
             'Division' => 'required|string|max:100',
             'District' => 'required|string|max:100',
@@ -26,16 +29,10 @@ class AdminController extends Controller
             'CityMunicipality' => 'nullable|string|max:100',
             'SchoolContactNumber' => 'nullable|string|max:50',
             'SchoolEmailAddress' => 'nullable|email|max:255',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ]);
 
         try {
-            if ($request->hasFile('image_path')) {
-                $image = $request->file('image_path');
-                $imageName = uniqid('logo_') . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('school-logo'), $imageName);
-                $validated['image_path'] = $imageName;
-            }
 
             $school = School::where('pk_school_id', $user->pk_school_id)->first();
             if (!$school) {
@@ -43,8 +40,34 @@ class AdminController extends Controller
             }
             $school->update($validated);
             return redirect()->back()->with('success', 'School details updated successfully.');
-        } catch ( Exception $e) {
-           Log::error('School update error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error('School update error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
+        }
+    }
+    public function upload_school_logo(Request $request)
+    {
+        $user = Auth::guard('school')->user();
+
+
+        $validated = $request->validate([
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        try {
+            if ($request->hasFile('image_path')) {
+                $image = $request->file('image_path');
+                $imageName = uniqid('logo_') . '.' . $image->getClientOriginalExtension();
+                $image->move(base_path('school-logo'), $imageName);
+                $validated['image_path'] = $imageName;
+            }
+            $school = School::where('pk_school_id', $user->pk_school_id)->first();
+            if (!$school) {
+                return redirect()->back()->with('error', 'No school found for this account.');
+            }
+            $school->update($validated);
+            return redirect()->back()->with('success', 'Logo has been updated successfully.');
+        } catch (Exception $e) {
+            Log::error('School update error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
         }
     }
@@ -68,5 +91,32 @@ class AdminController extends Controller
         ]);
         $user->school->update($validated);
         return redirect()->back()->with('success', 'School officials updated successfully.');
+    }
+    public function account()
+    {
+        return view('AdminSide.Account.index');
+    }
+    public function change_password(Request $request)
+    {
+        $request->validate([
+
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+
+        $user = SchoolUser::where('default_password', 'admin')->first();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        } else if ($request->current_password === $request->new_password) {
+            return back()->withErrors(['new_password' => 'New password cannot be the same as the current password.']);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->password_changed_at = now();
+        $user->save();
+
+        return back()->with('success', 'Password changed successfully.');
     }
 }

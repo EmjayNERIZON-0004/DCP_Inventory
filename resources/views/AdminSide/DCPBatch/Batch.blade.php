@@ -16,18 +16,19 @@
 
         .table th,
         .table td {
-            border: 1px solid #282828;
+            border: 1px solid #989898;
             padding: 10px;
             text-align: left;
         }
 
         .table th {
-            background: #2563eb;
-            color: #fff;
+            background: #e9e9e9;
+            color: #333;
         }
 
-        .table td {
-            background-color: #fff;
+
+        .school-rows {
+            text-align: center;
         }
 
         input,
@@ -50,13 +51,12 @@
         class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
         <!-- Modal Content -->
         <div id="add-batch-form-section"
-            class="bg-white shadow-xl rounded-lg overflow-hidden border border-green-700 p-6 w-full max-w-full mx-10 relative"
+            class="bg-white shadow-xl rounded-lg overflow-hidden border border-green-700 p-6 w-full max-w-full mx-5 relative"
             style="max-height: 80vh; overflow-y: auto;">
-            <button type="button" onclick="cancelAddBatch()"
-                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
-            <h2 class="text-2xl font-bold w-full text-center md:text-left text-gray-800 mb-4"
-                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Add DCP
-                Batch</h2>
+            <h2 class="text-2xl font-bold w-full text-center md:text-left text-gray-800"
+                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create DCP
+                Batch Recipient</h2>
+            <div class="text-gray-600 text-md mb-4">Assign a Batch to a School</div>
             {{-- <div class="flex justify-center md:justify-start mb-4">
                 <div class="rounded-full bg-green-100 p-4 shadow-md flex items-center justify-center w-32 h-32">
                     <!-- SVG Icon -->
@@ -204,8 +204,10 @@
                 </div>
                 <div class="mt-4">
                     <button type="submit"
-                        class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">Add
-                        Batch</button>
+                        class="px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition">Add
+                        DCP Batch</button>
+                    <button onclick="cancelAddBatch()"
+                        class="bg-gray-400 text-white rounded-md hover:bg-gray-500 shadow-md px-6 py-2">Cancel</button>
                 </div>
             </form>
 
@@ -338,135 +340,269 @@
         });
     </script>
 
-    <div class="bg-white border border-blue-500 shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5 mt-8">
 
 
 
-        <div class="flex justify-between  ">
+
+    <div class="bg-white border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
+        style="border-radius: 8px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+
+        <div class="flex md:flex-row flex-col justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-blue-700  " style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                    DCP
-                    Batch List</h2>
-
-                <div class="text-md text-gray-600  mb-5">List of Batches assigned in every Schools under DepEd
-                    Computerization
-                    Program</div>
-
+                <h2 class="text-2xl font-bold text-gray-700">DCP Batch List</h2>
+                <div class="text-md text-gray-600 mb-2">List of Batches assigned in every Schools under DepEd
+                    Computerization Program</div>
             </div>
-            <button type="button" onclick="showAddBatchModal()"
-                class="bg-green-700 hover:bg-green-800 text-white py-1 h-10 px-4 rounded mb-4">
-                Add DCP Batch
+            <div class="w-full flex md:justify-end justify-start my-2">
+                <button type="button" onclick="showAddBatchModal()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-1 h-10 px-4 rounded">
+                    + Add DCP Batch
+                </button>
+            </div>
+        </div>
+        <div class="my-3 flex justify-end gap-2 w-full">
+            <button id="btnBatchList" onclick="showContainer1()"
+                class="px-4 py-1 rounded-md shadow-md bg-gray-400 text-white">
+                Batch List
+            </button>
+            <button id="btnSchoolBatch" onclick="showContainer2()"
+                class="px-4 py-1 rounded-md shadow-md bg-gray-400 text-white">
+                Schools Batch
             </button>
         </div>
+        <div id="batch-list-display">
+            <div class="text-sm text-gray-700">Dashboard Status</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4 gap-2 mb-4">
+                <!-- 🕒 Pending -->
+                <div
+                    class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-100 text-yellow-600">
+                        <!-- Clock Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Pending - For Approval</h3>
+                        <p class="text-2xl font-bold text-yellow-600">{{ $total_pending }}</p>
+                    </div>
+                </div>
 
-        <input type="text" id="searchBatch" placeholder="Search by batch label, school, etc."
-            class="mb-4 p-2 border border-gray-300 rounded w-1/3">
+                <!-- ✅ Approved -->
+                <div
+                    class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600">
+                        <!-- Check Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Approved Batch</h3>
+                        <p class="text-2xl font-bold text-green-600">{{ $total_approved }}</p>
+                    </div>
+                </div>
+
+                <!-- 📦 Total -->
+                <div
+                    class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">
+                        <!-- Box Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4M3 7v6m18-6v6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Total Batch</h3>
+                        <p class="text-2xl font-bold text-blue-600">{{ $total_batches }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-sm text-gray-700">Search</div>
+
+            <!-- 🔍 Search Bar -->
+            <input type="text" id="searchBatch" placeholder="Search by batch label, school, etc."
+                class="mb-4 p-2 border border-gray-300 rounded md:w-1/3 w-full">
+            <div class="text-sm text-gray-700">List of DCP Batches</div>
+
+            <!-- Card Container -->
+            <div id="batchCardContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4">
+                @foreach ($dcpBatches as $batch)
+                    <div id="card-{{ $batch->pk_dcp_batches_id }}" x-data="{ open: false }"
+                        class="bg-white border border-gray-300 rounded-lg shadow-md p-4 hover:shadow-lg transition">
+
+                        <!-- Clickable Header -->
+                        <div @click="open = !open" class="cursor-pointer">
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-medium text-sm md:text-base">
+                                        {{ $loop->iteration }}
+                                    </span>
+                                    <span class="text-gray-900 font-medium">
+                                        {{ $batch->batch_label }}
+                                    </span>
+                                </div>
 
 
+                                @if ($batch->approval_status === 'Pending')
+                                    <span
+                                        class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                        For Approval
+                                    </span>
+                                @elseif ($batch->approval_status === 'Approved')
+                                    <span
+                                        class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                        Approved: {{ $batch->date_approved }}
+                                    </span>
+                                @else
+                                    <span
+                                        class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                        For Submission
+                                    </span>
+                                @endif
 
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-1">
+                                <b>Recipient:</b>
+                                <span class="text-gray-700">{{ $batch->school_name ?? 'N/A' }} -
+                                    {{ $batch->school_level }}</span>
+                            </p>
+                        </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left border border-gray-200"
-                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <thead class="bg-gray-700">
-                    <tr>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">No.
-                        </th>
-
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Batch Label</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Description</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            School ID</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            School</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            School Level</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Package Type</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Budget Year</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Delivery Date</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Supplier</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Mode of Delivery</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white  ">
-                            Status</th>
-                        <th class="px-4 py-3 font-semibold uppercase tracking-wider text-white">Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="batchTableBody" class="bg-white divide-y divide-gray-200">
-
-                    @foreach ($dcpBatches as $batch)
-                        <tr id="row-{{ $batch->pk_dcp_batches_id }}" class="hover:bg-blue-50 transition">
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $loop->iteration }}</td>
-
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->batch_label }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->description }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->school_id ?? 'N/A' }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->school_name ?? 'N/A' }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->school_level }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->package_type_name ?? 'N/A' }}</td>
-
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->budget_year }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">
+                        <!-- Collapsible Content -->
+                        <div x-show="open" x-collapse>
+                            <p class="text-sm text-gray-600 mb-1"><b>Description:</b> {{ $batch->description }}</p>
+                            <p class="text-sm text-gray-600 mb-1"><b>Delivery:</b>
                                 {{ $batch->delivery_date ? \Carbon\Carbon::parse($batch->delivery_date)->format('F d, Y') : 'N/A' }}
-                            </td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->supplier_name }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200">{{ $batch->mode_of_delivery }}</td>
-                            <td class="px-4 py-3 border-r border-gray-200 whitespace-nowrap">
-                                <div class="flex flex-col">
+                            </p>
 
+                            <div class="text-sm text-gray-600 mb-3">
+                                <b>Status:</b>
 
-                                    {{ $batch->approval_status ? $batch->approval_status : '' }}
-
-
-                                    @if ($batch->approval_status == 'Pending')
+                                @if ($batch->approval_status === 'Pending')
+                                    <span>
                                         <form method="POST"
-                                            action="{{ route('approve.batch', $batch->id ?? $batch->pk_dcp_batches_id) }}"
+                                            action="{{ url('Admin/DCPBatch/' . $batch->pk_dcp_batches_id . '/approve') }}"
                                             style="display:inline;">
                                             @csrf
                                             <button type="submit"
-                                                class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-green-600 rounded hover:bg-green-700 {{ strtoupper($batch->submission_status) === 'APPROVED' ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                                {{ strtoupper($batch->submission_status) === 'APPROVED' ? 'disabled' : '' }}>
+                                                class=" text-center px-3 py-1 text-md font-normal text-white bg-green-600 rounded hover:bg-green-700"
+                                                {{ $batch->approval_status === 'Approved' ? 'disabled' : '' }}>
                                                 Approve
                                             </button>
                                         </form>
-                                    @elseif ($batch->approval_status == 'Approved')
-                                        <span class="text-green-600 font-bold">{{ $batch->date_approved }}</span>
-                                    @else
-                                        <span class="text-blue-600">For Submission</span>
-                                    @endif
-                                </div>
+                                    </span>
+                                @elseif ($batch->approval_status === 'Approved')
+                                    <span class="text-green-600 font-bold">Approved: {{ $batch->date_approved }}</span>
+                                @else
+                                    <span class="text-blue-600">For Submission</span>
+                                @endif
+                            </div>
 
-                            </td>
 
-                            <td class="px-4 py-3 flex flex-wrap gap-2">
-
+                            <!-- Action Buttons -->
+                            <div class="flex flex-wrap gap-2">
                                 <a href="{{ route('index.items', $batch->id ?? $batch->pk_dcp_batches_id) }}"
-                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
+                                    class="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">
                                     Items
                                 </a>
-                                <a
-                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-yellow-500 rounded hover:bg-yellow-600">
+
+                                <a class="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600">
                                     Edit
                                 </a>
 
-                                <button type="button" onclick="deleteBatch(<?= $batch->pk_dcp_batches_id ?>)"
-                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600">
+                                <button type="button" onclick="deleteBatch({{ $batch->pk_dcp_batches_id }})"
+                                    class="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600">
                                     Delete
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
 
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+            <div class="mt-4">
+                {{ $dcpBatches->links() }}
+            </div>
+        </div>
+        <div id="school-batch-list" style="display:none">
+            <table class="table">
+                <thead class=" text-gray-700 uppercase text-sm">
+                    <tr>
+                        <th class="bg-gray-200">No.</th>
+                        <th class="bg-gray-200">School Name</th>
+                        <th style="text-align: center">School Level</th>
+                        <th style="text-align: center">Total Batch Received</th>
+                        <th style="text-align: center">Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-school"></tbody>
             </table>
         </div>
     </div>
+    <script>
+        function showContainer1() {
+            document.getElementById("batch-list-display").style.display = "block";
+            document.getElementById("school-batch-list").style.display = "none";
+
+            // Button color toggle
+            document.getElementById("btnBatchList").classList.add("bg-blue-600");
+            document.getElementById("btnBatchList").classList.remove("bg-gray-400");
+
+            document.getElementById("btnSchoolBatch").classList.add("bg-gray-400");
+            document.getElementById("btnSchoolBatch").classList.remove("bg-blue-600");
+        }
+
+        function showContainer2() {
+            document.getElementById("batch-list-display").style.display = "none";
+            document.getElementById("school-batch-list").style.display = "block";
+
+            // Button color toggle
+            document.getElementById("btnSchoolBatch").classList.add("bg-blue-600");
+            document.getElementById("btnSchoolBatch").classList.remove("bg-gray-400");
+
+            document.getElementById("btnBatchList").classList.add("bg-gray-400");
+            document.getElementById("btnBatchList").classList.remove("bg-blue-600");
+        }
+
+        // Optional: Set initial active state
+        showContainer1();
+    </script>
+    <script>
+        async function loadSchools() {
+
+            const response = await fetch('/Admin/api/schools-with-packages');
+            const res = await response.json();
+            const data = res.schools;
+            const tbody = document.getElementById('tbody-school');
+            data.forEach((school, index) => {
+                const row = document.createElement('tr');
+                row.classList.add('school-rows');
+                row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${school.SchoolName}</td>
+                <td style="text-align:center">${school.SchoolLevel}</td>
+                <td class="${school.TotalBatch == 0 ? 'bg-red-200 border border-gray-300' : ''}" style="text-align:center; ">
+                    ${school.TotalBatch}
+                </td>
+               <td style="text-align:center">
+                ₱ ${Number(school.TotalCost).toLocaleString('en-PH', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                </td>
+
+
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+        loadSchools();
+    </script>
 
     <!-- Only load jQuery and Select2 once, and initialize after both are loaded -->
     <script>
@@ -487,6 +623,199 @@
                 $('#school-email').val(email);
             });
         });
+
+        // Add form submission
+        const form = document.getElementById('dcp_add_form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+
+                fetch('/Admin/DCPBatch/store', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const resultDiv = document.getElementById('result');
+                            const resultMsg = document.getElementById('result-message');
+                            resultMsg.innerText = "Batch saved: " + data.data.batch_label;
+                            resultDiv.classList.remove('hidden');
+                            form.reset();
+                            $('#searchBatch').val(''); // clear search bar if needed
+                            $('#searchBatch').trigger('keyup'); // trigger table refresh
+                        } else {
+                            alert('Error: ' + (data.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while submitting the form.');
+                    });
+            });
+        }
+
+        // School email autofill
+        const schoolSelect = document.querySelector('select[name="school_id"]');
+        const emailInput = document.getElementById('school-email');
+        if (schoolSelect && emailInput) {
+            schoolSelect.addEventListener('change', function() {
+                const selected = schoolSelect.options[schoolSelect.selectedIndex];
+                emailInput.value = selected.getAttribute('data-email') || '';
+            });
+            if (schoolSelect.value) {
+                const selected = schoolSelect.options[schoolSelect.selectedIndex];
+                emailInput.value = selected.getAttribute('data-email') || '';
+            }
+        }
+
+
+        // Delete batch function (global)
+        function deleteBatch(batchId) {
+            if (confirm('Are you sure you want to delete this batch?')) {
+                fetch(`/Admin/DCPBatch/${batchId}/delete`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = document.getElementById(`card-${batchId}`);
+                            if (row) {
+                                row.innerHTML = `
+                        <td colspan="100%" class="bg-green-100 text-green-700 text-center py-4 rounded">
+                            <svg class="w-6 h-6 inline-block mr-2 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            DCP Batch deleted successfully!
+                        </td>
+                    `;
+                            }
+                        } else {
+                            alert('Error deleting batch');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+
+
+        }
     </script>
-    <script src="{{ asset('js/dcp-batch/dcp_batch.js') }}"></script>
+
+    <script>
+        $('#searchBatch').on('keyup', function() {
+            const keyword = $(this).val();
+
+            $.ajax({
+                url: '/Admin/DCPBatch/search',
+                type: 'GET',
+                data: {
+                    query: keyword
+                },
+                success: function(data) {
+                    let cards = '';
+                    if (data.length > 0) {
+
+                        // Sort descending by id
+                        data.sort((a, b) => b.pk_dcp_batches_id - a.pk_dcp_batches_id);
+
+                        data.forEach((batch, index) => {
+                            const approved = (batch.submission_status ?? '').toUpperCase() ===
+                                'APPROVED';
+                            cards += `
+                                    <div id="card-${batch.pk_dcp_batches_id}"
+                                        class="bg-white border border-gray-200 rounded-lg shadow-md p-4 hover:shadow-lg transition flex flex-col"
+                                        x-data="{ open: false }">
+
+                                        <!-- Clickable header -->
+                                        <div @click="open = !open" class="cursor-pointer">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-2">
+                                              <div class="flex items-center gap-2">
+                                <span
+                                    class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-medium text-sm md:text-base">
+                                                ${index + 1}
+                                </span>
+                                <span class="text-gray-900 font-medium">
+                                    ${batch.batch_label }
+                                </span>
+                            </div>
+                                                ${
+                                                    batch.approval_status === 'Pending'
+                                                    ? `<span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            For Approval
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span>`
+                                                    : batch.approval_status === 'Approved'
+                                                        ? `<span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Approved: ${batch.date_approved}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span>`
+                                                        : `<span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                For Submission
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span>`
+                                                }</h3>
+                                            <p class="text-sm text-gray-700 mb-1">
+                                                <b>Recipient:</b> ${batch.school_name ?? 'N/A'} - ${batch.school_level ?? 'N/A'}
+                                            </p>
+                                        </div>
+
+                                        <!-- Collapsible section -->
+                                        <div x-show="open" x-collapse>
+                                            <p class="text-sm text-gray-600 mb-1"><b>Description:</b> ${batch.description}</p>
+                                            <p class="text-sm text-gray-600 mb-1"><b>Delivery:</b> ${batch.delivery_date ?? 'N/A'}</p>
+                                           <div class="text-sm text-gray-600 mb-3">
+                                            <b>Status:</b>
+                                            ${
+                                                batch.approval_status === 'Pending'
+                                                ? `
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <form method="POST" action="Admin/DCPBatch/${batch.pk_dcp_batches_id}/approve" style="display:inline;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button type="submit"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="text-center px-3 py-1 text-md font-normal text-white bg-green-600 rounded hover:bg-green-700 ${batch.approval_status === 'Approved' ? 'opacity-50 cursor-not-allowed' : ''}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ${batch.approval_status === 'Approved' ? 'disabled' : ''}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Approve
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                `
+                                                : batch.approval_status === 'Approved'
+                                                    ? `<span class="text-green-600 font-bold">Approved: ${batch.date_approved}</span>`
+                                                    : `<span class="text-blue-600">For Submission</span>`
+                                            }
+                                        </div>
+
+                                            <div class="flex flex-wrap gap-2 mt-auto">
+                                                <a href="/dcp-batch/${batch.pk_dcp_batches_id}/items"
+                                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
+                                                    Items
+                                                </a>
+                                                <a class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                                                    Edit
+                                                </a>
+                                                <button onclick="deleteBatch(${batch.pk_dcp_batches_id})"
+                                                    class="min-w-[80px] text-center px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded hover:bg-red-600">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `;
+
+                        });
+                    } else {
+                        cards =
+                            `<p class="col-span-full text-center text-gray-500">No results found.</p>`;
+                    }
+                    $('#batchCardContainer').html(cards); // target your card grid container
+                }
+            });
+        });
+    </script>
 @endsection

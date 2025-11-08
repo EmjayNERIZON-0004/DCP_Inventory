@@ -18,6 +18,37 @@ use Illuminate\Support\Facades\Validator;
 
 class DCPBatchController extends Controller
 {
+    public function getSchoolsWithPackages()
+    {
+        $schools = School::with(['dcpBatches.dcpBatchItems'])
+            ->withCount('dcpBatches')
+            ->orderBy('SchoolName')
+            ->get();
+
+        $result = $schools->map(function ($school) {
+            // Compute total cost for this school
+            $totalCost = $school->dcpBatches
+                ->flatMap->dcpBatchItems
+                ->sum(function ($item) {
+                    return floatval($item->unit_price ?? 0);
+                });
+
+            return [
+                'SchoolName'  => $school->SchoolName,
+                'SchoolLevel' => $school->SchoolLevel,
+                'TotalBatch'  => $school->dcp_batches_count ?? 0,
+                'TotalCost'   => $totalCost
+            ];
+        });
+
+        // Compute overall total across all schools
+        $overallTotal = $result->sum('TotalCost');
+
+        return response()->json([
+            'schools' => $result,
+            'overall_total_cost' => $overallTotal
+        ]);
+    }
     public function approve($id)
     {
         $batch = DCPBatch::findOrFail($id);
@@ -50,11 +81,14 @@ class DCPBatchController extends Controller
                 'dcp_batch_approval.status as approval_status'
             )
             ->orderBy('dcp_batches.delivery_date', 'desc')
-            ->get();
+            ->paginate(20)->withQueryString();
 
 
         $schools = School::all();
-        return view('AdminSide.DCPBatch.Batch', compact('dcpBatches', 'packageTypes', 'schools'));
+        $total_pending = DCPBatchApproval::where('status', 'Pending')->count();
+        $total_approved = DCPBatchApproval::where('status', 'Approved')->count();
+        $total_batches = DCPBatch::all()->count();
+        return view('AdminSide.DCPBatch.Batch', compact('dcpBatches', 'packageTypes', 'schools', 'total_pending', 'total_approved', 'total_batches'));
     }
 
 
@@ -93,6 +127,7 @@ class DCPBatchController extends Controller
 
     public function storeBatchItem($batchId, DCPPackageContent $packageContent)
     {
+
         $batch = DCPBatch::findOrFail($batchId);
         $packageType = DCPPackageTypes::findOrFail($batch->dcp_package_type_id);
         $itemType = DCPItemTypes::findOrFail($packageContent->dcp_item_types_id);
@@ -128,8 +163,9 @@ class DCPBatchController extends Controller
                 'dcp_batch_id' => $batch->pk_dcp_batches_id,
                 'item_type_id' => $itemType->pk_dcp_item_types_id,
                 'generated_code' => $generatedCode,
+                'unit_price' => $packageContent->unit_price,
                 'unit' => 'unit ',
-                'brand' => $brand->brand_name,
+                'brand' => $brand->pk_dcp_batch_item_brands_id,
                 'quantity' => 1
             ]);
             DCPItemWarrantyStatus::create([

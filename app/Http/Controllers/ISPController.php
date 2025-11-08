@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ISP\ISPAreaAvailable;
 use App\Models\ISP\ISPAreaDetails;
 use App\Models\ISP\ISPConnectionType;
+use App\Models\ISP\ISPDetails;
 use App\Models\ISP\ISPInternetQuality;
 use App\Models\ISP\ISPList;
 use Exception;
@@ -65,6 +66,21 @@ class ISPController extends Controller
             return redirect()->back()->with('error', 'Oops there was problem with your request.' . $e);
         }
     }
+    function storeISPQuality(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_quality' => 'string|required'
+        ]);
+        try {
+            $isp_create = ISPInternetQuality::create([
+                'name' => $validated['isp_quality']
+            ]);
+
+            return redirect()->route('isp.index.list')->with('success', 'New ISP Quality has been added.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops there was problem with your request.' . $e);
+        }
+    }
     function updateISPList(Request $request)
     {
         $validated = $request->validate([
@@ -99,6 +115,25 @@ class ISPController extends Controller
             return redirect()->back()->with('error', 'Oops, there was unexpected error in your request' . $e);
         }
     }
+    function updateISPQuality(Request $request)
+    {
+        $validated = $request->validate([
+            'isp_quality_id' => 'required|integer',
+            'isp_quality_name' => 'required|string'
+        ]);
+
+        try {
+            $list = ISPInternetQuality::findOrFail($validated['isp_quality_id']);
+            $list->update([
+                'name' => $validated['isp_quality_name']
+            ]);
+            return redirect()->back()->with('success', 'The ISP Quality has been updated.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Oops, there was unexpected error in your request' . $e);
+        }
+    }
+
+
     function updateArea(Request $request)
     {
         $validated = $request->validate([
@@ -140,6 +175,17 @@ class ISPController extends Controller
             return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
         }
     }
+    function deleteISPQuality(int $isp_quality_id)
+    {
+
+        try {
+            $deleteConn = ISPInternetQuality::findOrFail($isp_quality_id);
+            $deleteConn->delete();
+            return response()->json(['message' => 'The ISP Quality has been deleted']);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
+        }
+    }
     function deleteArea(int $isp_area_id)
     {
 
@@ -149,6 +195,49 @@ class ISPController extends Controller
             return response()->json(['message' => 'The ISP Area has been deleted']);
         } catch (Exception $e) {
             return response()->json(['message' => 'Oops.. Deleting this object has been failed']);
+        }
+    }
+    function show()
+    {
+        $isp_content = ISPDetails::with([
+            'ispList',
+            'ispConnectionType',
+            'ispInternetQuality',
+            'school',
+            'ispPurpose',
+            'ispAreaDetails',
+            'ispSpeedTest'
+        ])
+            ->join('schools', 'isp_details.school_id', '=', 'schools.pk_school_id')
+            ->orderBy('schools.SchoolName', 'asc')->get()->groupBy('school_id');
+        return view('AdminSide.ISP.show', compact('isp_content'));
+        dd($isp_content);
+    }
+    /*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * Search for ISP details based on school name
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    /*******  164fd6ed-aa56-4020-aa0a-0b1cccb3d0a8  *******/    public function search(Request $request)
+    {
+        try {
+            $search = $request->input('query');
+            $isp_content = ISPDetails::with([
+                'ispList',
+                'ispConnectionType',
+                'ispInternetQuality',
+                'school',
+                'ispPurpose',
+                'ispAreaDetails.ispAreaAvailable',
+                'ispSpeedTest'
+            ])->whereHas('school', function ($q) use ($search) {
+                $q->where('SchoolName', 'like', "%{$search}%");
+            })->join('schools', 'isp_details.school_id', '=', 'schools.pk_school_id')
+                ->orderBy('schools.SchoolName', 'asc')->get()->groupBy('school_id');
+            return response()->json($isp_content);
+        } catch (Exception $e) {
         }
     }
 }

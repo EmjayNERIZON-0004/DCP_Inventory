@@ -44,8 +44,8 @@ class DCPSchoolsInventoryController extends Controller
 
         $batches = $query->get();
 
-        // Transform for Blade view
-        $school_items = $batches->map(function ($batch) {
+
+        $school_items_count = $batches->map(function ($batch) {
             return [
                 'batch_label' => $batch->batch_label,
                 'school_name' => $batch->school->SchoolName ?? 'Unknown',
@@ -53,10 +53,13 @@ class DCPSchoolsInventoryController extends Controller
             ];
         });
         // dd($school_items);
+        $school_items = $query->orderBy('budget_year', 'desc')->paginate(10);
+        // dd($school_items);
         return view('AdminSide.SchoolsInventory.inventory', compact(
             'schools',
             'school_items',
             'selectedSchool',
+            'school_items_count',
             'budgetYears',
             'selectedBudgetYear'
         ));

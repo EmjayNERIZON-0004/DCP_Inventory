@@ -13,6 +13,10 @@ class DCPBatchItemBrand extends Model
         'created_at',
         'updated_at',
     ];
+    public function batch_item()
+    {
+        return $this->hasMany(DCPBatchItem::class, 'brand', 'pk_dcp_batch_item_brands_id');
+    }
     public function dcpPackageContent()
     {
         return $this->hasMany(DCPPackageContent::class, 'dcp_batch_item_brands_id', 'pk_dcp_batch_item_brands_id');
