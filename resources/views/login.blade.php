@@ -53,7 +53,7 @@
             @if ($errors->any())
                 <div class="mb-4">
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        Incorrect Login Credentials<br>
+                        Incorrect Login Credentials, Please Try Again<br>
                         <ul class="mt-2 list-disc list-inside text-sm">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
