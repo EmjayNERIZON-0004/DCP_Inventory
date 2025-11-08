@@ -19,7 +19,8 @@ class DCPItemTypesController extends Controller
     public function index()
     {
 
-        $itemTypes = DCPItemTypes::all(); // Fetch all item types from the database
+        $itemTypes = DCPItemTypes::orderBy('name', 'asc')->get();
+        // Fetch all item types from the database
         return view('AdminSide.DCPBatch.ItemTypes', compact('itemTypes'));
     }
     public function store(Request $request)
@@ -54,6 +55,17 @@ class DCPItemTypesController extends Controller
         $itemType->save();
 
         return redirect()->back()->with('success', 'Item Type updated successfully!');
+    }
+    public function search_item_type(Request $request)
+    {
+        $keyword = $request->query('query');
+
+        $results = DCPItemTypes::where('code', 'like', "%{$keyword}%")
+            ->orWhere('name', 'like', "%{$keyword}%")
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json($results);
     }
 
     public function storeDeliveryMode(Request $request)

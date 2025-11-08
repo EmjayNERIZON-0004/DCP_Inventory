@@ -16,7 +16,9 @@ class SchoolUser extends Authenticatable
         'username',
         'email',
         'password',
-        'default_password'
+        'default_password',
+        'password_change_at',
+        'last_login',
     ];
 
     protected $hidden = [

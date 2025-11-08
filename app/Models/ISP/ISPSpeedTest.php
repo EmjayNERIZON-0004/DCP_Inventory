@@ -18,6 +18,6 @@ class ISPSpeedTest extends Model
     ];
     public function ispDetails()
     {
-        return $this->belongsTo(ISPDetails::class, 'isp_speed_test_id', 'pk_isp_speed_test_id');
+        return $this->belongsTo(ISPDetails::class, 'isp_details_id', 'pk_isp_details_id');
     }
 }

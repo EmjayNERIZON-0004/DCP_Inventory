@@ -18,8 +18,8 @@ $('#searchBatchItem').on('keyup', function () {
     
     <td class="px-4 py-2 w-fit border border-gray-300">
         <a href="/School/dcp-batch/${item.pk_dcp_batch_items_id}/warranty" 
-           class="text-green-600 rounded whitespace-nowrap py-1 underline hover:text-green-700">
-           Show Status
+           class="text-gray-800 bg-green-200 rounded whitespace-nowrap py-1 px-2  hover:bg-green-600 hover:text-white border border-gray-800">
+           Show Warranty
         </a>
     </td>
     
@@ -31,8 +31,8 @@ $('#searchBatchItem').on('keyup', function () {
     
     <td class="px-4 py-2 w-fit border border-gray-300">
         <a href="/School/DCPInventory/${item.generated_code}" 
-           style="font-size:16px"
-           class="text-xs font-semibold text-blue-500 rounded hover:text-blue-600 underline">
+         
+           class="text-md  bg-blue-200   text-gray-800 border border-gray-800 px-2 py-1 hover:bg-blue-600 rounded hover:text-white  ">
            Show More
         </a>
     </td>

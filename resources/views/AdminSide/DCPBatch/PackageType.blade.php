@@ -29,25 +29,17 @@
         <!-- Modal Content -->
         <div id="create-form-section"
             class="bg-white shadow-xl rounded-lg overflow-hidden
-             border border-green-700 p-6 w-full max-w-4xl relative"
+             border border-gray-300 p-6 w-full max-w-4xl relative mx-5"
             style="max-height: 80vh; overflow-y: auto;">
             <button type="button" onclick="cancelCreate()"
                 class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
             <form id="create-form" action="{{ route('store.package_type') }}" method="POST"> @csrf
                 <h2 class="text-2xl font-bold  w-full text-center md:text-left"> DCP Package Details
 
-                    <span class="bg-green-600 text-white py-1 px-2 rounded-xl text-sm font-semibold">New</span>
+                    <span class="bg-blue-600 text-white py-1 px-2 rounded-xl text-sm font-semibold">New</span>
                 </h2>
                 <div class="flex justify-center md:justify-start  ">
-                    {{-- <div class="rounded-full bg-green-100 p-3 shadow-md flex items-center justify-center"
-                        style="width: 130px; height: 130px;">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            class="w-16 h-16 text-green-700 stroke-current">
-                            <path
-                                d="M20.5 7.27783L12 12.0001M12 12.0001L3.49997 7.27783M12 12.0001L12 21.5001M14 20.889L12.777 21.5684C12.4934 21.726 12.3516 21.8047 12.2015 21.8356C12.0685 21.863 11.9315 21.863 11.7986 21.8356C11.6484 21.8047 11.5066 21.726 11.223 21.5684L3.82297 17.4573C3.52346 17.2909 3.37368 17.2077 3.26463 17.0893C3.16816 16.9847 3.09515 16.8606 3.05048 16.7254C3 16.5726 3 16.4013 3 16.0586V7.94153C3 7.59889 3 7.42757 3.05048 7.27477C3.09515 7.13959 3.16816 7.01551 3.26463 6.91082C3.37368 6.79248 3.52345 6.70928 3.82297 6.54288L11.223 2.43177C11.5066 2.27421 11.6484 2.19543 11.7986 2.16454C11.9315 2.13721 12.0685 2.13721 12.2015 2.16454C12.3516 2.19543 12.4934 2.27421 12.777 2.43177L20.177 6.54288C20.4766 6.70928 20.6263 6.79248 20.7354 6.91082C20.8318 7.01551 20.9049 7.13959 20.9495 7.27477C21 7.42757 21 7.59889 21 7.94153L21 12.5001M7.5 4.50008L16.5 9.50008M19 21.0001V15.0001M16 18.0001H22"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div> --}}
+
                 </div>
                 <div class=" flex flex-col md:flex-row gap-4  w-full">
                     <div class="w-full md:w-1/3">
@@ -128,17 +120,30 @@
                                     class="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="quantity" name="quantity[]" required>
                             </div>
+                            <div class="w-full md:w-1/3">
+                                <label for="unit_price" class="block text-gray-700    font-semibold  mb-2 w-full">Unit
+                                    Price</label>
+                                <input type="number" step="0.01"
+                                    class="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="unit_price" name="unit_price[]" required>
+
+
+                            </div>
                             <div class="w-full md:w-1/3 flex items-end">
-                                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white   py-1 px-2 rounded"
+                                <button type="button"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white  shadow-md py-1 px-2 rounded"
                                     id="add-package-content">Add More Item</button>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <button type="submit" class="bg-green-700 hover:bg-green-700 text-white   py-1 px-2 rounded">Create New
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white  shadow-md py-1 px-2 rounded">Create
+                    New
                     Package
                 </button>
+                <button onclick="cancelCreate()"
+                    class="bg-gray-400 hover:bg-gray-600 text-white py-1 px-4 rounded ml-1 shadow-md">Cancel</button>
             </form>
         </div>
     </div>
@@ -164,7 +169,7 @@
         class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
         <!-- Modal Content -->
         <div id="insert-form-section"
-            class="bg-white shadow-xl rounded-lg overflow-hidden border border-blue-500 p-6 w-full max-w-2xl relative">
+            class="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-300 p-6 w-full max-w-4xl relative mx-5">
             <button type="button" onclick="cancelInsert()"
                 class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
             <form id="insert-form" method="POST" action="{{ route('insert.package_item') }}">
@@ -172,45 +177,57 @@
                 <input type="hidden" name="insert_package_id" id="insert_package_id">
 
                 <h2 class="text-2xl font-bold mb-2">Insert Item to <span class="insert_package_name font-semibold"></span>
-                    <span class="bg-blue-600 text-white py-1 px-2 rounded-xl text-sm font-semibold">Insert</span>
+                    <span class="bg-green-600 text-white py-1 px-2 rounded-xl text-sm font-semibold">Insert</span>
                 </h2>
 
                 <div class="flex flex-col md:flex-row gap-4 mb-4 w-full">
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">Package Content</label>
-                        <select name="insert_package_content_id" id="insert_package_content_id"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            required>
-                            <option value="">-- Select Content --</option>
-                            @foreach ($itemTypes as $itemType)
-                                <option value="{{ $itemType->pk_dcp_item_types_id }}">{{ $itemType->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="w-full">
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Package Content</label>
+                            <select name="insert_package_content_id" id="insert_package_content_id"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                                <option value="">-- Select Content --</option>
+                                @foreach ($itemTypes as $itemType)
+                                    <option value="{{ $itemType->pk_dcp_item_types_id }}">{{ $itemType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Brand</label>
+                            <select name="insert_item_brand_id" id="insert_item_brand_id"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                                <option value="">-- Select Brand --</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->pk_dcp_batch_item_brands_id }}">{{ $brand->brand_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">Brand</label>
-                        <select name="insert_item_brand_id" id="insert_item_brand_id"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            required>
-                            <option value="">-- Select Brand --</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{ $brand->pk_dcp_batch_item_brands_id }}">{{ $brand->brand_name }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div class="w-full">
+                        <div class="w-full ">
+                            <label class="block text-gray-700 font-semibold mb-2">Quantity</label>
+                            <input type="number" name="insert_quantity" id="insert_quantity"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                        </div>
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Unit Price</label>
+                            <input type="number" step="0.01" name="insert_unit_price" id="insert_unit_price"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                        </div>
                     </div>
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">Quantity</label>
-                        <input type="number" name="insert_quantity" id="insert_quantity"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            required>
-                    </div>
+
                 </div>
 
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded">Insert
+                <button type="submit"
+                    class="bg-green-600 shadow-md hover:bg-green-700 text-white py-1 px-4 rounded">Insert
                     Item</button>
                 <button type="button" onclick="cancelInsert()"
-                    class="bg-gray-400 hover:bg-gray-600 text-white py-1 px-4 rounded ml-1">Cancel</button>
+                    class="bg-gray-400 hover:bg-gray-600 text-white py-1 shadow-md px-4 rounded ml-1">Cancel</button>
             </form>
         </div>
     </div>
@@ -261,7 +278,7 @@
         class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
         <!-- Modal Content -->
         <div id="edit-form-section"
-            class="bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-yellow-500 w-full max-w-4xl relative">
+            class="bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-gray-300 w-full max-w-4xl relative mx-5">
             <button type="button" onclick="cancelEdit()"
                 class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
             <form id="edit-form" method="POST" action="{{ route('update.package_type') }}">
@@ -276,175 +293,228 @@
                 <input type="hidden" name="package_id" id="package_id">
 
                 <div class="flex flex-col md:flex-row gap-4 mb-4 w-full">
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">DCP Package Name</label>
-                        <input type="text" name="package_name"
-                            class="package_name shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            readonly>
+                    <div class="w-full">
+                        <div class="w-full ">
+                            <label class="block text-gray-700 font-semibold mb-2">DCP Package Name</label>
+                            <input type="text" name="package_name"
+                                class="package_name shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                readonly>
+                        </div>
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">DCP Package Content</label>
+                            <select name="package_content_name" id="package_content_name"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+                                <option value="">-- Select Content --</option>
+                                @foreach ($itemTypes as $itemType)
+                                    <option value="{{ $itemType->pk_dcp_item_types_id }}">{{ $itemType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Brand</label>
+                            <select name="edit_item_brand_id" id="edit_item_brand_id"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                                <option value="">-- Select Brand --</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->pk_dcp_batch_item_brands_id }}">{{ $brand->brand_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">DCP Package Content</label>
-                        <select name="package_content_name" id="package_content_name"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
-                            <option value="">-- Select Content --</option>
-                            @foreach ($itemTypes as $itemType)
-                                <option value="{{ $itemType->pk_dcp_item_types_id }}">{{ $itemType->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="w-full">
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Item Quantity</label>
+                            <input type="text" name="quantity" id="edit-quantity"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                required>
+                        </div>
+                        <div class="w-full  ">
+                            <label class="block text-gray-700 font-semibold mb-2">Item Price</label>
+                            <input type="number" name="unit_price" id="edit-unit_price"
+                                class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                                step="0.01" min="0" required>
+
+                        </div>
                     </div>
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">Brand</label>
-                        <select name="edit_item_brand_id" id="edit_item_brand_id"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            required>
-                            <option value="">-- Select Brand --</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{ $brand->pk_dcp_batch_item_brands_id }}">{{ $brand->brand_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-gray-700 font-semibold mb-2">Item Quantity</label>
-                        <input type="text" name="quantity" id="edit-quantity"
-                            class="shadow border border-gray-400 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                            required>
-                    </div>
+
                 </div>
 
-                <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4 rounded">Update
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded shadow-md">Update
                     Package</button>
                 <button type="button" onclick="cancelEdit()"
-                    class="bg-gray-400 hover:bg-gray-600 text-white py-1 px-4 rounded ml-1">Cancel</button>
+                    class="bg-gray-400 hover:bg-gray-600 text-white py-1 px-4 rounded ml-1 shadow-md">Cancel</button>
             </form>
         </div>
     </div>
 
 
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5"
-        style="  border-radius: 8px;font-family: Verdana, Geneva, Tahoma, sans-serif;    overflow-x: auto;
-             -webkit-overflow-scrolling: touch;">
-
-
-
+    <div class="bg-white border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
+        style="border-radius: 8px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
         @php
             $groupedPackages = $packages->groupBy('package_name');
             $colors = ['#C9E4CA', '#F7D2C4', '#C5CAE9', '#F2C464'];
             $colorIndex = 0;
         @endphp
-        <div class="flex justify-between">
-            <div>
-                <h2 class="text-2xl font-bold "> DCP Packages Offered</h2>
-                <div class="text-md text-gray-600  mb-5">List of Package Type with Item Content</div>
-            </div>
-            <div>
-                <button type="button" onclick="showCreateForm()"
-                    class="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded mb-4">
-                    Create New Package
-                </button>
 
+        <div class="flex justify-between md:flex-row flex-col   mb-6">
+            <div class="w-full">
+                <h2 class="text-2xl font-bold text-gray-700">DCP Package List</h2>
+                <p class="text-md text-gray-600">List of Package Type with Item Content</p>
             </div>
+            <div class="w-full flex md:justify-end items-center justify-start">
+                <button type="button" onclick="showCreateForm()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded shadow-md font-medium">
+                    + Create New Package
+                </button>
+            </div>
+
+
+
         </div>
+
         @if ($packages->isEmpty())
             <div class="text-center text-gray-500 py-8">No packages found.</div>
         @else
-            <table class="table" style="border: 1px solid #ddd;
-            ">
-                <thead>
-                    <tr>
-                        <th class="bg-gray-700">Package </th>
-                        <th class="bg-gray-700">Package Items</th>
-                        <th class="bg-gray-700">Brand</th>
-                        <th class="bg-gray-700" style="text-align:center">Quantity</th>
-                        <th class="bg-gray-700 text-center" style="text-align: center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($groupedPackages as $packageName => $items)
-                        @php
-                            $rowspan = $items->count();
-                            $color = $colors[$colorIndex % count($colors)];
-                            $colorIndex++;
-                        @endphp
+            <div class="text-sm text-gray-700">List of DCP Packages</div>
 
-                        @foreach ($items as $index => $package)
-                            <tr>
-                                @if ($index === 0)
-                                    <td class="border border-gray-700" style="  background-color: {{ $color }};"
-                                        rowspan="{{ $rowspan }}">
-                                        {{ $packageName }}
-                                        <div class="mt-2"><button type="button"
-                                                onclick="showInsertForm('{{ $package->dcp_packages_id }}', '{{ $packageName }}')"
-                                                class="text-blue-500 hover:text-blue-700 underline">
-                                                Insert Item
-                                            </button></div>
+            <div class="grid grid-cols-1  gap-6">
+                @foreach ($groupedPackages as $packageName => $items)
+                    @php
+                        $color = $colors[$colorIndex % count($colors)];
+                        $colorIndex++;
+                    @endphp
+                    <div class="rounded-sm shadow-lg overflow-hidden border border-gray-300" x-data="{ open: false }">
+                        <!-- Header -->
+                        <div class="p-4 flex justify-between md:flex-row flex-col items-center gap-2">
+                            <h3
+                                class="flex items-center justify-center md:justify-start gap-2 text-lg font-bold text-gray-800">
+                                <span
+                                    class="flex items-center justify-center min-w-8 w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-semibold">
+                                    {{ $loop->iteration }}
+                                </span>
+                                <span>{{ $packageName }}</span>
+                            </h3>
 
-                                        <form action="{{ route('delete.package_type', $package->dcp_packages_id) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                onclick="return confirm('Are you sure you want to delete this package?')"
-                                                class="text-red-500 hover:text-red-700 underline">Delete
-                                                Package</button>
-                                        </form>
-                                    </td>
-                                @endif
-                                <td class="border border-gray-700" style="  background-color: {{ $color }};">
-                                    {{ $package->item_name }}
 
-                                </td>
-                                <td class="border border-gray-700" style="  background-color: {{ $color }};">
+                            <div class="flex md:flex-row flex-col  md:space-x-2 space-x-0 md:space-y-0 space-y-2   ">
+                                <button type="button"
+                                    onclick="showInsertForm('{{ $items->first()->dcp_packages_id }}', '{{ $packageName }}')"
+                                    class="bg-green-600 shadow-md hover:bg-green-700 text-md rounded-md py-2 px-2 text-white  ">+
+                                    Insert Item
+                                </button>
+                                <form action="{{ route('delete.package_type', $items->first()->dcp_packages_id) }}"
+                                    method="post"
+                                    onsubmit="return confirm('Are you sure you want to delete this package?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-600 shadow-md hover:bg-red-800 text-md rounded-md py-2 px-3 text-white  flex items-center space-x-2">
+                                        <!-- Trash Icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                        <span>Delete Package</span>
+                                    </button>
 
-                                    @php
-                                        $brand_name = \App\Models\DCPBatchItemBrand::where(
-                                            'pk_dcp_batch_item_brands_id',
-                                            $package->dcp_batch_item_brands_id,
-                                        )->value('brand_name');
-                                    @endphp
-                                    {{ $brand_name }}
+                                </form>
+                                <!-- Toggle Button -->
+                                <button type="button" @click="open = !open"
+                                    class="bg-gray-500 shadow-md hover:bg-gray-600 text-md rounded-md py-2 px-2 text-white  ">
+                                    <span x-show="!open">⬇ Show Items</span>
+                                    <span x-show="open">⬆ Hide Items</span>
+                                </button>
+                            </div>
+                        </div>
+                        <style>
+                            [x-cloak] {
+                                display: none !important;
+                            }
+                        </style>
+                        <!-- Items (hidden initially) -->
+                        <div class="p-4 space-y-3 bg-white" x-show="open" x-collapse x-cloak>
 
-                                </td>
-                                <td
-                                    style="border: 1px solid #282828; background-color: {{ $color }};text-align:center">
-                                    {{ $package->quantity }}
-                                </td>
-                                <td
-                                    style="border: 1px solid #282828; background-color: {{ $color }}; width: 1%; white-space: nowrap;">
-                                    <div class="flex gap-2 flex-col md:flex-row" style="width: fit-content;  ">
-                                        <button type="button" style="border: 1px solid black"
-                                            onclick="showEditForm(
-                                            '{{ $package->dcp_packages_id }}',
-                                            '{{ $package->item_type_id }}',
-                                            '{{ $package->id }}',
-                                            '{{ $packageName }}',
-                                            '{{ $package->item_name }}',
-                                            `{{ $package->quantity }}`,
-                                            '{{ $package->dcp_batch_item_brands_id }}' // Pass brand ID here
-                                                  )"
-                                            class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4 rounded">
-                                            Edit Content
-                                        </button>
-                                        <form action="{{ route('delete.package_item', $package->id) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                onclick="return confirm('Are you sure you want to remove this item?')"
-                                                style="border:1px solid #282828"
-                                                class="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded">
-                                                Remove Item
-                                            </button>
-                                        </form>
+                            @foreach ($items as $index => $package)
+                                <div class="w-full shadow-sm border px-4 py-2  flex md:flex-row flex-col">
+                                    <div
+                                        class=" w-full flex   flex-col md:justify-between justify-start items-center   pb-2">
+                                        <div class="w-full  text-left  ">
+
+                                            <p class="font-semibold text-gray-700 text-left">
+                                                <span
+                                                    class="font-bold p-2 bg-blue-200 border border-blue-500 min-w-8 w-8 h-8 inline-flex items-center justify-center rounded-full">{{ $index + 1 }}.</span>
+                                                {{ $package->item_name }}
+                                            </p>
+                                            @php
+                                                $brand_name = \App\Models\DCPBatchItemBrand::where(
+                                                    'pk_dcp_batch_item_brands_id',
+                                                    $package->dcp_batch_item_brands_id,
+                                                )->value('brand_name');
+                                            @endphp
+                                            <p class="text-sm text-gray-500 text-left">Brand: {{ $brand_name }}</p>
+                                        </div>
+                                        <div class="  text-left  w-full ">
+                                            <p class="text-sm">Qty: <span
+                                                    class="font-bold">{{ $package->quantity }}</span>
+                                            </p>
+                                            <p class="text-sm">₱{{ number_format($package->unit_price, 2) }}</p>
+                                        </div>
                                     </div>
-                                </td>
+                                    <form action="{{ route('delete.package_item', $package->id) }}" method="post"
+                                        onsubmit="return confirm('Are you sure you want to remove this item?')">
 
-                            </tr>
-                        @endforeach
-                    @endforeach
-                </tbody>
-            </table>
+                                        <!-- Action buttons -->
+                                        <div
+                                            class="flex w-full   md:flex-col flex-row gap-2 mt-2 items-center justify-center">
+
+                                            <div class="w-full    flex">
+                                                <button type="button"
+                                                    onclick="showEditForm(
+                                                        '{{ $package->dcp_packages_id }}',
+                                                        '{{ $package->item_type_id }}',
+                                                        '{{ $package->id }}',
+                                                        '{{ $packageName }}',
+                                                        '{{ $package->item_name }}',
+                                                        `{{ $package->quantity }}`,
+                                                        '{{ $package->dcp_batch_item_brands_id }}',
+                                                        '{{ $package->unit_price }}'
+                                                    )"
+                                                    class="w-full text-center shadow-md bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded text-md">
+                                                    ✏ Edit
+                                                </button>
+                                            </div>
+
+                                            <div class="w-full    flex">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="flex w-full justify-center shadow-md items-center gap-1 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0h-2m-6 0H7m6-4h-2a1 1 0 00-1 1v1h4V4a1 1 0 00-1-1z" />
+                                                    </svg>
+                                                    Remove
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         @endif
     </div>
+
 
 
 
@@ -458,10 +528,12 @@
 
 
     <script>
-        function showEditForm(dcp_packages_id, item_type_id, id, package_name, package_content_name, quantity, brand_id) {
+        function showEditForm(dcp_packages_id, item_type_id, id, package_name, package_content_name, quantity, brand_id,
+            unit_price) {
             document.querySelectorAll('.package_name').forEach(el => el.value = package_name);
             document.getElementById('id').value = id;
             document.getElementById('edit-quantity').value = quantity;
+            document.getElementById('edit-unit_price').value = unit_price;
             document.getElementById('package_id').value = dcp_packages_id;
             document.getElementById('insert-form-section').classList.add('hidden');
             const select = document.getElementById('package_content_name');
@@ -552,10 +624,19 @@
                     class="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required>
             </div>
+
+               <div class="w-full md:w-1/3">
+                <label class="block text-gray-700 font-semibold mb-2">Unit Price</label>
+                <input type="number"
+                    name="unit_price[]"
+                    step="0.01"
+                    class="w-full shadow appearance-none border border-gray-400 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required>
+            </div>
             <!-- Remove Button -->
             <div class="w-full md:w-1/3 flex items-end">
                 <button type="button"
-                    class="remove-package-content bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded">
+                    class="remove-package-content shadow-md bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded">
                     Remove
                 </button>
             </div>

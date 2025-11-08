@@ -162,6 +162,7 @@
                             row.innerHTML = `
                             <td class="px-4 py-3 border-r border-gray-200"></td>
                             <td class="px-4 py-3 border-r border-gray-200">${item.generated_code}</td>
+                            <td class="px-4 py-3 border-r border-gray-200">${item.unit_price}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${item.quantity}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${item.unit}</td>
                             <td class="px-4 py-3 border-r border-gray-200">${item.condition_name ?? '--'}</td>
@@ -180,96 +181,43 @@
 
 
 
-    <div class= "bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5 mt-8">
+    <div class="bg-white shadow-xl rounded-lg border border-gray-500 overflow-hidden p-6 mx-5 my-5 mt-8">
+        <h2 class="text-2xl font-bold text-gray-800">Batch Items List</h2>
+        <div class="text-md text-gray-600 mb-5">For Viewing and Monitoring the items in the batch</div>
 
-        <h2 class="text-2xl font-bold text-gray-800  ">Batch Items List</h2>
-        <div class="text-md text-gray-600  mb-5">For Viewing and Monitoring the items in the batch</div>
-        <div class="flex justify-between mb-4 hidden">
-            <button onclick="openAddItemModal()" class="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Add New Item
-            </button>
-        </div>
+        @php
+            $groupedItems = $items->groupBy('item_type_id');
+        @endphp
 
+        <div class="space-y-6">
+            @foreach ($groupedItems as $typeId => $groupByType)
+                @php
+                    $itemType = $itemTypes->firstWhere('pk_dcp_item_types_id', $typeId);
+                    $itemTypeName = $itemType->name ?? 'Unknown Type';
+                    $groupedByName = $groupByType->groupBy('item_name');
+                @endphp
 
-        <button type="button"
-            class="px-6 py-1 hidden text-md bg-red-500 text-white rounded-md hover:bg-red-600 transition mb-4"
-            onclick="clearContent(<?= $batch->pk_dcp_batches_id ?>)">Clear All</button>
-        <script>
-            function clearContent(batchId) {
-                if (confirm("Are you sure you want to clear the content?")) {
-                    fetch(`/Admin/DCPBatch/${batchId}/items/clear`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('Content cleared successfully!');
-                                refreshItemsTable(batchId);
-                            } else {
-                                alert('Error clearing content: ' + data.message);
-                            }
-                        })
+                <!-- Group Header -->
+                <div class="border-l-4 border-blue-500 pl-3">
+                    <h3 class="text-xl font-semibold text-blue-700">{{ $itemTypeName }}</h3>
+                </div>
 
-                }
-            }
-        </script>
-        <div class="overflow-x-auto">
-            <table id="table_item" class="min-w-full border border-gray-400 text-sm text-left border border-gray-200"
-                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <thead class="bg-gray-700">
-                    <tr>
-                        <th class="px-4 py-3 text-white  ">Item Type</th>
-                        <th class="px-4 py-3 text-white  ">Generated Code</th>
-                        <th class="px-4 py-3 text-white ">Quantity</th>
-                        <th class="px-4 py-3 text-white  ">Unit</th>
-                        <th class="px-4 py-3 text-white  ">Condition</th>
-                        <th class="px-4 py-3 text-white  ">Brand</th>
-                        <th class="px-4 py-3 text-white  ">Serial Number</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-400">
-                    @php
-                        $groupedItems = $items->groupBy('item_type_id')->sortByDesc(function ($group) {
-                            return $group->count();
-                        });
-
-                        $bgColors = ['bg-blue-100', 'bg-green-100', 'bg-yellow-100', 'bg-purple-100', 'bg-pink-100'];
-                        $colorIndex = 0;
-                    @endphp
-
-                    @foreach ($groupedItems as $typeId => $group)
-                        @php
-                            $itemType = $itemTypes->firstWhere('pk_dcp_item_types_id', $typeId);
-                            $rowspan = $group->count();
-                            $bg = $bgColors[$colorIndex % count($bgColors)];
-                            $colorIndex++;
-                        @endphp
-
-                        @foreach ($group as $index => $item)
-                            <tr class="{{ $bg }}">
-                                {{-- Only print the item type cell on the first row --}}
-                                @if ($index === 0)
-                                    <td class="px-4 py-3 font-bold text-blue-900 border-r border-gray-400 align-top"
-                                        rowspan="{{ $rowspan }}">
-                                        {{ $itemType->name ?? $typeId }}
-                                    </td>
-                                @endif
-
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $item->generated_code }}</td>
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $item->quantity }}</td>
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $item->unit }}</td>
-                                <td class="px-4 py-3 border-r border-gray-400">
-                                    @php
-                                        $condition = $conditions->firstWhere(
-                                            'pk_dcp_delivery_conditions_id',
-                                            $item->condition_id,
-                                        );
-                                    @endphp
-                                    {{ $condition ? $condition->name : '--' }}
-                                </td>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach ($groupedByName as $itemName => $groupedItemsByName)
+                        @foreach ($groupedItemsByName as $item)
+                            <div
+                                class="bg-white shadow-md rounded-sm border border-gray-300 p-4 hover:shadow-lg transition">
+                                <h4 class="text-lg font-bold text-gray-800 mb-2">
+                                    {{ $itemName ?? 'Unnamed Item' }}
+                                </h4>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Generated Code:</span>
+                                    {{ $item->generated_code }}</p>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Price:</span>
+                                    ₱{{ number_format($item->unit_price, 2) }}</p>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Quantity:</span>
+                                    {{ $item->quantity }} {{ $item->unit }}</p>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Condition:</span>
+                                    {{ $item->dcpCondition->name ?? 'N/A' }}</p>
                                 @php
                                     $brandName = null;
                                     if ($item->brand) {
@@ -279,14 +227,44 @@
                                         )->value('brand_name');
                                     }
                                 @endphp
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $brandName ?? '--' }}</td>
-                                <td class="px-4 py-3 border-r border-gray-400">{{ $item->serial_number ?? '--' }}</td>
-                            </tr>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Brand:</span>
+                                    {{ $brandName ?? 'N/A' }}</p>
+                                <p class="text-sm text-gray-600"><span class="font-semibold">Serial No.:</span>
+                                    {{ $item->serial_number ?? 'N/A' }}</p>
+                            </div>
                         @endforeach
                     @endforeach
-
-                </tbody>
-            </table>
+                </div>
+            @endforeach
         </div>
     </div>
+
+
+
+    <button type="button"
+        class="px-6 py-1 hidden text-md bg-red-500 text-white rounded-md hover:bg-red-600 transition mb-4"
+        onclick="clearContent(<?= $batch->pk_dcp_batches_id ?>)">Clear All</button>
+    <script>
+        function clearContent(batchId) {
+            if (confirm("Are you sure you want to clear the content?")) {
+                fetch(`/Admin/DCPBatch/${batchId}/items/clear`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Content cleared successfully!');
+                            refreshItemsTable(batchId);
+                        } else {
+                            alert('Error clearing content: ' + data.message);
+                        }
+                    })
+
+            }
+        }
+    </script>
+
 @endsection
