@@ -30,6 +30,7 @@
             <!-- LEFT: Hero -->
             <div class="text-center lg:text-left md:space-y-6 space-y-1  ">
                 <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight md:inline   hidden">
+                    <img class="h-40 md:inline  hidden shadow-md" src="{{ asset('icon/header.png') }}" alt="">
                     <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;"
                         class="
                         
@@ -41,7 +42,6 @@
                         Schools
                     </span>
                 </h1>
-                <img class="h-40 md:inline  hidden shadow-md" src="{{ asset('icon/header.png') }}" alt="">
 
                 <p
                     class="text-green-100 text-base sm:text-lg lg:text-xl max-w-2xl leading-relaxed hidden md:block  hidden ">
