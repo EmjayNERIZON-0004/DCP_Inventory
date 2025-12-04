@@ -2,8 +2,15 @@
 <title>@yield('title', 'School Users')</title>
 
 @section('content')
+    <style>
+        button {
+            letter-spacing: 0.05rem;
+            font-weight: 500 !important;
+        }
+    </style>
     <div class="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-300 p-6  md:mx-5 md:my-5 mx-0 my-0">
-        <h2 class="text-2xl font-bold text-gray-700 mb-4" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4"
+            style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
             School User Account
         </h2>
 

@@ -49,7 +49,7 @@
                     fostering a productive environment!
                 </p>
             </div>
-            <h2 class="text-center text-xl font-semibold mb-4">Login Form</h2>
+
             @if ($errors->any())
                 <div class="mb-4">
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">

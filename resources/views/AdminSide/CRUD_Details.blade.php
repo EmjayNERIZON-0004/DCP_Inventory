@@ -2,6 +2,24 @@
  <title>@yield('title', 'DCP Dashboard')</title>
 
  @section('content')
+     <style>
+         button {
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             letter-spacing: 0.05rem;
+             font-weight: 500 !important;
+             border-radius: 5px !important;
+
+         }
+
+         th {
+             text-transform: uppercase;
+         }
+
+         td {
+             letter-spacing: 0.05rem;
+
+         }
+     </style>
      <div class="text-2xl font-semibold text-gray-800 mb-4 mx-5 my-5">Other Details</div>
      <div class="grid md:grid-cols-2 grid-cols-1 gap-6 mx-5 my-5">
          {{-- DELIVERY MODE  FOR THE DCP ITEMS/BATCH - CRUD --}}
@@ -22,13 +40,14 @@
 
                      <button
                          class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         id="delivery_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Add
+                         id="delivery_addBtn" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+                         type="submit">Add
                      </button>
 
 
                      <button id="delivery_updateBtn"
                          class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Update
                      </button>
 
 
@@ -37,7 +56,7 @@
              </form>
 
              <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
-                 <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto   w-full" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white">No.</th>
@@ -130,14 +149,14 @@
 
                      <button
                          class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         id="delivery_condition_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
+                         id="delivery_condition_addBtn" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
                          type="submit">Add
                      </button>
 
 
                      <button id="delivery_condition_updateBtn"
                          class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Update
                      </button>
 
 
@@ -146,7 +165,7 @@
              </form>
 
              <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
-                 <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto   w-full" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white ">No.</th>
@@ -242,14 +261,14 @@
                      <!-- Add Button -->
                      <button id="supplier_addBtn" type="submit"
                          class="px-4 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                          Add
                      </button>
 
                      <!-- Update Button -->
                      <button id="supplier_updateBtn" type="submit"
                          class="hidden px-4 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                          Update
                      </button>
                  </div>
@@ -259,7 +278,7 @@
 
 
              <div class="overflow-y-auto " style=" height:300px">
-                 <table class="table-auto w-full  " style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto w-full  " style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2  text-white">No.</th>
@@ -341,14 +360,14 @@
                      <!-- Add Button -->
                      <button id="brand_addBtn" type="submit"
                          class="px-4 w-full md:w-1/2 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                          Add
                      </button>
 
                      <!-- Update Button -->
                      <button id="brand_updateBtn" type="submit"
                          class="hidden px-4 w-full md:w-1/2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                          Update
                      </button>
                  </div>
@@ -357,7 +376,7 @@
 
 
              <div class="overflow-y-auto " style=" height:300px">
-                 <table class="table-auto w-full " style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto w-full " style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white ">No.</th>
@@ -472,14 +491,14 @@
 
                      <button
                          class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         id="current_condition_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
-                         type="submit">Add
+                         id="current_condition_addBtn"
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Add
                      </button>
 
 
                      <button id="current_condition_updateBtn"
                          class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Update
                      </button>
 
 
@@ -488,7 +507,7 @@
              </form>
 
              <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
-                 <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto   w-full" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white 
@@ -586,14 +605,14 @@
 
                      <button
                          class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         id="assigned_user_type_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
-                         type="submit">Add
+                         id="assigned_user_type_addBtn"
+                         style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Add
                      </button>
 
 
                      <button id="assigned_user_type_updateBtn"
                          class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Update
                      </button>
 
 
@@ -602,7 +621,7 @@
              </form>
 
              <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
-                 <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto   w-full" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white  ">No.</th>
@@ -697,14 +716,14 @@
 
                      <button
                          class="px-4 py-2 w-full md:w-1/2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                         id="assigned_location_addBtn" style="font-family: Verdana, Geneva, Tahoma, sans-serif"
-                         type="submit">Add
+                         id="assigned_location_addBtn"
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Add
                      </button>
 
 
                      <button id="assigned_location_updateBtn"
                          class="px-4 py-2 w-full md:w-1/2 bg-green-600 text-white rounded-md hover:bg-green-700 transition hidden"
-                         style="font-family: Verdana, Geneva, Tahoma, sans-serif" type="submit">Update
+                         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" type="submit">Update
                      </button>
 
 
@@ -713,7 +732,7 @@
              </form>
 
              <div class="overflow-y-auto" style="max-height: 380px;border:1px solid #ccc;">
-                 <table class="table-auto   w-full" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+                 <table class="table-auto   w-full" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                      <thead class="bg-gray-700 sticky top-0">
                          <tr>
                              <th class="px-4 py-2 text-white ">No.</th>

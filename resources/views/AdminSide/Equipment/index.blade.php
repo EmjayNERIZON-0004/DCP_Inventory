@@ -2,6 +2,22 @@
  <title>@yield('title', 'DCP Dashboard')</title>
 
  @section('content')
+     <style>
+         th {
+             text-transform: uppercase;
+             letter-spacing: 0.05rem
+         }
+
+         td {
+             letter-spacing: 0.05rem
+         }
+
+         button {
+             letter-spacing: 0.05rem;
+             font-weight: 500 !important;
+             border-radius: 5px !important;
+         }
+     </style>
      <div class="my-5">
          <div class="text-2xl font-bold text-gray-700  mx-5 ">Biometric and CCTV Equipment Details</div>
          <div class="text-lg font-normal text-gray-600 mb-4 mx-5  ">Create, View, Edit and Remove Details</div>
@@ -18,7 +34,7 @@
                          A list of available CCTV camera types.
                      </div>
                      <button onclick="openModal('camera_type')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>
@@ -88,7 +104,7 @@
                          methods</div>
 
                      <button onclick="openModal('biometric_type')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>
@@ -158,7 +174,7 @@
                          equipment</div>
 
                      <button onclick="openModal('powersource')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>
@@ -228,7 +244,8 @@
                      </div>
 
                      <button onclick="openModal('installer')"
-                         class="px-4 py-1  my-1 bg-blue-600 text-white rounded-sm   hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1  my-1 bg-blue-600 text-white rounded-sm   hover:bg-blue-700 transition">Create
+                         New
                      </button>
 
                  </div>
@@ -298,7 +315,7 @@
                          installed equipment.</div>
 
                      <button onclick="openModal('brand')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>
@@ -367,7 +384,7 @@
                          equipment is installed.</div>
 
                      <button onclick="openModal('location')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>
@@ -438,7 +455,7 @@
                          monitoring and maintaining the equipment.</div>
 
                      <button onclick="openModal('incharge')"
-                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Add New
+                         class="px-4 py-1 my-1  bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition">Create New
                      </button>
 
                  </div>

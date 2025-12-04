@@ -30,10 +30,178 @@
                 @endforeach
             </select>
         </div>
+        <div id="printReport">
+
+
+        </div>
         <div id="card-container" class="  grid grid-cols-1 md:grid-cols-3 gap-2">
 
         </div>
     </div>
+    <style>
+        #printReport {
+            display: none;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+                /* hide everything */
+            }
+
+            #printReport,
+            #printReport * {
+                visibility: visible;
+                /* show only the print container */
+            }
+
+            #printReport {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+    <script>
+        async function generateItemReport(id) {
+            console.log(id);
+            const response = await fetch('/Admin/ItemConditions/Report/' + id);
+            const data = await response.json();
+            const printContainer = document.getElementById('printReport');
+            const divContainer = document.createElement('div');
+            const content = document.createElement('div');
+            content.innerHTML = `
+                    <div class="text-2xl font-semibold text-gray-800 w-full text-center mb-2">
+                    ${data.generated_code}
+                    </div>
+                     <div class="text-lg font-bold text-gray-800 w-full text-center mb-4">
+                    (${data.dcp_item_current_condition.dcp_current_condition.name})
+                    </div>
+                    <table class="min-w-full border border-gray-400 text-md text-left text-gray-700">
+                    <tbody>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border w-1/4 font-semibold bg-gray-100">Product</th>
+                        <td class="px-3 py-2 border">${data.dcp_item_type.name ?? ''}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Batch</th>
+                        <td class="px-3 py-2 border">${data.dcp_batch.batch_label ?? ''}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">School</th>
+                        <td class="px-3 py-2 border">${data.dcp_batch.school.SchoolName ?? ''} - ${data.dcp_batch.school.SchoolLevel ?? ''}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Product Code</th>
+                        <td class="px-3 py-2 border">${data.generated_code}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border  font-semibold bg-gray-100">Unit Price</th>
+                        <td class="px-3 py-2 border">₱ ${data.unit_price}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Quantity</th>
+                        <td class="px-3 py-2 border">${data.quantity}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2  border font-semibold bg-gray-100">Unit</th>
+                        <td class="px-3 py-2 border">${data.unit}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Condition</th>
+                        <td class="px-3 py-2 border">${data.dcp_item_current_condition.dcp_current_condition.name}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Brand</th>
+                        <td class="px-3 py-2 border">${data.brand ?? 'N/A'}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Serial Number</th>
+                        <td class="px-3 py-2 border">${data.serial_number ?? 'N/A'}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">IAR</th>
+                        <td class="px-3 py-2 border">${data.iar_value}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">ITR</th>
+                        <td class="px-3 py-2 border">${data.itr_value}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">COC Status</th>
+                        <td class="px-3 py-2 border">${data.coc_status}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Training Acceptance</th>
+                        <td class="px-3 py-2 border">${data.training_acceptance_status}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Delivery Receipt</th>
+                        <td class="px-3 py-2 border">${data.delivery_receipt_status}</td>
+                        </tr>
+                        <tr class="border-b">
+                        <th class="px-3 py-2 border font-semibold bg-gray-100">Invoice Receipt</th>
+                        <td class="px-3 py-2 border">${data.invoice_receipt_status}</td>
+                        </tr>
+                        <tr>
+                        <th class="px-3 py-2 font-semibold bg-gray-100 border">Date Approved</th>
+                        <td class="px-3 py-2 border">${data.date_approved}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    <div class="grid grid-cols-1 gap-4 mt-8"> 
+                        <div class="text-md">School Officials:</div>
+                 <div class="flex flex-row   gap-5 w-full">
+                     <div class="text-md   w-full">
+                         <div class="text-md text-center">${data.dcp_batch.school.PrincipalName}</div>
+                         <div class="text-sm border-t-2 border-gray-900 text-center">SIGNATURE OVER PRINTED NAME</div>
+                         <div class="text-md  text-center">School Head</div>
+                     </div>
+                     <div class="text-md   w-full">
+                         <div class="text-md text-center ">${data.dcp_batch.school.ICTName}</div>
+                         <div class="text-sm border-t-2 border-gray-900 text-center">SIGNATURE OVER PRINTED NAME</div>
+                         <div class="text-md  text-center">ICT Coordinator</div>
+                     </div>
+                     <div class="text-md   w-full">
+                         <div class="text-md text-center">${data.dcp_batch.school.CustodianName}</div>
+                         <div class="text-sm border-t-2 border-gray-900 text-center">SIGNATURE OVER PRINTED NAME</div>
+                         <div class="text-md text-center ">Property Custodian</div>
+                     </div>
+                 </div>
+
+             </div>
+              <div class="flex flex-row  flex-start gap-5 w-full">
+                      <div class="grid grid-cols-1 gap-0 mt-8">
+                        <div class="text-md">Prepared By:</div>
+                        <div class="text-center mt-2 font-semibold">NORMAN A. FLORES</div>
+                        <div class="text-sm border-t-2 border-gray-900 mx-auto w-64 text-center">SIGNATURE OVER PRINTED NAME</div>
+                        <div class="text-md text-center">Information Technology Officer I</div>
+                    </div>
+                    </div>
+              <div class="flex flex-row align-center justify-center gap-5 w-full">
+
+                    <div class="grid grid-cols-1 gap-0 mt-8">
+                        <div class="text-md text-left">Noted:</div>
+                        <div class="text-md text-center mt-2 font-semibold">DIOSDADO I. CAYABYAB, CESO VI</div>
+                        <div class="text-sm border-t-2 border-gray-900 mx-auto w-80 text-center">SIGNATURE OVER PRINTED NAME</div>
+                        <div class="text-md text-center">Schools Division Superintendent</div>
+                    </div>
+                    </div>
+                `;
+
+            divContainer.appendChild(content);
+
+            printContainer.appendChild(divContainer);
+            printContainer.classList.remove('hidden');
+            printContainer.classList.add('flex', 'flex-col', 'gap-2', 'bg-white', 'px-5', 'py-5',
+                'w-full');
+
+            printContainer.style.display = 'block'; // temporarily display
+            window.print();
+            printContainer.style.display = 'none'; // hide again
+            printContainer.innerHTML = '';
+        }
+    </script>
     <script>
         function showCondition() {
             const dropDown = document.getElementById('select-condition');
@@ -87,6 +255,9 @@
                         <div class="${bgColors[data.condition_id-1]} px-4   rounded-sm text-gray-800 border border-gray-800">
                            ${data.condition ?? ''}
                         </div>
+                        <div class="flex justify-end mt-2">
+                            <button type="button" onclick=(generateItemReport(${data.dcp_batch_item_id})) class="bg-blue-500 px-4 py-1 rounded-sm shadow-md text-white font-semibold"> Generate Report </button>
+                            </div>
                     </div>
             `;
             document.getElementById("card-container").appendChild(newCard);

@@ -2,6 +2,22 @@
     <title>@yield('title', 'DCP Dashboard')</title>
 
     @section('content')
+        <style>
+            th {
+                text-transform: uppercase;
+                letter-spacing: 0.05rem
+            }
+
+            td {
+                letter-spacing: 0.05rem
+            }
+
+            button {
+                letter-spacing: 0.05rem;
+                font-weight: 500 !important;
+                border-radius: 5px !important;
+            }
+        </style>
         <div class="bg-white my-5 mx-5 px-5 py-5 rounded-sm shadow-md border border-gray-300  ">
 
             <div>
@@ -16,9 +32,9 @@
             </div>
             <table class="bg-white  rounded-sm shadow-md border border-gray-300 w-full">
                 <thead class="bg-gray-600 text-white border border-gray-500 ">
-                    <td class="px-4 py-2 text-center">No. </td>
-                    <td class="px-4 py-2">Employee Position</td>
-                    <td class="px-4 py-2">Action</td>
+                    <th class="px-4 py-2 text-center">No. </th>
+                    <th class="px-4 py-2 text-start">Employee Position</th>
+                    <th class="px-4 py-2">Action</th>
 
                 </thead>
                 <tbody>
@@ -41,7 +57,7 @@
                                         Edit
                                     </button>
                                     <button onclick="deleteItem({{ $position->pk_school_position_id }})"
-                                        class="bg-red-500 flex items-center shadow-md hover:bg-red-600 text-white py-1 px-4 rounded">
+                                        class="bg-red-600 flex items-center shadow-md hover:bg-red-700 text-white py-1 px-4 rounded">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"

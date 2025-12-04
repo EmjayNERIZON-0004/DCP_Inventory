@@ -35,22 +35,6 @@
 
     @php
         $navCategories = [
-            'School' => [
-                [
-                    'label' => 'Profile',
-                    'url' => route('index.schools'),
-                    'active' => Request::is('Schools/index'),
-                    'icon' =>
-                        '<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 10L12 5L3 10L6 11.6667M21 10L18 11.6667M21 10V10C21.6129 10.3064 22 10.9328 22 11.618V16.9998M6 11.6667L12 15L18 11.6667M6 11.6667V17.6667L12 21L18 17.6667L18 11.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
-                ],
-                [
-                    'label' => 'Users',
-                    'url' => route('user.schools'),
-                    'active' => Request::is('Admin/Schools-User'),
-                    'icon' =>
-                        '<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
-                ],
-            ],
             'DCP List' => [
                 [
                     'label' => 'Product',
@@ -128,149 +112,207 @@
                 'icon' =>
                     '<svg viewBox="0 0 24 24" class="w-6 h-6 mr-2" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 16C13.6569 16 15 14.6569 15 13C15 11.3431 13.6569 10 12 10C10.3431 10 9 11.3431 9 13C9 14.6569 10.3431 16 12 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 16.8V9.2C3 8.0799 3 7.51984 3.21799 7.09202C3.40973 6.71569 3.71569 6.40973 4.09202 6.21799C4.51984 6 5.0799 6 6.2 6H7.25464C7.37758 6 7.43905 6 7.49576 5.9935C7.79166 5.95961 8.05705 5.79559 8.21969 5.54609C8.25086 5.49827 8.27836 5.44328 8.33333 5.33333C8.44329 5.11342 8.49827 5.00346 8.56062 4.90782C8.8859 4.40882 9.41668 4.08078 10.0085 4.01299C10.1219 4 10.2448 4 10.4907 4H13.5093C13.7552 4 13.8781 4 13.9915 4.01299C14.5833 4.08078 15.1141 4.40882 15.4394 4.90782C15.5017 5.00345 15.5567 5.11345 15.6667 5.33333C15.7216 5.44329 15.7491 5.49827 15.7803 5.54609C15.943 5.79559 16.2083 5.95961 16.5042 5.9935C16.561 6 16.6224 6 16.7454 6H17.8C18.9201 6 19.4802 6 19.908 6.21799C20.2843 6.40973 20.5903 6.71569 20.782 7.09202C21 7.51984 21 8.0799 21 9.2V16.8C21 17.9201 21 18.4802 20.782 18.908C20.5903 19.2843 20.2843 19.5903 19.908 19.782C19.4802 20 18.9201 20 17.8 20H6.2C5.0799 20 4.51984 20 4.09202 19.782C3.71569 19.5903 3.40973 19.2843 3.21799 18.908C3 18.4802 3 17.9201 3 16.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
             ],
+            [
+                'label' => 'School Lists',
+                'url' => route('index.schools'),
+                'active' => Request::is('Schools/index'),
+                'icon' =>
+                    '<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 10L12 5L3 10L6 11.6667M21 10L18 11.6667M21 10V10C21.6129 10.3064 22 10.9328 22 11.618V16.9998M6 11.6667L12 15L18 11.6667M6 11.6667V17.6667L12 21L18 17.6667L18 11.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
+            ],
+            [
+                'label' => 'School Accounts',
+                'url' => route('user.schools'),
+                'active' => Request::is('Admin/Schools-User'),
+                'icon' =>
+                    '<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
+            ],
         ];
     @endphp
-
+    @include('layout.partials.admin-style')
     <!-- Sidebar -->
-    <aside
-        class="fixed inset-y-0 left-0 transform bg-white shadow-md w-64 z-50 overflow-y-auto transition-transform duration-300 ease-in-out scrollbar-hide
-           -translate-x-full md:translate-x-0"
-        :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen && window.innerWidth < 768 }" x-cloak>
-
+    <div class="sidebar" id="sidebar">
         <!-- Header -->
-        <div class="flex items-center justify-between px-4 py-3 bg-blue-600">
-            <div class="flex items-center gap-2">
-                <div class="border border-white rounded-full p-2">
-                    <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none">
-                        <path d="M10.5 1.4L20.5 5.4L12 10.8L3.5 5.4L10.5 1.4Z" fill="white" />
-                        <path d="M2 8V16C2 17.1 2.4 18.1 3.1 18.8L10.5 22.6V12.6L2 8Z" fill="white" />
-                        <path d="M22 8L13.5 12.6V22.6L20.9 18.8C21.6 18.1 22 17.1 22 16V8Z" fill="white" />
-                    </svg>
-                </div>
-                <h2 class="text-white font-bold text-lg">ADMIN PANEL</h2>
-            </div>
-            <button @click="sidebarOpen = false" class="text-white focus:outline-none md:hidden">✕</button>
+
+        <div class="flex flex-col gap-2 items-center justify-center px-4 py-2 bg-white my-2 mt-5">
+            <img class="w-40 h-40" src="{{ asset('icon/logo.png') }}" alt="">
+            <h2 class="font-bold text-xl">DCP HUB</h2>
         </div>
+        <hr class="my-2 border-gray-200">
 
         <!-- Navigation -->
-        <nav class="mt-4 space-y-1 bg-gray-50">
+        <nav class="mt-4 space-y-1 bg-gray-50 sidebar-nav">
             <!-- Top links -->
             @foreach ($topLinks as $link)
-                <a href="{{ $link['url'] }}"
-                    class="flex items-center  md:text-lg text-md  px-4 py-2 mx-2 rounded-md transition-all  
-                {{ $link['active'] ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700' }}">
-                    {!! $link['icon'] !!} {{ $link['label'] }}
-                </a>
+                <div class="  mt-3"
+                    style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                letter-spacing:0.03rem;">
+                    <a href="{{ $link['url'] }}"
+                        style="padding: 1rem 1.5rem;border-radius: 12px;   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                letter-spacing:0.03rem;"
+                        class="flex items-center  nav-link text-lg    px-4 py-2 mx-2 rounded-md transition-all  
+                {{ $link['active'] ? 'active' : ' ' }}">
+                        {{ $link['label'] }}
+                    </a>
+                </div>
             @endforeach
 
-            <hr class="my-2 border-gray-200">
 
             <!-- Categorized links -->
             @foreach ($navCategories as $category => $links)
-                <div class="px-4 mt-3">
-                    <h3 class="text-lg font-semibold text-blue-600 uppercase tracking-wider mb-1">
-                        {{ $category }}
-                    </h3>
+                <div class="  mt-3" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; ">
+                    <h4 class=" pl-5 text-lg font-normal text-gray-800 my-4">
+                        {{ $category }}:
+                    </h4>
                     @foreach ($links as $link)
                         <a href="{{ $link['url'] }}"
-                            class="flex items-center px-4 py-2 md:text-lg text-md  rounded-md transition-all
-                        {{ $link['active'] ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700' }}">
+                            class="flex text-lg items-start justify-start nav-link  
+                        {{ $link['active'] ? 'active' : '' }}">
                             {!! $link['icon'] !!} {{ $link['label'] }}
                         </a>
                     @endforeach
                 </div>
             @endforeach
+            `
         </nav>
-    </aside>
-
-
-    <!-- Overlay (for mobile) -->
-    <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false"
-        class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity md:hidden">
     </div>
 
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col min-h-screen md:ml-64      ">
-        <!-- Top Header -->
-        <header
-            class=" bg-gradient-to-r from-blue-600 via-blue-600 via-blue-600  to-yellow-400 md:bg-none md:bg-white 
-             text-gray-700 shadow-md fixed top-0 left-0 right-0 z-30 md:left-64">
-            <div class="flex items-center justify-between px-4 py-3">
-                <!-- Menu Button (Mobile only) -->
-                <button @click="sidebarOpen = !sidebarOpen" class="text-white focus:outline-none md:hidden">
-                    <!-- Hamburger icon -->
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+
+    <header style="background-color:rgb(1, 55, 142); "
+        class=" text-gray-700 bg-white shadow-md fixed top-0 left-0 right-0 z-50  ">
+        <div class="flex items-center justify-between px-4 py-3">
+            <!-- Menu Button (Mobile only) -->
+            <div class="flex flex-row gap-2 justify-center items-center">
+
+                <button class="hamburger-btn text-white md:hidden" id="sidebarToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <img class="w-12 h-12" style="object-fit: cover;" src="{{ asset('icon/sdo-logo.png') }}"
+                    alt="User Icon">
+                <h1 class="text-lg font-medium text-white hidden md:block uppercase"
+                    style="font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;letter-spacing:0.05rem">
+                    DepEd Computerization Program <b>(DCP)</b>
+                </h1>
+                <h1 class="text-lg font-semibold text-white md:hidden">
+                    e-DCP Hub
+                </h1>
+            </div>
+            <style>
+                .user-profile-btn {
+                    background: rgba(255, 255, 255, 0.15);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 30px;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    padding: 5px 15px 5px 5px;
+                    transition: all 0.2s;
+                }
+
+                .user-profile-btn:hover {
+                    background: rgba(255, 255, 255, 0.25);
+                }
+
+                .user-profile-btn img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    border: 2px solid rgba(255, 255, 255, 0.5);
+                }
+
+                .user-profile-btn .user-name {
+                    font-weight: 500;
+                    margin-right: 5px;
+                    max-width: 120px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                /* Responsive adjustments */
+                @media (max-width: 768px) {
+
+                    .navbar-brand {
+                        font-size: 1.2rem;
+                    }
+
+                    .user-profile-btn .user-name {
+                        display: none;
+                    }
+
+                    .user-profile-btn {
+                        padding: 5px;
+                    }
+                }
+            </style>
+            <!-- Profile Dropdown -->
+            <div class="relative" x-data="{ open: false }">
+
+                <button @click="open = !open" class="user-profile-btn dropdown-toggle flex  items-center" type="button"
+                    id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img style="object-fit: cover;" src="{{ asset('icon/logo.png') }}" alt="User Icon">
+                    <span class="user-name">NORMAN A. FLORES</span>
+                    <svg class="w-6 h-6  text-white transform transition-transform duration-300"
+                        :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
 
-                <h1 class="text-xl font-bold text-gray-700 hidden md:block "
-                    style="font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;">
-                    DepEd Computerization Program (DCP) - Admin Panel
-                </h1>
-                <h1 class="text-xl font-bold text-white md:hidden">
-                    e-DCP Hub - Admin Panel
-                </h1>
-
-                <!-- Profile Dropdown -->
-                <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
-                        <img src="{{ asset('icon/logo.png') }}" alt="Profile"
-                            class="w-10 h-10 rounded-full shadow-md border border-white">
-                        <svg class="w-6 h-6 md:text-gray-700 text-white transform transition-transform duration-300"
-                            :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div x-show="open" x-cloak @click.away="open = false" x-transition
-                        class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg py-1 z-50">
-                        <a href="{{ route('admin.account.index') }}"
-                            class="block px-4 py-2 text-gray-700 hover:bg-green-50">Account</a>
-                        <a href="{{ route('admin.reports.index') }}"
-                            class="block px-4 py-2 text-gray-700 hover:bg-green-50">Reports</a>
-                        <a href="{{ url('logout') }}" class="block px-4 py-2 text-red-600 hover:bg-red-50">Logout</a>
-                    </div>
+                <div x-show="open" x-cloak @click.away="open = false" x-transition
+                    class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg py-1 z-50">
+                    <a href="{{ route('admin.account.index') }}"
+                        class="block px-4 py-2 text-gray-700 hover:bg-green-50">Account</a>
+                    <a href="{{ route('admin.reports.index') }}"
+                        class="block px-4 py-2 text-gray-700 hover:bg-green-50">Reports</a>
+                    <a href="{{ url('logout') }}" class="block px-4 py-2 text-red-600 hover:bg-red-50">Logout</a>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
+    <!-- Main Content -->
 
-        <main class="flex-grow mt-16">
-            {{-- Flash messages --}}
-            @if ($errors->any())
-                <div class="mb-4">
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        <ul class="mt-2 list-disc list-inside text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+
+    <div class="main-content" id="content">
+        {{-- Flash messages --}}
+        @if ($errors->any())
+            <div class="mb-4">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <ul class="mt-2 list-disc list-inside text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-            @endif
+            </div>
+        @endif
 
-            @if (session('error'))
-                <div class="mb-4">
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        {{ session('error') }}
-                    </div>
+        @if (session('error'))
+            <div class="mb-4">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {{ session('error') }}
                 </div>
-            @endif
+            </div>
+        @endif
 
-            @if (session('success'))
-                <div class="mb-4">
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                        {{ session('success') }}
-                    </div>
+        @if (session('success'))
+            <div class="mb-4">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    {{ session('success') }}
                 </div>
-            @endif
+            </div>
+        @endif
 
-            {{-- Page-specific content --}}
-            @yield('content')
-
-        </main>
+        {{-- Page-specific content --}}
+        @yield('content')
 
     </div>
+
 
 
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -285,6 +327,22 @@
         //     }
         // });
     </script>
+    <script>
+        const sidebar = document.querySelector('.sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+
+        toggleBtn.addEventListener('click', () => {
+
+            if (window.innerWidth <= 992) {
+                // MOBILE
+                sidebar.classList.toggle('show');
+            } else {
+                // DESKTOP
+                sidebar.classList.toggle('hidden');
+            }
+        });
+    </script>
+
 
 </body>
 

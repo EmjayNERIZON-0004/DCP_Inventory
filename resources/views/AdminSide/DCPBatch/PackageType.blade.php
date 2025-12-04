@@ -1,27 +1,11 @@
 @extends('layout.Admin-Side')
+<title>@yield('title', 'DCP Dashboard')</title>
 
 @section('content')
     <style>
-        .table {
-            border-collapse: collapse;
-            width: 100%;
-
-        }
-
-        .table th,
-        .table td {
-
-            padding: 10px;
-            text-align: left;
-        }
-
-        .table th {
-
-            color: #fff;
-        }
-
-        .table td {
-            background-color: #fff;
+        button {
+            letter-spacing: 0.05rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     </style>
     <div id="create-modal-overlay"
@@ -131,7 +115,7 @@
                             </div>
                             <div class="w-full md:w-1/3 flex items-end">
                                 <button type="button"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white  shadow-md py-1 px-2 rounded"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold  shadow-md py-1 px-2 rounded"
                                     id="add-package-content">Add More Item</button>
                             </div>
                         </div>
@@ -161,8 +145,6 @@
             document.body.classList.remove('overflow-hidden');
         }
     </script>
-
-
 
     <!-- Modal Overlay for Insert Form -->
     <div id="insert-modal-overlay"
@@ -231,9 +213,6 @@
             </form>
         </div>
     </div>
-
-
-
 
 
     <script>
@@ -350,8 +329,8 @@
     </div>
 
 
-    <div class="bg-white border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
-        style="border-radius: 8px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+    <div class="bg-white w-full min-w-full border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
+        style="border-radius: 8px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         @php
             $groupedPackages = $packages->groupBy('package_name');
             $colors = ['#C9E4CA', '#F7D2C4', '#C5CAE9', '#F2C464'];
@@ -377,7 +356,7 @@
         @if ($packages->isEmpty())
             <div class="text-center text-gray-500 py-8">No packages found.</div>
         @else
-            <div class="text-sm text-gray-700">List of DCP Packages</div>
+            <div class="text-md text-gray-700">List of DCP Packages</div>
 
             <div class="grid grid-cols-1  gap-6">
                 @foreach ($groupedPackages as $packageName => $items)
@@ -388,10 +367,10 @@
                     <div class="rounded-sm shadow-lg overflow-hidden border border-gray-300" x-data="{ open: false }">
                         <!-- Header -->
                         <div class="p-4 flex justify-between md:flex-row flex-col items-center gap-2">
-                            <h3
+                            <h3 style="letter-spacing: 0.05rem;"
                                 class="flex items-center justify-center md:justify-start gap-2 text-lg font-bold text-gray-800">
                                 <span
-                                    class="flex items-center justify-center min-w-8 w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-semibold">
+                                    class="flex items-center justify-center min-w-8 w-8 h-8 rounded-full shadow bg-blue-600 text-white font-mediium">
                                     {{ $loop->iteration }}
                                 </span>
                                 <span>{{ $packageName }}</span>
@@ -401,8 +380,12 @@
                             <div class="flex md:flex-row flex-col  md:space-x-2 space-x-0 md:space-y-0 space-y-2   ">
                                 <button type="button"
                                     onclick="showInsertForm('{{ $items->first()->dcp_packages_id }}', '{{ $packageName }}')"
-                                    class="bg-green-600 shadow-md hover:bg-green-700 text-md rounded-md py-2 px-2 text-white  ">+
-                                    Insert Item
+                                    class="bg-blue-600  font-semibold  shadow-md hover:bg-blue-700 text-md rounded-md py-2 px-2 text-white  ">
+                                    Insert Product
+                                </button>
+                                <button type="button" @click="open = !open"
+                                    class="bg-green-600 shadow-md hover:bg-green-700  font-semibold  text-md rounded-md py-2 px-2 text-white  ">
+                                    <span>Product List</span>
                                 </button>
                                 <form action="{{ route('delete.package_type', $items->first()->dcp_packages_id) }}"
                                     method="post"
@@ -410,7 +393,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="bg-red-600 shadow-md hover:bg-red-800 text-md rounded-md py-2 px-3 text-white  flex items-center space-x-2">
+                                        class="bg-red-600 shadow-md  font-semibold  hover:bg-red-800 text-md rounded-md py-2 px-3 text-white  flex items-center space-x-2">
                                         <!-- Trash Icon -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -422,11 +405,7 @@
 
                                 </form>
                                 <!-- Toggle Button -->
-                                <button type="button" @click="open = !open"
-                                    class="bg-gray-500 shadow-md hover:bg-gray-600 text-md rounded-md py-2 px-2 text-white  ">
-                                    <span x-show="!open">⬇ Show Items</span>
-                                    <span x-show="open">⬆ Hide Items</span>
-                                </button>
+
                             </div>
                         </div>
                         <style>
@@ -440,12 +419,12 @@
                             @foreach ($items as $index => $package)
                                 <div class="w-full shadow-sm border px-4 py-2  flex md:flex-row flex-col">
                                     <div
-                                        class=" w-full flex   flex-col md:justify-between justify-start items-center   pb-2">
+                                        class=" w-full flex flex-col md:justify-between justify-start items-center   pb-2">
                                         <div class="w-full  text-left  ">
 
                                             <p class="font-semibold text-gray-700 text-left">
                                                 <span
-                                                    class="font-bold p-2 bg-blue-200 border border-blue-500 min-w-8 w-8 h-8 inline-flex items-center justify-center rounded-full">{{ $index + 1 }}.</span>
+                                                    class="font-bold p-2 bg-green-600 shadow text-white min-w-8 w-8 h-8 inline-flex items-center justify-center rounded-full">{{ $index + 1 }}.</span>
                                                 {{ $package->item_name }}
                                             </p>
                                             @php
@@ -454,13 +433,13 @@
                                                     $package->dcp_batch_item_brands_id,
                                                 )->value('brand_name');
                                             @endphp
-                                            <p class="text-sm text-gray-500 text-left">Brand: {{ $brand_name }}</p>
+                                            <p class="text-md text-gray-500 text-left">Brand: {{ $brand_name }}</p>
                                         </div>
                                         <div class="  text-left  w-full ">
-                                            <p class="text-sm">Qty: <span
+                                            <p class="text-md">Qty: <span
                                                     class="font-bold">{{ $package->quantity }}</span>
                                             </p>
-                                            <p class="text-sm">₱{{ number_format($package->unit_price, 2) }}</p>
+                                            <p class="text-md">₱{{ number_format($package->unit_price, 2) }}</p>
                                         </div>
                                     </div>
                                     <form action="{{ route('delete.package_item', $package->id) }}" method="post"
@@ -482,8 +461,8 @@
                                                         '{{ $package->dcp_batch_item_brands_id }}',
                                                         '{{ $package->unit_price }}'
                                                     )"
-                                                    class="w-full text-center shadow-md bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded text-md">
-                                                    ✏ Edit
+                                                    class="w-full whitespace-nowrap text-center shadow-md bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded text-md">
+                                                    Edit Product
                                                 </button>
                                             </div>
 
@@ -491,7 +470,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="flex w-full justify-center shadow-md items-center gap-1 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-md">
+                                                    class="flex w-full justify-center shadow-md items-center gap-1 bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded text-md">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         stroke-width="2">
@@ -636,7 +615,7 @@
             <!-- Remove Button -->
             <div class="w-full md:w-1/3 flex items-end">
                 <button type="button"
-                    class="remove-package-content shadow-md bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded">
+                    class="remove-package-content shadow-md bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded">
                     Remove
                 </button>
             </div>

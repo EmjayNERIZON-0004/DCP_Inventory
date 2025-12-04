@@ -169,6 +169,7 @@ Route::get('Admin/api/package-categories', [AdminDashboardController::class, 'ge
 Route::get('Admin/api/school-categories', [AdminDashboardController::class, 'get_schools_dcp_count']);
 Route::get('Admin/Equipment/Biometrics/index', [EquipmentController::class, 'showBiometrics'])->name('equipment.biometrics.index');
 Route::get('Admin/ItemConditions/{id}', [AdminDashboardController::class, 'showItemCondition'])->name('admin.item_conditions.show');
+Route::get('Admin/ItemConditions/Report/{id}', [AdminDashboardController::class, 'itemReport'])->name('admin.item.report');
 Route::get('Admin/Camera', function () {
     return view('AdminSide.Camera.index');
 })->name('admin.scan.monitor');
@@ -262,6 +263,8 @@ Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     Route::delete('/Equipment/delete/{equipment_id}/{type}', [SchoolEquipmentContoller::class, 'destroy'])->name('schools.equipment.delete');
 
     Route::get('Report/index', [SchoolReportController::class, 'index'])->name('schools.report.index');
+    Route::get('Report/condition', [SchoolReportController::class, 'condition'])->name('schools.report.condition');
+    Route::get('Report/api/condition/{condition_id}', [SchoolReportController::class, 'condition_report'])->name('schools.report.api.condition');
     Route::get('Employee/index', [SchoolEmployeeController::class, 'index'])->name('schools.employee.index');
     Route::post('Employee/submit', [SchoolEmployeeController::class, 'store'])->name('schools.employee.store');
     Route::put('Employee/update', [SchoolEmployeeController::class, 'update'])->name('schools.employee.update');

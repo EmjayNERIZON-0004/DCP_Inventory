@@ -2,8 +2,14 @@
 <title>@yield('title', 'DCP Dashboard')</title>
 
 @section('content')
+    <style>
+        button {
+            letter-spacing: 0.05rem;
+            font-weight: 500 !important;
+        }
+    </style>
     <div id="add-modal" class="modal fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden "
-        style="font-family: Verdana, Geneva, Tahoma, sans-serif;  ">
+        style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
         <div class="modal-content bg-white px-4 py-1 mx-5 rounded-md relative md:max-w-sm max-w-7xl w-full">
             <form id="item-type-form" method="POST" action="{{ route('store.item_type') }}" class="  flex flex-col gap-2 mt-4">
@@ -42,7 +48,7 @@
         </div>
     </div>
     <div class="bg-white border border-gray-300 shadow-lg rounded-lg p-6  md:mx-5 md:my-5 mx-0 my-0"
-        style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         <div class="flex md:flex-row flex-col justify-between items-center mb-4">
             <div class="w-full">
                 <h2 class="text-2xl font-bold text-gray-700">Product List</h2>
@@ -59,12 +65,12 @@
 
         <!-- Search -->
         <div class="mb-4">
-            <div class="text-sm text-gray-700">Search</div>
+            <div class="text-md text-gray-700">Search</div>
 
             <input type="text" id="searchItemType" placeholder="Search Item Name..."
                 class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
         </div>
-        <div class="text-sm text-gray-700">List of DCP Products</div>
+        <div class="text-md text-gray-700">List of DCP Products</div>
 
         <!-- Card Grid -->
         <div id="itemTypeCardGrid"
@@ -74,17 +80,18 @@
                     class="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
 
                     <!-- Top -->
-                    <div class="flex-1">
-                        <h3 class="text-lg font-bold text-gray-800 mb-1 break-words">
+                    <div class="flex-1" style="letter-spacing: 0.05rem">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 break-words">
                             <span
-                                class="inline-flex items-center justify-center min-w-8 h-8 px-2 border border-gray-500 bg-green-200 rounded-full">
+                                class="inline-flex items-center text-white justify-center min-w-8 h-8 px-2 border border-gray-500 bg-green-600 rounded-full">
                                 {{ $index + 1 }}
                             </span>
 
                             {{ $itemType->name }}
                         </h3>
-                        <p class="text-sm text-gray-600 break-words">
-                            <span class="font-semibold break-words">Code:</span> {{ $itemType->code }}
+                        <p class="text-md text-gray-600 break-words" style="letter-spacing: 0.05rem">
+                            <span class="font-semibold break-words">Code:</span>
+                            {{ $itemType->code }}
                         </p>
                     </div>
 
@@ -97,8 +104,8 @@
                             @method('DELETE')
                             <button type="button"
                                 onclick="editItem('{{ $itemType->pk_dcp_item_types_id }}', '{{ $itemType->code }}', `{{ $itemType->name }}`)"
-                                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-md text-md shadow-md">
-                                ✏ Edit
+                                class="w-full whitespace-nowrap bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-md text-md shadow-md">
+                                Edit Product
                             </button>
                             <button type="submit"
                                 class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-md shadow-md flex items-center justify-center space-x-2">
@@ -142,15 +149,15 @@
                             cards += `
                             <div class="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
                                 <!-- Top -->
-                                <div>
+                                <div style="letter-spacing: 0.05rem">
                                     <h3 class="text-lg font-bold text-gray-800 break-words mb-1">
                                         <span
-                                        class="inline-flex items-center justify-center min-w-8 h-8 px-2 border border-gray-500 bg-green-200 rounded-full">
+                                        class="inline-flex items-center justify-center min-w-8 h-8 px-2 text-white bg-green-600 rounded-full">
                                         ${index + 1 }
                                     </span>
 
                                         ${item.name}</h3>
-                                    <p class="text-sm break-words text-gray-600"><span class="font-semibold">Code:</span> ${item.code}</p>
+                                    <p class="text-md break-words text-gray-600"><span class="font-semibold">Code:</span> ${item.code}</p>
                                 </div>
 
                                 <!-- Actions -->
@@ -162,8 +169,8 @@
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="button"
                                         onclick="editItem('${item.pk_dcp_item_types_id}', '${item.code}', '${(item.name)}')"
-                                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-md shadow-md">
-                                        ✏ Edit
+                                        class="w-full whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-md shadow-md">
+                                         Edit Product
                                     </button>
                                           <button type="submit"
                                 class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-3 rounded-md text-md shadow-md flex items-center justify-center space-x-2">

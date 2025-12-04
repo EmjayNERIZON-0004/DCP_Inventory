@@ -1,17 +1,14 @@
 {{-- filepath: c:\Users\Em-jay\dcp_inventory_system\resources\views\AdminSide\DCPBatch\Batch.blade.php --}}
 
 @extends('layout.Admin-Side')
-
-@section('title', 'DCP Batches')
-
+<title>@yield('title', 'DCP Dashboard')</title>
 @section('content')
-
     <style>
         .table {
             border-collapse: collapse;
             width: 100%;
             border: 1px solid #282828;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .table th,
@@ -29,6 +26,13 @@
 
         .school-rows {
             text-align: center;
+        }
+
+        button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.05rem;
+            font-weight: 500 !important;
+
         }
 
         input,
@@ -54,7 +58,7 @@
             class="bg-white shadow-xl rounded-lg overflow-hidden border border-green-700 p-6 w-full max-w-full mx-5 relative"
             style="max-height: 80vh; overflow-y: auto;">
             <h2 class="text-2xl font-bold w-full text-center md:text-left text-gray-800"
-                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create DCP
+                style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Create DCP
                 Batch Recipient</h2>
             <div class="text-gray-600 text-md mb-4">Assign a Batch to a School</div>
             {{-- <div class="flex justify-center md:justify-start mb-4">
@@ -74,7 +78,7 @@
             <div id="result" class="hidden mt-4">
 
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative flex items-center gap-2"
-                    role="alert" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                    role="alert" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                     <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -189,7 +193,7 @@
                         <h3 class="text-lg font-semibold mb-2">Package Contents</h3>
                         <div id="batch-items-flex-container" class="flex flex-col md:flex-row flex-wrap gap-4 mx-5"
                             style="font-family: Verdana, Geneva, Tahoma, sans-serif">
-                            <table class="table w-full   border border-gray-300 text-sm">
+                            <table class="table w-full   border border-gray-300 text-md">
                                 <thead class="bg-gray-100" id="batch-items-table-head">
                                     <tr>
                                         <th class="px-4 py-2 border">Product Content</th>
@@ -345,7 +349,7 @@
 
 
     <div class="bg-white border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
-        style="border-radius: 8px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        style="border-radius: 8px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
         <div class="flex md:flex-row flex-col justify-between items-center">
             <div>
@@ -371,18 +375,21 @@
             </button>
         </div>
         <div id="batch-list-display">
-            <div class="text-sm text-gray-700">Dashboard Status</div>
+            <div class="text-md text-gray-700">Dashboard Status</div>
             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4 gap-2 mb-4">
                 <!-- 🕒 Pending -->
                 <div
                     class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-100 text-yellow-600">
-                        <!-- Clock Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <div
+                        class="flex items-center justify-center p-1 rounded-full shadow-sm border border-gray-300 bg-white">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-400 text-white">
+                            <!-- Clock Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Pending - For Approval</h3>
@@ -393,12 +400,16 @@
                 <!-- ✅ Approved -->
                 <div
                     class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600">
-                        <!-- Check Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
+                    <div
+                        class="flex items-center justify-center p-1 rounded-full shadow-sm border border-gray-300 bg-white">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full text-white bg-green-600">
+                            <!-- Check Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Approved Batch</h3>
@@ -409,13 +420,16 @@
                 <!-- 📦 Total -->
                 <div
                     class="flex items-center gap-4 bg-white border border-gray-200 shadow-md rounded-xl p-4 transition hover:shadow-lg">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">
-                        <!-- Box Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4M3 7v6m18-6v6" />
-                        </svg>
+                    <div
+                        class="flex items-center justify-center p-1 rounded-full shadow-sm border border-gray-300 bg-white">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full text-white bg-blue-600">
+                            <!-- Box Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4M3 7v6m18-6v6" />
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Total Batch</h3>
@@ -423,12 +437,12 @@
                     </div>
                 </div>
             </div>
-            <div class="text-sm text-gray-700">Search</div>
+            <div class="text-md text-gray-700">Search</div>
 
             <!-- 🔍 Search Bar -->
             <input type="text" id="searchBatch" placeholder="Search by batch label, school, etc."
                 class="mb-4 p-2 border border-gray-300 rounded md:w-1/3 w-full">
-            <div class="text-sm text-gray-700">List of DCP Batches</div>
+            <div class="text-md text-gray-700">List of DCP Batches</div>
 
             <!-- Card Container -->
             <div id="batchCardContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-4">
@@ -439,12 +453,12 @@
                         <!-- Clickable Header -->
                         <div @click="open = !open" class="cursor-pointer">
                             <h3 class="text-lg font-bold text-gray-800 mb-2">
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2 mb-2">
                                     <span
-                                        class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-medium text-sm md:text-base">
+                                        class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full   bg-green-600 text-white font-medium text-md md:text-base">
                                         {{ $loop->iteration }}
                                     </span>
-                                    <span class="text-gray-900 font-medium">
+                                    <span class="text-gray-900 font-semibold" style="letter-spacing: 0.05rem;">
                                         {{ $batch->batch_label }}
                                     </span>
                                 </div>
@@ -468,7 +482,7 @@
                                 @endif
 
                             </h3>
-                            <p class="text-sm text-gray-600 mb-1">
+                            <p class="text-md text-gray-600 mb-1">
                                 <b>Recipient:</b>
                                 <span class="text-gray-700">{{ $batch->school_name ?? 'N/A' }} -
                                     {{ $batch->school_level }}</span>
@@ -477,12 +491,12 @@
 
                         <!-- Collapsible Content -->
                         <div x-show="open" x-collapse>
-                            <p class="text-sm text-gray-600 mb-1"><b>Description:</b> {{ $batch->description }}</p>
-                            <p class="text-sm text-gray-600 mb-1"><b>Delivery:</b>
+                            <p class="text-md text-gray-600 mb-1"><b>Description:</b> {{ $batch->description }}</p>
+                            <p class="text-md text-gray-600 mb-1"><b>Delivery:</b>
                                 {{ $batch->delivery_date ? \Carbon\Carbon::parse($batch->delivery_date)->format('F d, Y') : 'N/A' }}
                             </p>
 
-                            <div class="text-sm text-gray-600 mb-3">
+                            <div class="text-md text-gray-600 mb-3">
                                 <b>Status:</b>
 
                                 @if ($batch->approval_status === 'Pending')
@@ -533,7 +547,7 @@
         </div>
         <div id="school-batch-list" style="display:none">
             <table class="table">
-                <thead class=" text-gray-700 uppercase text-sm">
+                <thead class=" text-gray-700 uppercase text-md">
                     <tr>
                         <th class="bg-gray-200">No.</th>
                         <th class="bg-gray-200">School Name</th>
@@ -738,53 +752,53 @@
                                         <!-- Clickable header -->
                                         <div @click="open = !open" class="cursor-pointer">
                                             <h3 class="text-lg font-bold text-gray-800 mb-2">
-                                              <div class="flex items-center gap-2">
+                                              <div class="flex items-center gap-2 mb-2">
                                 <span
-                                    class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full border border-gray-800 bg-green-200 text-gray-800 font-medium text-sm md:text-base">
+                                    class="flex items-center min-w-8 h-8 px-2 font-bold justify-center w-8 h-8 rounded-full   bg-green-600 text-white font-medium text-md md:text-base">
                                                 ${index + 1}
                                 </span>
-                                <span class="text-gray-900 font-medium">
+                                <span style="letter-spacing: 0.05rem;" class="text-gray-900 font-semibold">
                                     ${batch.batch_label }
                                 </span>
                             </div>
                                                 ${
                                                     batch.approval_status === 'Pending'
                                                     ? `<span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            For Approval
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span>`
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    For Approval
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </span>`
                                                     : batch.approval_status === 'Approved'
                                                         ? `<span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Approved: ${batch.date_approved}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span>`
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Approved: ${batch.date_approved}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </span>`
                                                         : `<span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                For Submission
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </span>`
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        For Submission
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </span>`
                                                 }</h3>
-                                            <p class="text-sm text-gray-700 mb-1">
+                                            <p class="text-md text-gray-700 mb-1">
                                                 <b>Recipient:</b> ${batch.school_name ?? 'N/A'} - ${batch.school_level ?? 'N/A'}
                                             </p>
                                         </div>
 
                                         <!-- Collapsible section -->
                                         <div x-show="open" x-collapse>
-                                            <p class="text-sm text-gray-600 mb-1"><b>Description:</b> ${batch.description}</p>
-                                            <p class="text-sm text-gray-600 mb-1"><b>Delivery:</b> ${batch.delivery_date ?? 'N/A'}</p>
-                                           <div class="text-sm text-gray-600 mb-3">
+                                            <p class="text-md text-gray-600 mb-1"><b>Description:</b> ${batch.description}</p>
+                                            <p class="text-md text-gray-600 mb-1"><b>Delivery:</b> ${batch.delivery_date ?? 'N/A'}</p>
+                                           <div class="text-md text-gray-600 mb-3">
                                             <b>Status:</b>
                                             ${
                                                 batch.approval_status === 'Pending'
                                                 ? `
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <form method="POST" action="Admin/DCPBatch/${batch.pk_dcp_batches_id}/approve" style="display:inline;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button type="submit"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="text-center px-3 py-1 text-md font-normal text-white bg-green-600 rounded hover:bg-green-700 ${batch.approval_status === 'Approved' ? 'opacity-50 cursor-not-allowed' : ''}"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ${batch.approval_status === 'Approved' ? 'disabled' : ''}>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Approve
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </form>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                `
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <form method="POST" action="Admin/DCPBatch/${batch.pk_dcp_batches_id}/approve" style="display:inline;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <button type="submit"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="text-center px-3 py-1 text-md font-normal text-white bg-green-600 rounded hover:bg-green-700 ${batch.approval_status === 'Approved' ? 'opacity-50 cursor-not-allowed' : ''}"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ${batch.approval_status === 'Approved' ? 'disabled' : ''}>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Approve
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </form>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        `
                                                 : batch.approval_status === 'Approved'
                                                     ? `<span class="text-green-600 font-bold">Approved: ${batch.date_approved}</span>`
                                                     : `<span class="text-blue-600">For Submission</span>`

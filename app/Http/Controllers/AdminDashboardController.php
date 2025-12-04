@@ -64,6 +64,15 @@ class AdminDashboardController extends Controller
 
         return view('AdminSide.ItemConditions.show', compact('condition'));
     }
+    public  function itemReport($id)
+    {
+        $batch_item = DCPBatchItem::where('pk_dcp_batch_items_id', $id)
+            ->with('dcpItemType')
+            ->with('dcpBatch.school')
+            ->with('dcpItemCurrentCondition.dcpCurrentCondition')
+            ->first();
+        return response()->json($batch_item);
+    }
     public function school_with_isp()
     {
 

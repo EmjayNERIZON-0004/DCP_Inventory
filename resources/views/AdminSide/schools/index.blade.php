@@ -4,6 +4,11 @@
 
 @section('content')
     <style>
+        button {
+            letter-spacing: 0.05rem;
+            font-weight: 500 !important;
+        }
+
         input[type="text"] {
             border: 1px solid #ccc;
             width: 100%;
@@ -351,7 +356,7 @@
 
     <div class="bg-white border border-gray-300 shadow-xl rounded-lg p-6 md:mx-5 md:my-5 mx-0 my-0">
         <div class="flex md:flex-row flex-col md:justify-between justify-start items-center text-md"
-            style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif  ">
             <div class="w-full">
                 <h2 class="text-2xl font-bold text-gray-700">School</h2>
                 <div class="text-md text-gray-600 md:mb-5 mb-2">List of Schools under DepEd Computerization Program</div>

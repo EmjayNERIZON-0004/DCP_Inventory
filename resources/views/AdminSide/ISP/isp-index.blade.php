@@ -2,6 +2,22 @@
 <title>@yield('title', 'DCP Dashboard')</title>
 
 @section('content')
+    <style>
+        th {
+            text-transform: uppercase;
+            letter-spacing: 0.05rem
+        }
+
+        td {
+            letter-spacing: 0.05rem
+        }
+
+        button {
+            letter-spacing: 0.05rem;
+            font-weight: 500 !important;
+            border-radius: 5px !important;
+        }
+    </style>
     <div class="my-5">
         <div class="text-2xl font-bold text-gray-700  mx-5 ">Internet Service Providers Details</div>
         <div class="text-lg font-normal text-gray-600 mb-4 mx-5  ">Create, View, Edit and Remove Details</div>

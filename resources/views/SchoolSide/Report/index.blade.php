@@ -3,6 +3,7 @@
      @yield('title', 'DCP Dashboard')</title>
 
  @section('content')
+
      <div class="bg-white my-10 mx-5  p-6    border border-gray-300 rounded-lg shadow-md">
 
          <div class="text-2xl font-bold text-blue-700 mb-4">School Reports Generation</div>
@@ -894,4 +895,8 @@
              document.body.innerHTML = originalContents;
          }
      </script>
+
+
+
+
  @endsection
