@@ -5,63 +5,72 @@
 @section('title', 'My DCP Batches')
 
 @section('content')
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 mx-5 my-5" style="border:1px solid #ccc">
-        <div class="flex justify-between   space-x-4">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-800   text-blue-600">School DCP Batches</h2>
-                <p class="mb-2">Here are the list of DCP Batches for your school.</p>
+    <div class="bg-white shadow-sm rounded-sm overflow-hidden p-6 mx-5 my-5" style="border:1px solid #ccc">
+        <div class="flex justify-between  mb-4  space-x-4">
+            <div class="tracking-wide">
+                <h2 class="text-2xl font-semibold text-blue-600">School DCP Batches</h2>
+                <p class="mb-2 tracking-wider">Here are the list of DCP Batches for your school.</p>
             </div>
 
-            <div class="h-14 w-14 md:block hidden text-blue-600">
-                <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 551.852 551.852" xml:space="preserve">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <g>
-                            <path
-                                d="M545.933,106.575l0.377-0.999L276.049,0L6.228,106.671l-0.881-0.35v0.684l-0.038,0.021l0.038,0.115v338.651 l270.579,106.059l270.617-106.064V106.326L545.933,106.575z M275.797,20.755l91.666,32.829L117.578,150.6l-84.647-33.39 L275.797,20.755z M266.281,527.927L164.94,487.013l-50.859-19.107l-89.396-35.267V134.737l88.499,34.909v74.49l7.887-2.202 l5.33,7.324l7.421-1.732l7.187,7.592l6.272-2.161l10.125,10.041v-75.911l7.877,3.11l100.999,39.834V527.927L266.281,527.927z M275.948,213.077l-98.808-38.983L420.832,75.33l100.504,40.944L275.948,213.077z M527.218,432.639l-241.612,95.288V230.032 l241.589-95.301v297.901L527.218,432.639L527.218,432.639z">
-                            </path>
-                        </g>
-                    </g>
-                </svg>
-
+            <div class="md:flex hidden justify-center items-start">
+                <div
+                    class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
+                    <div class="text-white bg-blue-600 p-2 rounded-full">
+                        <svg class="w-10 h-10" fill="currentColor" version="1.1" id="Capa_1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 612 612" xml:space="preserve">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <g>
+                                    <path
+                                        d="M1.659,484.737L1.001,206.595c-0.032-13.686,13.95-22.938,26.534-17.559l253.206,108.241 c6.997,2.991,11.542,9.859,11.56,17.468l0.658,278.142c0.032,13.687-13.95,22.939-26.534,17.56L13.219,502.206 C6.222,499.215,1.676,492.347,1.659,484.737z M581.805,219.687L348.142,320.883l0.608,257.406l233.664-101.196L581.805,219.687 M591.26,186.131c10.043-0.025,19.056,8.054,19.081,19.022l0.658,278.142c0.018,7.609-4.495,14.5-11.478,17.523l-252.69,109.438 c-2.493,1.079-5.047,1.583-7.534,1.59c-10.044,0.023-19.058-8.055-19.083-19.022l-0.658-278.143 c-0.019-7.609,4.495-14.5,11.479-17.523l252.69-109.437C586.218,186.64,588.771,186.137,591.26,186.131L591.26,186.131z M304.152,29.466L61.767,137.691l242.894,107.075l242.386-108.224L304.152,29.466 M304.083,0c2.632-0.006,5.266,0.533,7.728,1.618 l266.403,117.439c15.112,6.663,15.163,28.088,0.082,34.821L312.451,272.577c-2.456,1.097-5.088,1.648-7.721,1.655 c-2.632,0.006-5.266-0.533-7.728-1.618L30.6,155.175c-15.113-6.662-15.163-28.088-0.083-34.821L296.361,1.655 C298.818,0.558,301.449,0.006,304.083,0L304.083,0z">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div class="overflow-x-auto border border-gray-200 rounded-sm md:border-none shadow-md md:shadow-none">
             <table class="min-w-full border-collapse  text-left  ">
-                <thead class="bg-gray-100 border border-gray-500">
+                <thead class="bg-gray-100 border border-gray-300">
                     <tr>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500 whitespace-nowrap tracking-wider text-gray-800  ">
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800  ">
                             Batch Label</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500 whitespace-nowrap  tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
                             DCP Items</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500 whitespace-nowrap  tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
                             DCP Files</th>
+                        {{-- <th
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
+                            Package Type</th> --}}
+                        {{-- <th
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800   ">
+                            Budget Year</th> --}}
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500 whitespace-nowrap  tracking-wider text-gray-800   ">
-                            Package Type</th>
-                        <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500  whitespace-nowrap tracking-wider text-gray-800   ">
-                            Budget Year</th>
-                        <th
-                            class="px-4 py-2 font-semibold border-b border-gray-500  whitespace-nowrap tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800   ">
                             Delivery Date</th>
-                        <th class="px-4 py-2 font-semibold border-b border-gray-500   tracking-wider text-gray-800   ">
+                        <th
+                            class="px-4 py-2 font-semibold border-b border-gray-300  uppercase tracking-wider text-gray-800   ">
                             Supplier</th>
-                        <th class="px-4 py-2 font-semibold border-b border-gray-500   tracking-wider text-gray-800   ">
+                        <th
+                            class="px-4 py-2 font-semibold border-b border-gray-300  uppercase tracking-wider text-gray-800   ">
                             Status</th>
-                        <th class="px-4 py-2 font-semibold border-b border-gray-500   tracking-wider text-gray-800   ">
+                        <th
+                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase  tracking-wider text-gray-800   ">
                             Submit</th>
 
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($batch as $b)
-                        <tr class="hover:bg-blue-50 transition">
+                        <tr class="hover:bg-blue-50 transition tracking-wide">
                             <td class="px-4 py-3 border border-gray-300">{{ $b->batch_label }} </td>
                             @php
                                 $batch_items = App\Models\DCPBatchItem::where(
@@ -88,7 +97,7 @@
                             @endphp
                             <td class="px-2 py-3 md:px-4 space-x-2 border border-gray-300">
                                 <a href="{{ route('school.dcp_items', $b->id ?? $b->pk_dcp_batches_id) }}"
-                                    class=" flex items-center gap-2 text-md  {{ $bg_color }} text-gray-800 px-2 py-1   rounded    border border-gray-800">
+                                    class=" flex items-center justify-center tracking-wide font-medium gap-2 text-md whitespace-nowrap {{ $bg_color }} text-gray-800 px-2 py-1   rounded    border border-gray-800">
                                     <div class="inline-block h-6 w-6">
                                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -148,17 +157,17 @@
                                 @endphp
                                 <div class="text-left">
                                     <a href="{{ route('school.index.batch_status', $b->id ?? $b->pk_dcp_batches_id) }}"
-                                        class="flex justify-center items-center
-                                    text-md {{ $bg_color }} {{ $hover }} text-gray-800 px-2 py-1
-                                    rounded      border border-gray-800">
+                                        class="flex justify-center items-center  tracking-wide font-medium 
+                                    {{ $bg_color }} {{ $hover }} text-gray-800 px-2 py-1
+                                    rounded border border-gray-800">
 
 
                                         {{ $status ?? '' }}
                                     </a>
                                 </div>
                             </td>
-                            <td class="px-4 py-3 border border-gray-300">{{ $b->dcpPackageType->name ?? '' }}</td>
-                            <td class="px-4 py-3 border border-gray-300">{{ $b->budget_year }}</td>
+                            {{-- <td class="px-4 py-3 border border-gray-300">{{ $b->dcpPackageType->name ?? '' }}</td> --}}
+                            {{-- <td class="px-4 py-3 border border-gray-300">{{ $b->budget_year }}</td> --}}
                             <td class="px-4 py-3 border border-gray-300">
                                 {{ $b->delivery_date ? \Carbon\Carbon::parse($b->delivery_date)->format('F d, Y') : 'N/A' }}
                             </td>
@@ -180,7 +189,9 @@
 
                                         <button {{ $isDisabled ? 'disabled' : '' }}
                                             title="{{ $isDisabled ? 'Items are not completed' : 'You can now submit information to admin' }}"
-                                            class="bg-blue-500 hover:bg-blue-600 {{ $isDisabled ? 'cursor-not-allowed opacity-50' : '' }} text-white py-1 px-4 rounded">
+                                            class="bg-blue-500 hover:bg-blue-600 
+                                            {{ $isDisabled ? 'cursor-not-allowed opacity-50' : '' }}
+                                              text-white shadow tracking-wide font-medium py-1 px-4 rounded">
                                             Submit
                                         </button>
                                     </form>
@@ -201,7 +212,10 @@
                                         }
                                     @endphp
                                     <span title="{{ $title }}"
-                                        class="{{ $text_color }} px-2 py-1 text-white   font-normal text-lg">{{ $b->approval?->status }}</span>
+                                        class="{{ $text_color }}
+                                        shadow rounded tracking-wider 
+                                         px-2 py-1 text-white
+                                           font-medium  ">{{ $b->approval?->status }}</span>
                                 @endif
                             </td>
 

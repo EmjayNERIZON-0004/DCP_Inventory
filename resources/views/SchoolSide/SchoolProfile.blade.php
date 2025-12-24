@@ -3,17 +3,10 @@
 @section('title', 'School Profile')
 
 @section('content')
-
-
-
-    <div class="  justify-center px-5" style=" font-family:Verdana, Geneva, Tahoma, sans-serif">
-
-
-        <!-- Main Content -->
-
-        <div class="max-w-full   shadow-lg  mt-8">
+    <div class="  justify-center px-5" style=" font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <div class="max-w-full shadow-lg mt-8 mb-4">
             <div style="border:1px solid #ccc"
-                class="bg-white rounded-md   overflow-hidden p-6 flex flex-col md:flex-row items-center justify-between gap-8">
+                class="bg-white rounded-md tracking-wider  overflow-hidden p-6 flex flex-col md:flex-row items-center justify-between gap-8">
                 <!-- Logo and School Name (Left) -->
                 <div class="flex flex-col items-center md:items-start">
                     <img class="w-40 h-40 max-w-full rounded-full object-cover shadow-lg mb-0" style="border: 1px solid #ccc;"
@@ -21,18 +14,11 @@
                         alt="Profile Photo">
                     <h2 class="text-2xl font-bold text-gray-800 mt-2 mb-1 md:text-left text-center">
                         {{ Auth::guard('school')->user()->school->SchoolName }}</h2>
-                    <div class="text-gray-600 text-sm mb-2">School ID: <span
+                    <div class="text-gray-600 text-md mb-2">School ID: <span
                             class="font-semibold">{{ Auth::guard('school')->user()->school->SchoolID }}</span></div>
-                    <div class="text-gray-600 text-sm mb-2">Level: <span
+                    <div class="text-gray-600 text-md mb-2">Level: <span
                             class="font-semibold">{{ Auth::guard('school')->user()->school->SchoolLevel }}</span></div>
-                    <div
-                        class="text-blue-600 flex flex-col items-center md:flex-row md:justify-center md:items-center   space-y-1 md:space-y-0 md:space-x-1">
-                        <a href="#school_info" class="text-blue-600 hover:text-blue-800 underline">School Info</a>
-                        <span class="hidden md:inline">|</span>
-                        <a href="#school_officials" class="text-blue-600 hover:text-blue-800 underline">School Officials</a>
-                        <span class="hidden md:inline">|</span>
-                        <a href="#school_others" class="text-blue-600 hover:text-blue-800 underline">Other Details</a>
-                    </div>
+
 
 
                 </div>
@@ -51,293 +37,32 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="bg-white shadow-sm border-b border-gray-200">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div class="flex justify-between items-center py-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h2 class="text-lg font-semibold text-gray-900">School Dashboard</h2>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div class="text-sm text-gray-500">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span id="last-updated">Last updated: Jun 24, 2025 at 9:19 PM</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
-
-        <div class="max-w-full  py-6   sm:px-0 lg:px-0 pt-0" style=" font-family:Verdana, Geneva, Tahoma, sans-serif">
-            @if (Auth::guard('school')->user() && Auth::guard('school')->user()->school)
-
-                <!-- Additional School Info Container -->
-                <div id="school_info" style="border:1px solid #ccc"
-                    class="bg-white rounded-md shadow-md overflow-hidden p-6 mt-6">
-                    <!-- File upload for logo -->
-                    <div class="flex justify-between">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-700 mb-4">School Information</h3>
-                        </div>
-                        <div>
-                            <a href="#top"
-                                class="text-blue-600 hover:text-blue-800 underline flex items-center space-x-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                </svg>
-                                <span class="hidden md:block ">Back to Top</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <form method="POST" action="{{ route('school.update.details') }}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="text" value="{{ Auth::guard('school')->user()->school->pk_school_id }}"
-                            name="pk_school_id" class="hidden" />
-
-                        <div><span class="font-semibold">School ID:</span>
-                            {{ Auth::guard('school')->user()->school->SchoolID }}</div>
-                        <div><span class="font-semibold">School Name:</span>
-                            {{ Auth::guard('school')->user()->school->SchoolName }}</div>
-                        <div class="mb-4"><span class="font-semibold">School Level:</span>
-                            {{ Auth::guard('school')->user()->school->SchoolLevel }}
-                        </div>
-                        {{-- <div><span class="font-semibold">Region:</span>
-                            {{ Auth::guard('school')->user()->school->Region }}</div>
-                        <div><span class="font-semibold">Province:</span>
-                            {{ Auth::guard('school')->user()->school->Province }}</div>
-                        <div><span class="font-semibold">City:</span>
-                            {{ Auth::guard('school')->user()->school->CityMunicipality }}</div>
-                        <div class="mb-4"><span class="font-semibold">Division Office:</span>
-                            {{ Auth::guard('school')->user()->school->Division }}</div> --}}
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700">
-                            <div class="flex flex-col">
-                                <label class="mb-1 font-semibold text-gray-700">School Level</label>
-                                <input type="text" id="SchoolLevelInput"
-                                    class="px-3 py-2 border border-gray-0 rounded bg-gray-100"
-                                    value="{{ Auth::guard('school')->user()->school->SchoolLevel }}" readonly>
-                            </div>
-
-                            <!-- District Dropdown -->
-                            <div>
-                                <label class="font-semibold">School Email Address:</label>
-                                <input type="email" name="SchoolEmailAddress"
-                                    value="{{ Auth::guard('school')->user()->school->SchoolEmailAddress }}"
-                                    class="w-full border border-gray-300 rounded px-3 py-2" disabled />
-                            </div>
-                            <div>
-                                <label class="font-semibold">Region:</label>
-                                <input type="text" name="Region" value="Region I"
-                                    class="w-full border   rounded px-3 py-2" disabled />
-                                <input type="hidden" name="Region" value="Region I" />
-                            </div>
-                            <div>
-                                <label class="font-semibold">Province:</label>
-                                <input type="text" name="Province" value="Pangasinan"
-                                    class="w-full border   rounded px-2 py-1" disabled />
-                                <input type="hidden" name="Province" value="Pangasinan" />
-                            </div>
-                            <div>
-                                <label class="font-semibold">City/Municipality:</label>
-                                <input type="text" name="CityMunicipality" value="San Carlos City"
-                                    class="w-full border   rounded px-2 py-1" disabled />
-                                <input type="hidden" name="CityMunicipality" value="San Carlos City" />
-                            </div>
-                            <div>
-                                <label class="font-semibold">Division:</label>
-                                <input type="text" name="Division" value="San Carlos City"
-                                    class="w-full border   rounded px-2 py-1" disabled />
-                                <input type="hidden" name="Division" value="San Carlos City" />
-                            </div>
-                            <div class="col-span-1 md:col-span-3 border-b mt-2 border-gray-300">
-
-                            </div>
-
-                            <div
-                                class=" col-span-1   grid  overflow-hidden p-6   grid-cols-1 mt-1 gap-2 shadow-md border border-gray-300  rounded-md">
-                                <div class="col-span-1 ">
-                                    <div>
-                                        <h3 class="text-2xl font-semibold text-blue-700 ">School Details</h3>
-
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="font-normal">School Contact Number
-                                        <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" name="SchoolContactNumber"
-                                        value="{{ Auth::guard('school')->user()->school->SchoolContactNumber }}"
-                                        placeholder="+63 000 000 0000"
-                                        class="w-full border border-gray-300 rounded px-3 py-2" />
-                                </div>
-
-                                <div class="flex flex-col">
-                                    <label for="District" class="mb-1 font-normal text-gray-700">District
-
-                                        <span class="text-red-500">*</span>
-                                    </label>
-                                    <select name="District" id="District"
-                                        class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-                                        <!-- Options will be populated by JS -->
-                                    </select>
-                                </div>
-                                <div class=" flex flex-col items-start justify-end text-right">
-                                    <button type="submit"
-                                        class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Save
-                                        & Update
-                                    </button>
-                                </div>
-                            </div>
-                    </form>
-                    <div style="border:1px solid #ccc;width:100%"
-                        class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1">
-                        <div>
-                            <h3 class="text-2xl font-semibold text-blue-700 mb-1">More Details</h3>
-
-                        </div>
-                        <form class="w-full" action="{{ route('school.submit.non_teaching') }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <div class="flex flex-col">
-                                <label for="total_no_teaching" class="mb-1 font-normal text-gray-700">No. of Non-Teaching
-                                    Staff</label>
-                                <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
-                                    value="{{ Auth::guard('school')->user()->school->total_no_teaching ?? '' }}"
-                                    type="text" name="total_no_teaching">
-                            </div>
-
-                            <div class="flex-col">
-                                <label for="classroom_with_tv" class="mb-1 font-normal text-gray-700">No. of Classrooms
-                                    with TV </label>
-                                <input class="border border-gray-300 rounded px-2 py-2 w-full mb-2"
-                                    value="{{ Auth::guard('school')->user()->school->classroom_with_tv ?? '' }}"
-                                    type="text" name="classroom_with_tv">
-                            </div>
-
-
-                            <div class="flex justify-start">
-
-                                <button class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-                                    type="submit">
-                                    @if (Auth::guard('school')->user()->school->total_no_teaching)
-                                        Save & Update
-                                    @else
-                                        Submit
-                                    @endif
-                                </button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-
-
+        <div class="flex md:flex-row flex-col gap-2 mb-4">
+            <button class="custom-btn-active font-medium shadow tracking-wider rounded" onclick="openDiv(1, this)">School
+                Information</button>
+            <button class="custom-btn-inactive font-medium shadow tracking-wider rounded" onclick="openDiv(2, this)">School
+                Officials</button>
+            <button class="custom-btn-inactive font-medium shadow tracking-wider rounded"
+                onclick="openDiv(3, this)">Others</button>
         </div>
-        <!-- Principal, ICT, Custodian Info Container -->
-        <div id="school_officials" style="border:1px solid #ccc"
-            class="bg-white rounded-md shadow-md overflow-hidden p-6 mt-6">
-            <div class="flex justify-between">
-                <div>
-                    <h3 class="text-2xl font-semibold text-blue-700  ">School Officials</h3>
-                    <div class="text-gray-500 text-sm mb-4">Encode the details of the School Officials</div>
-                </div>
-                <div>
-                    <a href="#top" class="text-blue-600 hover:text-blue-800 underline flex items-center space-x-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                        </svg>
-                        <span class="hidden md:block ">Back to Top</span>
-                    </a>
-                </div>
-            </div>
+        <style>
+            .custom-btn-active {
+                background-color: #2563eb;
+                /* blue */
+                color: white;
+                padding: 8px 16px;
+                border-radius: 6px;
+            }
 
-
-            <form method="POST" action="{{ route('school.update.officials') }}">
-                @csrf
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700">
-                    <!-- Principal -->
-                    <div class="p-4 shadow-md border border-gray-300">
-                        <div class="bg-blue-200 text-gray- 800 border border-gray-800 mb-2  text-center p-2">
-
-                            <h4 class="font-semibold text-gray-800 text-lg">SCHOOL HEAD</h4>
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Name:</label>
-                            <input type="text" name="PrincipalName"
-                                value="{{ Auth::guard('school')->user()->school->PrincipalName }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Contact:</label>
-                            <input type="text" name="PrincipalContact"
-                                value="{{ Auth::guard('school')->user()->school->PrincipalContact }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Email:</label>
-                            <input type="email" name="PrincipalEmail"
-                                value="{{ Auth::guard('school')->user()->school->PrincipalEmail }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                    </div>
-                    <!-- ICT Coordinator -->
-                    <div class="p-4 shadow-md border border-gray-300">
-                        <div class="bg-green-200 text-gray-800 border border-gray-800 mb-2  text-center p-2">
-
-                            <h4 class="font-semibold text-gray-800 text-lg">SCHOOL ICT COORDINATOR</h4>
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Name:</label>
-                            <input type="text" name="ICTName"
-                                value="{{ Auth::guard('school')->user()->school->ICTName }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Contact:</label>
-                            <input type="text" name="ICTContact"
-                                value="{{ Auth::guard('school')->user()->school->ICTContact }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Email:</label>
-                            <input type="email" name="ICTEmail"
-                                value="{{ Auth::guard('school')->user()->school->ICTEmail }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                    </div>
-                    <!-- Property Custodian -->
-                    <div class="p-4 shadow-md border border-gray-300">
-                        <div class="bg-yellow-200 text-gray-800 border border-gray-800 mb-2  text-center p-2">
-
-                            <h4 class="font-semibold text-gray-800 text-lg">SCHOOL PROPERTY CUSTODIAN</h4>
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Name:</label>
-                            <input type="text" name="CustodianName"
-                                value="{{ Auth::guard('school')->user()->school->CustodianName }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Contact:</label>
-                            <input type="text" name="CustodianContact"
-                                value="{{ Auth::guard('school')->user()->school->CustodianContact }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                        <div class="mb-2">
-                            <label class="font-semibold">Email:</label>
-                            <input type="email" name="CustodianEmail"
-                                value="{{ Auth::guard('school')->user()->school->CustodianEmail }}"
-                                class="w-full border rounded px-2 py-1" />
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-6 text-right">
-                    <button type="submit"
-                        class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Update
-                        Officials</button>
-                </div>
-            </form>
-        </div>
-        <!-- Additional School Data Submission -->
+            .custom-btn-inactive {
+                background-color: #e5e7eb;
+                /* gray */
+                border: 1px solid #ccc;
+                color: #374151;
+                padding: 8px 16px;
+                border-radius: 6px;
+            }
+        </style>
         @php
             $schoolLevel = Auth::guard('school')->user()->school->SchoolLevel ?? '';
             $gradeLevels = [];
@@ -357,140 +82,704 @@
                 $gradeLevels = [['id' => 'SHS', 'name' => 'Senior High School']];
             }
         @endphp
-        <div class="grid md:grid-cols-4   grid-cols-1 md:gap-4 gap-2">
-            <div id="school_others" style="border:1px solid #ccc"
-                class=" col-span-4 flex md:flex-row flex-col gap-2   overflow-hidden   mt-6">
+        <div id="div1" class="content-div mb-5 tracking-wide">
+            <div class="max-w-full  py-6   sm:px-0 lg:px-0 pt-0"
+                style=" font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <div>
+                    @if (Auth::guard('school')->user() && Auth::guard('school')->user()->school)
+                        <!-- File upload for logo -->
+                        <div class="hidden" style="border:1px solid #ccc;width:100%"
+                            class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1 mb-1">
+                            <div class="flex justify-between">
 
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-4 uppercase">School Information</h3>
 
-                <!-- Table of Submitted Data -->
-                @if (isset($schoolData) && count($schoolData))
-                    <div class="bg-white w-full  p-6  " style="border:1px solid #ccc">
-                        <div class="flex justify-between">
-                            <div>
-                                <h3 class="text-2xl font-semibold text-blue-700  ">School Data (Grade Levels Information)
-                                </h3>
-                                <div class="text-gray-500  text-sm">List of encoded data </div>
-                                <button onclick="addSchoolData()"
-                                    class="bg-blue-600 hover:bg-blue-700 text-md text-white py-2 px-4 mt-2 mb-4 rounded">Encode
-                                    School Data</button>
                             </div>
-                            <div>
-                                <a href="#top"
-                                    class="text-blue-600 hover:text-blue-800 underline flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                    </svg>
-                                    <span class="hidden md:block ">Back to Top</span>
-                                </a>
+
+                            <div><span class="font-semibold">School ID:</span>
+                                {{ Auth::guard('school')->user()->school->SchoolID }}</div>
+                            <div><span class="font-semibold">School Name:</span>
+                                {{ Auth::guard('school')->user()->school->SchoolName }}</div>
+                            <div class="mb-4"><span class="font-semibold">School Level:</span>
+                                {{ Auth::guard('school')->user()->school->SchoolLevel }}
                             </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700">
+                                <div class="flex flex-col">
+                                    <label class="mb-1 font-semibold text-gray-700">School Level</label>
+                                    <input type="text" id="SchoolLevelInput"
+                                        class="px-3 py-2 border border-gray-0 rounded bg-gray-100"
+                                        value="{{ Auth::guard('school')->user()->school->SchoolLevel }}" readonly>
+                                </div>
+
+                                <!-- District Dropdown -->
+                                <div>
+                                    <label class="font-semibold">School Email Address:</label>
+                                    <input type="email" name="SchoolEmailAddress"
+                                        value="{{ Auth::guard('school')->user()->school->SchoolEmailAddress }}"
+                                        class="w-full border border-gray-300 rounded px-3 py-2" disabled />
+                                </div>
+                                <div>
+                                    <label class="font-semibold">Region:</label>
+                                    <input type="text" name="Region" value="Region I"
+                                        class="w-full border   rounded px-3 py-2" disabled />
+                                    <input type="hidden" name="Region" value="Region I" />
+                                </div>
+                                <div>
+                                    <label class="font-semibold">Province:</label>
+                                    <input type="text" name="Province" value="Pangasinan"
+                                        class="w-full border   rounded px-2 py-1" disabled />
+                                    <input type="hidden" name="Province" value="Pangasinan" />
+                                </div>
+                                <div>
+                                    <label class="font-semibold">City/Municipality:</label>
+                                    <input type="text" name="CityMunicipality" value="San Carlos City"
+                                        class="w-full border   rounded px-2 py-1" disabled />
+                                    <input type="hidden" name="CityMunicipality" value="San Carlos City" />
+                                </div>
+                                <div>
+                                    <label class="font-semibold">Division:</label>
+                                    <input type="text" name="Division" value="San Carlos City"
+                                        class="w-full border   rounded px-2 py-1" disabled />
+                                    <input type="hidden" name="Division" value="San Carlos City" />
+                                </div>
+
+                            </div>
+
                         </div>
+                        <h3 class="text-xl text-blue-600 font-medium mt-5">For Compliance</h3>
+                        <hr class="border border-blue-600">
+                        <div class="grid md:grid-cols-3 grid-cols-1 gap-2">
 
-                        @foreach ($schoolData as $data)
-                            <div class="mb-6    rounded border border-gray-200 shadow-sm">
-                                <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
-                                    <div class="md:col-span-5 col-span-1 w-full p-0">
+                            <div style="border:1px solid #ccc;width:100%"
+                                class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1">
+                                <form method="POST" action="{{ route('school.update.details') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="text" value="{{ Auth::guard('school')->user()->school->pk_school_id }}"
+                                        name="pk_school_id" class="hidden" />
+
+
+                                    <div class="grid grid-cols-1  gap-0 text-gray-700">
+                                        <div class="flex flex-col hidden">
+                                            <label class="mb-1 font-semibold text-gray-700">School Level</label>
+                                            <input type="text" id="SchoolLevelInput"
+                                                class="px-3 py-2 border border-gray-0 rounded bg-gray-100"
+                                                value="{{ Auth::guard('school')->user()->school->SchoolLevel }}" readonly>
+                                        </div>
+
+                                        <!-- District Dropdown -->
+                                        <div class="hidden">
+                                            <label class="font-semibold">School Email Address:</label>
+                                            <input type="email" name="SchoolEmailAddress"
+                                                value="{{ Auth::guard('school')->user()->school->SchoolEmailAddress }}"
+                                                class="w-full border border-gray-300 rounded px-3 py-2" disabled />
+                                        </div>
+                                        <div class="hidden">
+                                            <label class="font-semibold">Region:</label>
+                                            <input type="text" name="Region" value="Region I"
+                                                class="w-full border   rounded px-3 py-2" disabled />
+                                            <input type="hidden" name="Region" value="Region I" />
+                                        </div>
+                                        <div class="hidden">
+                                            <label class="font-semibold">Province:</label>
+                                            <input type="text" name="Province" value="Pangasinan"
+                                                class="w-full border   rounded px-2 py-1" disabled />
+                                            <input type="hidden" name="Province" value="Pangasinan" />
+                                        </div>
+                                        <div class="hidden">
+                                            <label class="font-semibold">City/Municipality:</label>
+                                            <input type="text" name="CityMunicipality" value="San Carlos City"
+                                                class="w-full border   rounded px-2 py-1" disabled />
+                                            <input type="hidden" name="CityMunicipality" value="San Carlos City" />
+                                        </div>
+                                        <div class="hidden">
+                                            <label class="font-semibold">Division:</label>
+                                            <input type="text" name="Division" value="San Carlos City"
+                                                class="w-full border   rounded px-2 py-1" disabled />
+                                            <input type="hidden" name="Division" value="San Carlos City" />
+                                        </div>
+
+
+                                        <div class="col-span-1 grid overflow-hidden grid-cols-1 gap-2">
+                                            <div class="col-span-1 ">
+                                                <div>
+                                                    <h3 class="text-2xl font-semibold text-blue-700 ">School Details</h3>
+
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <label for="SchoolAddress" class="mb-1 font-normal text-gray-700">School
+                                                    Complete
+                                                    Address</label>
+                                                <textarea class="border border-gray-300 rounded px-2 py-2 w-full mb-1" name="SchoolAddress">{{ Auth::guard('school')->user()->school->SchoolAddress ?? '' }}</textarea>
+
+                                            </div>
+                                            <div>
+                                                <label class="font-normal">Mobile No. 1
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input type="text" name="SchoolContactNumber"
+                                                    value="{{ Auth::guard('school')->user()->school->SchoolContactNumber }}"
+                                                    placeholder="+63 000 000 0000"
+                                                    class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            </div>
+                                            <div>
+                                                <label class="font-normal">Mobile No. 2
+                                                    <span class="text-red-500">Leave Blank if None</span>
+                                                </label>
+                                                <input type="text" name="SchoolContactNumber2"
+                                                    value="{{ Auth::guard('school')->user()->school->SchoolContactNumber2 }}"
+                                                    placeholder="+63 000 000 0000"
+                                                    class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            </div>
+                                            <div>
+                                                <label class="font-normal">Landline No.
+                                                    <span class="text-red-500">Leave Blank if None</span>
+                                                </label>
+                                                <input type="text" name="SchoolTelNumber"
+                                                    value="{{ Auth::guard('school')->user()->school->SchoolTelNumber }}"
+                                                    class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            </div>
+
+                                            <div class="flex flex-col">
+                                                <label for="District" class="mb-1 font-normal text-gray-700">District
+
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <select name="District" id="District"
+                                                    class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                                    <!-- Options will be populated by JS -->
+                                                </select>
+                                            </div>
+                                            <div class=" flex flex-col items-start justify-end text-right">
+                                                <button type="submit"
+                                                    class="px-6 py-2 bg-blue-600 text-white rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition">Save
+                                                    & Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div style="border:1px solid #ccc;width:100%"
+                                class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1">
+
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-1">School Coordinates</h3>
+
+
+                                <form class="w-full" action="{{ route('school.update.coordinates') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="flex flex-col mb-2">
+                                        <label for="latitude" class="mb-1 font-normal text-gray-700">Latitude</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->schoolCoordinates->Latitude ?? '' }}"
+                                            type="text" name="latitude" disabled>
+                                    </div>
+
+                                    <div class="flex-col mb-2">
+                                        <label for="longitude" class="mb-1 font-normal text-gray-700">Longitude</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-2"
+                                            value="{{ Auth::guard('school')->user()->school->schoolCoordinates->Longitude ?? '' }}"
+                                            type="text" name="longitude" disabled>
+                                    </div>
+                                    <div class="flex-col mb-2">
+                                        <label class="mb-1 font-normal text-gray-700">
+                                            Is Considered Remote
+                                            <span class="text-red-500">*</span>
+                                        </label>
+
+                                        @php
+                                            $isRemote = optional(
+                                                Auth::guard('school')->user()->school->schoolCoordinates,
+                                            )->is_considered_remote;
+                                        @endphp
+
+                                        <div class="flex items-center gap-4">
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="is_considered_remote" value="1"
+                                                    {{ $isRemote === 1 ? 'checked' : '' }}>
+                                                <span>True</span>
+                                            </label>
+
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="is_considered_remote" value="0"
+                                                    {{ $isRemote === 0 ? 'checked' : '' }}>
+                                                <span>False</span>
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="flex-col mb-2">
+                                        <label for="uacs" class="mb-1 font-normal text-gray-700">UACS
+                                            <span class="text-red-500">*</span>
+                                        </label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-2"
+                                            value="{{ Auth::guard('school')->user()->school->schoolCoordinates->uacs ?? '' }}"
+                                            type="text" name="uacs">
+                                    </div>
+
+                                    <div class="flex justify-start">
+
                                         <button
-                                            onclick="showEditForm({{ $data->ID }}, '{{ $data->GradeLevelID }}',{{ $data->RegisteredLearners }},{{ $data->Teachers }},{{ $data->Sections }},{{ $data->Classrooms }})"
-                                            class="text-blue-500 hover:text-blue-700 underline">Edit</button>
-                                        <button onclick="delete_school_data({{ $data->ID }})"
-                                            class="text-red-500 hover:text-red-700 underline">
-                                            Delete
+                                            class="px-6 py-2 bg-blue-600 text-white  rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition"
+                                            type="submit">
+
+                                            Save & Update
+
                                         </button>
                                     </div>
-                                    <div class="flex flex-col text-center px-2 py-2 items-center justify-center bg-green-200 "
-                                        style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal">Grade Level</label>
-                                        <div class="text-gray-800 text-lg font-bold">
-                                            {{ collect($gradeLevels)->firstWhere('id', $data->GradeLevelID)['name'] ?? $data->GradeLevelID }}
-                                        </div>
+
+                                </form>
+                            </div>
+
+                            <div style="border:1px solid #ccc;width:100%"
+                                class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1">
+
+                                <h3 class="text-2xl font-semibold text-blue-700 mb-4">School Admin Information</h3>
+
+                                <h3 class="text-xl font-semibold text-blue-700 ">Admin Information</h3>
+                                <form action="{{ route('school.update.admin_details') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+
+                                    <div class="flex flex-col">
+                                        <label for="admin_position" class="mb-1 font-normal text-gray-700">
+                                            Admin Position
+                                        </label>
+
+                                        <select name="admin_position"
+                                            class="border border-gray-300 rounded px-2 py-2 w-full mb-1">
+                                            <option value="">Select Admin Position</option>
+
+                                            <option value="RO"
+                                                {{ optional(Auth::guard('school')->user()->school)->admin_position === 'RO' ? 'selected' : '' }}>
+                                                RO
+                                            </option>
+
+                                            <option value="SDO Chief"
+                                                {{ optional(Auth::guard('school')->user()->school)->admin_position === 'SDO Chief' ? 'selected' : '' }}>
+                                                SDO Chief
+                                            </option>
+
+                                            <option value="School Principal"
+                                                {{ optional(Auth::guard('school')->user()->school)->admin_position === 'School Principal' ? 'selected' : '' }}>
+                                                School Principal
+                                            </option>
+
+                                            <option value="Administrator"
+                                                {{ optional(Auth::guard('school')->user()->school)->admin_position === 'Administrator' ? 'selected' : '' }}>
+                                                Administrator
+                                            </option>
+                                        </select>
                                     </div>
-                                    <div
-                                        class="flex flex-col  text-center items-center justify-center p-2 bg-red-200"style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal  font-xl">Learners</label>
-                                        <div class="text-gray-800 text-lg font-bold">{{ $data->RegisteredLearners }}
-                                        </div>
+
+                                    <div class="flex flex-col">
+                                        <label for="admin_email" class="mb-1 font-normal text-gray-700">Admin Email
+                                            Address</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->admin_email ?? '' }}"
+                                            type="email" name="admin_email">
                                     </div>
-                                    <div
-                                        class="flex flex-col  text-center items-center justify-center p-2 bg-blue-200"style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal  font-xl">Teachers</label>
-                                        <div class="text-gray-800 text-lg font-bold">{{ $data->Teachers }}</div>
+                                    <div class="flex flex-col mb-4">
+                                        <label for="admin_mobile_no" class="mb-1 font-normal text-gray-700">Admin Mobile
+                                            No.</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->admin_mobile_no ?? '' }}"
+                                            type="text" name="admin_mobile_no">
                                     </div>
-                                    <div
-                                        class="flex flex-col p-2 text-center  items-center justify-center text-center bg-purple-200"style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal  font-xl">Sections</label>
-                                        <div class="text-gray-800 text-lg font-bold">{{ $data->Sections }}</div>
+                                    <h3 class="text-xl font-semibold text-blue-700 ">Admin Staff Information</h3>
+                                    <div class="flex flex-col">
+                                        <label for="admin_staff_email" class="mb-1 font-normal text-gray-700">Admin Staff
+                                            Email</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->admin_staff_email ?? '' }}"
+                                            type="email" name="admin_staff_email">
                                     </div>
-                                    <div
-                                        class="flex flex-col p-2  text-center items-center justify-center bg-yellow-200"style="border:1px solid #282828">
-                                        <label class="text-gray-700 font-normal  font-xl">Classrooms</label>
-                                        <div class="text-gray-800 text-lg font-bold">{{ $data->Classrooms }}</div>
+                                    <div class="flex flex-col mb-2">
+                                        <label for="admin_staff_mobile_no" class="mb-1 font-normal text-gray-700">Admin
+                                            Staff
+                                            Mobile
+                                            No.</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->admin_staff_mobile_no ?? '' }}"
+                                            type="text" name="admin_staff_mobile_no">
                                     </div>
+                                    <div class="flex justify-start">
+
+                                        <button
+                                            class="px-6 py-2 bg-blue-600 text-white  rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition"
+                                            type="submit">
+                                            Save & Update
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div style="border:1px solid #ccc;width:100%"
+                                class="w-full bg-white  rounded-md shadow-md overflow-hidden p-6 mt-1">
+
+
+                                <div class="flex justify-between">
+
+                                    <h3 class="text-2xl font-semibold text-blue-700 mb-4 uppercase">School Information</h3>
 
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="bg-white w-full  p-6  " style="border:1px solid #ccc">
-                        <div class="flex justify-between">
-                            <div>
-                                <h3 class="text-2xl font-semibold text-blue-700  ">Submitted School Data</h3>
-                                <div class="text-gray-500 mb-4 text-sm">List of encoded data </div>
-                                <button onclick="addSchoolData()"
-                                    class="bg-blue-600 hover:bg-blue-700 text-md text-white py-2 px-4 rounded">Encode
-                                    School Data</button>
-                            </div>
-                            <div>
-                                <a href="#top"
-                                    class="text-blue-600 hover:text-blue-800 underline flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                    </svg>
-                                    <span class="hidden md:block ">Back to Top</span>
-                                </a>
+                                <form class="w-full" action="{{ route('school.submit.non_teaching') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="flex-col mb-2">
+                                        <label class="mb-1 font-normal text-gray-700">
+                                            Has Network Administrator ?
+                                            <span class="text-red-500">*</span>
+                                        </label>
+
+                                        @php
+                                            $network = optional(Auth::guard('school')->user()->school)
+                                                ->has_network_admin;
+                                        @endphp
+
+                                        <div class="flex items-center gap-4">
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="has_network_admin" value="1"
+                                                    {{ $network == 1 ? 'checked' : '' }}>
+                                                <span>True</span>
+                                            </label>
+
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="has_network_admin" value="0"
+                                                    {{ $network == 0 ? 'checked' : '' }}>
+                                                <span>False</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="flex-col mb-2">
+                                        <label class="mb-1 font-normal text-gray-700">
+                                            Has Sufficient Bandwidth for Internet Needs?
+                                            <span class="text-red-500">*</span>
+                                        </label>
+
+                                        @php
+                                            $has_bandwidth = optional(Auth::guard('school')->user()->school)
+                                                ->has_bandwidth;
+                                        @endphp
+
+                                        <div class="flex items-center gap-4">
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="has_bandwidth" value="1"
+                                                    {{ $has_bandwidth == 1 ? 'checked' : '' }}>
+                                                <span>True</span>
+                                            </label>
+
+                                            <label class="flex items-center gap-1">
+                                                <input type="radio" name="has_bandwidth" value="0"
+                                                    {{ $has_bandwidth == 0 ? 'checked' : '' }}>
+                                                <span>False</span>
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="flex flex-col">
+                                        <label for="total_no_teaching" class="mb-1 font-normal text-gray-700">No.
+                                            of
+                                            Non-Teaching
+                                            Staff</label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-1"
+                                            value="{{ Auth::guard('school')->user()->school->total_no_teaching ?? '' }}"
+                                            type="text" name="total_no_teaching">
+                                    </div>
+
+                                    <div class="flex-col">
+                                        <label for="classroom_with_tv" class="mb-1 font-normal text-gray-700">No.
+                                            of
+                                            Classrooms
+                                            with TV </label>
+                                        <input class="border border-gray-300 rounded px-2 py-2 w-full mb-2"
+                                            value="{{ Auth::guard('school')->user()->school->classroom_with_tv ?? '' }}"
+                                            type="text" name="classroom_with_tv">
+                                    </div>
+
+
+                                    <div class="flex justify-start">
+
+                                        <button
+                                            class="px-6 py-2 bg-blue-600 text-white  rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition"
+                                            type="submit">
+                                            @if (Auth::guard('school')->user()->school->total_no_teaching)
+                                                Save & Update
+                                            @else
+                                                Submit
+                                            @endif
+                                        </button>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-5 gap-2 my-2">
-
-                            <div class="flex flex-col text-center px-2 py-2 items-center justify-center bg-green-200 "
-                                style="border:1px solid #282828">
-                                <label class="text-gray-700 font-normal">Grade Level</label>
-
-                            </div>
-                            <div
-                                class="flex flex-col  text-center items-center justify-center p-2 bg-red-200"style="border:1px solid #282828">
-                                <label class="text-gray-700 font-normal  font-xl">Learners</label>
-                            </div>
-
-                            <div
-                                class="flex flex-col  text-center items-center justify-center p-2 bg-blue-200"style="border:1px solid #282828">
-                                <label class="text-gray-700 font-normal  font-xl">Teachers</label>
-                            </div>
-                            <div
-                                class="flex flex-col p-2 text-center  items-center justify-center text-center bg-purple-200"style="border:1px solid #282828">
-                                <label class="text-gray-700 font-normal  font-xl">Sections</label>
-                            </div>
-                            <div
-                                class="flex flex-col p-2  text-center items-center justify-center bg-yellow-200"style="border:1px solid #282828">
-                                <label class="text-gray-700 font-normal  font-xl">Classrooms</label>
-
-                            </div>
-
-                        </div>
-                        <div class="text-center text-gray-500 text-lg mt-12 mb-12 font-[Verdana]">
-                            No school data found.
-                        </div>
-                    </div>
+                </div>
+            @else
+                <div class="bg-white rounded-md shadow-md overflow-hidden p-6 text-center">
+                    <h3 class="text-lg font-semibold text-red-600 mb-4">No school information found for this
+                        account.
+                    </h3>
+                    <p class="text-gray-600">Please contact your administrator to link your account to a
+                        school.
+                    </p>
+                </div>
                 @endif
 
             </div>
-
         </div>
+
+        <div id="div2" class="content-div hidden mb-5 tracking-wide">
+            <div id="school_officials" style="border:1px solid #ccc"
+                class="bg-white rounded-md shadow-md overflow-hidden p-6  ">
+                <div class="flex justify-between">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-700 uppercase ">School Officials</h3>
+                        <div class="text-gray-500 text-md font-medium mb-4">Encode the details of the School Officials
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <form method="POST" action="{{ route('school.update.officials') }}">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700">
+                        <!-- Principal -->
+                        <div class="p-4 shadow-md border border-gray-300">
+                            <div class="bg-blue-200 text-gray- 800 border border-gray-800 mb-2  text-center p-2">
+
+                                <h4 class="font-semibold text-gray-800 text-lg">SCHOOL HEAD</h4>
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Name:</label>
+                                <input type="text" name="PrincipalName"
+                                    value="{{ Auth::guard('school')->user()->school->PrincipalName }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Contact:</label>
+                                <input type="text" name="PrincipalContact"
+                                    value="{{ Auth::guard('school')->user()->school->PrincipalContact }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Email:</label>
+                                <input type="email" name="PrincipalEmail"
+                                    value="{{ Auth::guard('school')->user()->school->PrincipalEmail }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                        </div>
+                        <!-- ICT Coordinator -->
+                        <div class="p-4 shadow-md border border-gray-300">
+                            <div class="bg-green-200 text-gray-800 border border-gray-800 mb-2  text-center p-2">
+
+                                <h4 class="font-semibold text-gray-800 text-lg">SCHOOL ICT COORDINATOR</h4>
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Name:</label>
+                                <input type="text" name="ICTName"
+                                    value="{{ Auth::guard('school')->user()->school->ICTName }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Contact:</label>
+                                <input type="text" name="ICTContact"
+                                    value="{{ Auth::guard('school')->user()->school->ICTContact }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Email:</label>
+                                <input type="email" name="ICTEmail"
+                                    value="{{ Auth::guard('school')->user()->school->ICTEmail }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                        </div>
+                        <!-- Property Custodian -->
+                        <div class="p-4 shadow-md border border-gray-300">
+                            <div class="bg-yellow-200 text-gray-800 border border-gray-800 mb-2  text-center p-2">
+
+                                <h4 class="font-semibold text-gray-800 text-lg">SCHOOL PROPERTY CUSTODIAN</h4>
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Name:</label>
+                                <input type="text" name="CustodianName"
+                                    value="{{ Auth::guard('school')->user()->school->CustodianName }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Contact:</label>
+                                <input type="text" name="CustodianContact"
+                                    value="{{ Auth::guard('school')->user()->school->CustodianContact }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                            <div class="mb-2">
+                                <label class="font-semibold">Email:</label>
+                                <input type="email" name="CustodianEmail"
+                                    value="{{ Auth::guard('school')->user()->school->CustodianEmail }}"
+                                    class="w-full border rounded px-2 py-1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-right">
+                        <button type="submit"
+                            class="px-6 py-2 bg-blue-600 text-white rounded tracking-wider font-medium shadow hover:bg-blue-700 transition">Update
+                            Officials</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="div3" class="content-div hidden mb-5 tracking-wide">
+            <div class="grid md:grid-cols-4 grid-cols-1 md:gap-4 gap-2">
+                <div id="school_others" style="border:1px solid #ccc"
+                    class=" col-span-4 flex md:flex-row flex-col gap-2 overflow-hidden ">
+
+
+                    <!-- Table of Submitted Data -->
+                    @if (isset($schoolData) && count($schoolData))
+                        <div class="bg-white w-full p-6 " style="border:1px solid #ccc">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-semibold text-blue-700 uppercase ">School Data (Grade Levels
+                                        Information)
+                                    </h3>
+                                    <div class="text-gray-500  text-md font-medium">List of encoded data </div>
+                                    <button onclick="addSchoolData()"
+                                        class="bg-blue-600 hover:bg-blue-700 text-md text-white py-2 px-4 mt-2 mb-4  rounded tracking-wider font-medium shadow ">Encode
+                                        School Data</button>
+                                </div>
+
+                            </div>
+
+                            @foreach ($schoolData as $data)
+                                <div class="mb-6">
+                                    <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+                                        <div class="md:col-span-5 col-span-1 w-full p-0">
+                                            <button
+                                                onclick="showEditForm({{ $data->ID }}, '{{ $data->GradeLevelID }}',{{ $data->RegisteredLearners }},{{ $data->Teachers }},{{ $data->Sections }},{{ $data->Classrooms }})"
+                                                class="text-blue-500 hover:text-blue-700 underline">Edit</button>
+                                            <button onclick="delete_school_data({{ $data->ID }})"
+                                                class="text-red-500 hover:text-red-700 underline">
+                                                Delete
+                                            </button>
+                                        </div>
+                                        <div class="flex flex-col text-center px-2 py-2 items-center justify-center bg-green-200 "
+                                            style="border:1px solid #282828">
+                                            <label class="text-gray-700 font-normal">Grade Level</label>
+                                            <div class="text-gray-800 text-lg font-bold">
+                                                {{ collect($gradeLevels)->firstWhere('id', $data->GradeLevelID)['name'] ?? $data->GradeLevelID }}
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col  text-center items-center justify-center p-2 bg-red-200"style="border:1px solid #282828">
+                                            <label class="text-gray-700 font-normal  font-xl">Learners</label>
+                                            <div class="text-gray-800 text-lg font-bold">{{ $data->RegisteredLearners }}
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col  text-center items-center justify-center p-2 bg-blue-200"style="border:1px solid #282828">
+                                            <label class="text-gray-700 font-normal  font-xl">Teachers</label>
+                                            <div class="text-gray-800 text-lg font-bold">{{ $data->Teachers }}</div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col p-2 text-center  items-center justify-center text-center bg-purple-200"style="border:1px solid #282828">
+                                            <label class="text-gray-700 font-normal  font-xl">Sections</label>
+                                            <div class="text-gray-800 text-lg font-bold">{{ $data->Sections }}</div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col p-2  text-center items-center justify-center bg-yellow-200"style="border:1px solid #282828">
+                                            <label class="text-gray-700 font-normal  font-xl">Classrooms</label>
+                                            <div class="text-gray-800 text-lg font-bold">{{ $data->Classrooms }}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="bg-white w-full p-6 " style="border:1px solid #ccc">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-2xl font-semibold text-blue-700  ">Submitted School Data</h3>
+                                    <div class="text-gray-500 mb-4 text-sm">List of encoded data </div>
+                                    <button onclick="addSchoolData()"
+                                        class="bg-blue-600 hover:bg-blue-700 text-md text-white py-2 px-4  rounded tracking-wider font-medium shadow ">Encode
+                                        School Data</button>
+                                </div>
+
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-5 gap-2 my-2">
+
+                                <div class="flex flex-col text-center px-2 py-2 items-center justify-center bg-green-200 "
+                                    style="border:1px solid #282828">
+                                    <label class="text-gray-700 font-normal">Grade Level</label>
+
+                                </div>
+                                <div
+                                    class="flex flex-col  text-center items-center justify-center p-2 bg-red-200"style="border:1px solid #282828">
+                                    <label class="text-gray-700 font-normal  font-xl">Learners</label>
+                                </div>
+
+                                <div
+                                    class="flex flex-col  text-center items-center justify-center p-2 bg-blue-200"style="border:1px solid #282828">
+                                    <label class="text-gray-700 font-normal  font-xl">Teachers</label>
+                                </div>
+                                <div
+                                    class="flex flex-col p-2 text-center  items-center justify-center text-center bg-purple-200"style="border:1px solid #282828">
+                                    <label class="text-gray-700 font-normal  font-xl">Sections</label>
+                                </div>
+                                <div
+                                    class="flex flex-col p-2  text-center items-center justify-center bg-yellow-200"style="border:1px solid #282828">
+                                    <label class="text-gray-700 font-normal  font-xl">Classrooms</label>
+
+                                </div>
+
+                            </div>
+                            <div class="text-center text-gray-500 text-lg mt-12 mb-12 font-[Verdana]">
+                                No school data found.
+                            </div>
+                        </div>
+                    @endif
+
+                </div>
+
+            </div>
+        </div>
+        <script>
+            function openDiv(divNumber, btn) {
+                // Hide all divs
+                document.getElementById("div1").classList.add("hidden");
+                document.getElementById("div2").classList.add("hidden");
+                document.getElementById("div3").classList.add("hidden");
+
+                // Show selected div
+                document.getElementById("div" + divNumber).classList.remove("hidden");
+
+                // Reset all buttons
+                const allButtons = btn.parentElement.querySelectorAll("button");
+                allButtons.forEach(b => {
+                    b.classList.remove("custom-btn-active");
+                    b.classList.add("custom-btn-inactive");
+                });
+
+                // Activate the clicked button
+                btn.classList.add("custom-btn-active");
+                btn.classList.remove("custom-btn-inactive");
+            }
+        </script>
+
+
 
         <div id="add-schooldata-modal"
             class="modal fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
@@ -546,10 +835,10 @@
                             value="{{ Auth::guard('school')->user()->school->pk_school_id }}">
                         <div class="mt-6 text-right">
                             <button type="submit"
-                                class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Submit
+                                class="px-6 py-2 bg-blue-600 text-white  rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition">Submit
                                 Data</button>
                             <button onclick="closeAddSchoolData()"
-                                class="px-6 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition">Cancel</button>
+                                class="px-6 py-2 bg-gray-400 text-white  rounded tracking-wider font-medium shadow  hover:bg-gray-500 transition">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -617,9 +906,10 @@
                         value="{{ Auth::guard('school')->user()->school->pk_school_id }}">
                     <div class="mt-6 text-right flex justify-end gap-2">
                         <button type="submit"
-                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Update
+                            class="px-6 py-2 bg-blue-600 text-white rounded tracking-wider font-medium shadow  hover:bg-blue-700 transition">Update
                             Data</button>
-                        <button type="button" class="px-6 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600"
+                        <button type="button"
+                            class="px-6 py-2 bg-gray-400 text-white  rounded tracking-wider font-medium shadow  hover:bg-gray-600"
                             onclick="closeEditModal()">Cancel</button>
                     </div>
                 </form>
@@ -652,14 +942,9 @@
                 document.getElementById('school-data-form_update').classList.remove('hidden');
             }
         </script>
-    @else
-        <div class="bg-white rounded-md shadow-md overflow-hidden p-6 text-center">
-            <h3 class="text-lg font-semibold text-red-600 mb-4">No school information found for this account.</h3>
-            <p class="text-gray-600">Please contact your administrator to link your account to a school.</p>
-        </div>
-        @endif
+
     </div>
-    </div>
+
 
 
     <!-- Add Leaflet.js for map display -->

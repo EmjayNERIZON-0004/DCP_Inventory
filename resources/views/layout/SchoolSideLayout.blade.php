@@ -17,6 +17,10 @@
     html {
         scroll-behavior: smooth;
     }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 </style>
 
 <body class="antialiased bg-gray-100 flex flex-col min-h-screen">
@@ -25,14 +29,17 @@
             <div class="flex md:justify-between justify-start items-center w-full">
 
                 <!-- Left Side -->
-                <div class="flex md:items-center items-start space-x-2">
+                <div class="flex items-center space-x-2">
                     <img src="{{ Auth::guard('school')->user()->school->image_path ? asset('school-logo/' . Auth::guard('school')->user()->school->image_path) : asset('icon/logo.png') }}"
-                        alt="School Logo" class="h-10 w-10 rounded-full object-cover shadow-lg md:block hidden">
+                        alt="School Logo" class="h-10 w-10 rounded-full object-cover shadow-lg">
 
-                    <div class="md:text-2xl text-lg font-bold   transition">
+                    <div
+                        class="text-lg md:text-2xl font-bold transition 
+                truncate overflow-hidden  whitespace-normal max-w-[150px] md:max-w-none">
                         DCP - {{ Auth::guard('school')->user()->school->SchoolName ?? 'School Not Found' }}
                     </div>
                 </div>
+
 
                 <!-- Right Side -->
                 <div class="flex items-center space-x-4">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use App\Models\SchoolCoordinates;
 use App\Models\SchoolUser;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +29,10 @@ class AdminController extends Controller
             'Province' => 'nullable|string|max:100',
             'CityMunicipality' => 'nullable|string|max:100',
             'SchoolContactNumber' => 'nullable|string|max:50',
+            'SchoolContactNumber2' => 'nullable|string|max:50',
+            'SchoolTelNumber' => 'nullable|string|max:50',
             'SchoolEmailAddress' => 'nullable|email|max:255',
+            'SchoolAddress' => 'nullable|string',
 
         ]);
 
@@ -42,6 +46,54 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'School details updated successfully.');
         } catch (Exception $e) {
             Log::error('School update error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
+        }
+    }
+    public function updateAdminDetails(Request $request)
+    {
+        $user = auth()->guard('school')->user();
+        if (!$user || !$user->school) {
+            return redirect()->back()->with('error', 'No school found for this account.');
+        }
+        $validated = $request->validate([
+            'admin_position' => 'nullable|string|max:255',
+            'admin_email' => 'nullable|email|max:255',
+            'admin_mobile_no' => 'nullable|string|max:50',
+            'admin_staff_email' => 'nullable|email|max:255',
+            'admin_staff_mobile_no' => 'nullable|string|max:50',
+
+        ]);
+        try {
+            $user->school->update($validated);
+            return redirect()->back()->with('success', 'Admin details updated successfully.');
+        } catch (Exception $e) {
+            Log::error('Admin details update error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
+        }
+    }
+    public function updateSchoolCoordinates(Request $request)
+    {
+        $user = Auth::guard('school')->user();
+
+        if (!$user || !$user->pk_school_id) {
+            return redirect()->back()->with('error', 'No school found for this account.');
+        }
+
+        $validated = $request->validate([
+
+            'is_considered_remote' => 'required|boolean',
+            'uacs' => 'nullable|string|max:50',
+        ]);
+
+        try {
+            $schoolCoordinates = SchoolCoordinates::where('pk_school_id', $user->school->pk_school_id)->first();
+
+            if ($schoolCoordinates) {
+                $schoolCoordinates->update($validated);
+            }
+            return redirect()->back()->with('success', 'School coordinates updated successfully.');
+        } catch (Exception $e) {
+            Log::error('School coordinates update error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Update failed: ' . $e->getMessage());
         }
     }

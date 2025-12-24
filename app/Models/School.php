@@ -25,17 +25,34 @@ class School extends Model
         'image_path',
         'Province',
         'CityMunicipality',
+        'SchoolAddress', //new
+
         'SchoolContactNumber',
+        'SchoolContactNumber2', //new
+        'SchoolTelNumber', //new
         'SchoolEmailAddress',
+
         'PrincipalName',
         'PrincipalContact',
         'PrincipalEmail',
+
         'ICTName',
         'ICTContact',
         'ICTEmail',
+
         'CustodianName',
         'CustodianContact',
         'CustodianEmail',
+
+        'admin_position', //new
+        'admin_email', //new
+        'admin_mobile_no', //new
+
+        'admin_staff_email', //new
+        'admin_staff_mobile_no', //new
+
+        'has_network_admin', // 0 or 1
+        'has_bandwidth', // 0 or 1
 
         'created_at',
         'updated_at'

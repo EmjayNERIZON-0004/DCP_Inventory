@@ -353,12 +353,11 @@
             }
         });
     </script>
-
-    <div class="bg-white border border-gray-300 shadow-xl rounded-lg p-6 md:mx-5 md:my-5 mx-0 my-0">
+    <div class="p-2  md:mx-5 md:my-5 mx-0 my-0">
         <div class="flex md:flex-row flex-col md:justify-between justify-start items-center text-md"
-            style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif  ">
+            style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;letter-spacing:0.05rem">
             <div class="w-full">
-                <h2 class="text-2xl font-bold text-gray-700">School</h2>
+                <h2 class="text-2xl font-bold text-gray-700">School List</h2>
                 <div class="text-md text-gray-600 md:mb-5 mb-2">List of Schools under DepEd Computerization Program</div>
             </div>
             <div class="flex items-center md:justify-end justify-start w-full mb-2">
@@ -371,6 +370,7 @@
 
         <input type="text" id="searchSchool" placeholder="Search School..."
             class="w-1/3 mb-4 px-3 py-2 border rounded shadow focus:outline-blue-400" />
+
 
         <!-- Card Grid -->
         <div id="schoolCardGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -415,8 +415,8 @@
 
                     <div class=" flex flex-row gap-2">
 
-                        <a href="{{ route('schools.show', $school->pk_school_id) }}"
-                            class="w-full text-center px-3 py-1 text-md  shadow-md  font-normal text-white bg-blue-600 rounded hover:bg-blue-700">
+                        <a href="{{ route('schools.show', $school->pk_school_id) }}" style="letter-spacing:0.05rem"
+                            class="w-full text-center px-3 py-1 text-md  shadow-md  font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
                             Details
                         </a>
 
@@ -427,13 +427,13 @@
                         '{{ $school->SchoolName }}',
                         '{{ $school->SchoolLevel }}',
                         '{{ $school->SchoolEmailAddress }}'
-                    )"
-                            class="w-full px-3 py-1 font-normal shadow-md text-md  text-white bg-yellow-500 rounded hover:bg-yellow-500">
+                         )"
+                            class="w-full px-3 py-1 font-medium shadow-md text-md  text-white bg-yellow-500 rounded hover:bg-yellow-500">
                             Edit
                         </button>
 
                         <button type="button" onclick="deleteSchool('{{ $school->pk_school_id }}')"
-                            class="w-full px-3 py-1 font-normal shadow-md   text-md text-white bg-red-600 rounded hover:bg-red-700">
+                            class="w-full px-3 py-1 font-medium shadow-md   text-md text-white bg-red-600 rounded hover:bg-red-700">
                             Delete
                         </button>
                     </div>
@@ -441,12 +441,12 @@
             @endforeach
         </div>
 
-        <div class="mt-6">
+        <div class="mt-6 mb-5">
             {{ $schools->links() }}
         </div>
+
+
     </div>
-
-
     <div id="school-edit-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
         <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-green-500 w-full max-w-4xl relative">
             <button type="button" onclick="cancelSchoolEdit()"
@@ -580,7 +580,7 @@
                             <div class=" flex flex-row gap-2 w-full">
                                
                                 <a href="/schools/${school.pk_school_id}"
-                                    class="w-full px-3 py-1 text-white  shadow-md text-md bg-blue-600 rounded hover:bg-blue-700 text-center">
+                                  style="letter-spacing:0.005rem;"  class="w-full px-3 py-1 text-white  shadow-md text-md font-medium bg-blue-600 rounded hover:bg-blue-700 text-center">
                                     Details
                                 </a>
                                 <button
@@ -591,11 +591,11 @@
                                         '${school.SchoolLevel}',
                                         '${school.SchoolEmailAddress}'
                                     )"
-                                    class="w-full px-3 py-1 text-md text- shadow-md  bg-yellow-500 rounded hover:bg-yellow-500">
+                                    class="w-full px-3 py-1 text-md text-white font-medium shadow-md  bg-yellow-500 rounded hover:bg-yellow-500">
                                     Edit
                                 </button>
                                 <button type="button" onclick="deleteSchool('${school.pk_school_id}')"
-                                    class="w-full px-3 py-1 text-md text- shadow-md  bg-red-600 rounded hover:bg-red-700">
+                                    class="w-full px-3 py-1 text-md text-white shadow-md font-medium bg-red-600 rounded hover:bg-red-700">
                                     Delete
                                 </button>
                             </div>

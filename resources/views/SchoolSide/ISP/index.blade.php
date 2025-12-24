@@ -11,67 +11,72 @@
                      <div>
                          <h2 class="font-bold text-2xl text-gray-800">Schools Internet Service Provider Information</h2>
                          <h2 class="font-normal text-lg text-gray-600">Bulletin</h2>
-                         <button onclick="openISPDetailsModal()" class="bg-blue-600 text-white rounded-SM py-1 px-4">
+                         <button onclick="openISPDetailsModal()"
+                             class="bg-blue-600 text-white rounded  tracking-wider font-medium shadow  py-1 px-4">
                              Create ISP Details
 
                          </button>
                      </div>
-                     <div class="text-blue-600 h-16 w-16 mt-2">
-                         <svg fill="currentColor" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
-                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                             <g id="SVGRepo_iconCarrier">
-                                 <title></title>
-                                 <g>
-                                     <path d="M48,60A12,12,0,1,0,60,72,12.0081,12.0081,0,0,0,48,60Z"></path>
-                                     <path
-                                         d="M22.6055,46.6289A5.9994,5.9994,0,1,0,31.1133,55.09a24.2258,24.2258,0,0,1,33.7734,0,5.9512,5.9512,0,0,0,4.2539,1.77,6,6,0,0,0,4.2539-10.23C59.7773,32.918,36.2227,32.918,22.6055,46.6289Z">
-                                     </path>
-                                     <path
-                                         d="M90.27,29.7773a59.1412,59.1412,0,0,0-84.539,0,5.9994,5.9994,0,1,0,8.5312,8.4375c18.1172-18.3281,49.3594-18.3281,67.4766,0A5.9994,5.9994,0,1,0,90.27,29.7773Z">
-                                     </path>
+
+                     <div
+                         class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
+                         <div class="text-white bg-blue-600 p-2 rounded-full">
+                             <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 96 96"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                 <g id="SVGRepo_iconCarrier">
+                                     <title></title>
+                                     <g>
+                                         <path d="M48,60A12,12,0,1,0,60,72,12.0081,12.0081,0,0,0,48,60Z"></path>
+                                         <path
+                                             d="M22.6055,46.6289A5.9994,5.9994,0,1,0,31.1133,55.09a24.2258,24.2258,0,0,1,33.7734,0,5.9512,5.9512,0,0,0,4.2539,1.77,6,6,0,0,0,4.2539-10.23C59.7773,32.918,36.2227,32.918,22.6055,46.6289Z">
+                                         </path>
+                                         <path
+                                             d="M90.27,29.7773a59.1412,59.1412,0,0,0-84.539,0,5.9994,5.9994,0,1,0,8.5312,8.4375c18.1172-18.3281,49.3594-18.3281,67.4766,0A5.9994,5.9994,0,1,0,90.27,29.7773Z">
+                                         </path>
+                                     </g>
                                  </g>
-                             </g>
-                         </svg>
+                             </svg>
+                         </div>
                      </div>
                  </div>
                  <div class="mt-2   py-4 overflow-x-auto">
                      @if ($isp_content->isNotEmpty())
-                         <table class="table-auto border border-gray-300 w-full border-collapse">
-                             <thead class="bg-gray-100 border border-gray-500 sticky top-0 z-10">
+                         <table class="table-auto border border-gray-300 w-full border-collapse ">
+                             <thead class="bg-gray-100 border border-gray-300 sticky top-0 z-10">
                                  <tr>
-                                     <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800">
+                                     <td class=" tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
                                          No.</td>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center ">
-                                         Internet Service
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold   text-gray-800 text-center ">
+                                         Service
                                          Provider</th>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center ">
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold  text-gray-800 text-center ">
                                          Connection Type
                                      </td>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center ">
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold  text-gray-800 text-center ">
                                          Purpose</ttdh>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center ">
-                                         Speed Test Result
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold   text-gray-800 text-center ">
+                                         Speed Test
                                      </td>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center  ">
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold text-gray-800 text-center  ">
                                          Internet Quality
                                      </td>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center  ">
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold   text-gray-800 text-center  ">
                                          Areas Available
                                      </td>
                                      <td
-                                         class=" tracking-wider py-2 px-2 font-semibold border-b border-gray-500 text-gray-800 text-center  ">
+                                         class=" tracking-wider  whitespace-nowrap    py-2 px-2 font-semibold text-gray-800 text-center  ">
                                          Action</td>
                                  </tr>
                              </thead>
-                             <tbody>
+                             <tbody class="tracking-wide">
                                  @foreach ($isp_content as $index => $content)
                                      <tr>
                                          <td class="py-2 px-2 border border-gray-300 py-2 text-center">{{ $index + 1 }}
@@ -110,7 +115,7 @@
 
                                                      <button type="button"
                                                          onclick="showInsertArea({{ $content->id }}    )"
-                                                         class="bg-blue-600 text-white text-sm  py-1 px-4 rounded hover:bg-blue-600  ">Insert
+                                                         class="bg-blue-600 tracking-wider font-medium shadow text-white   py-1 px-2 rounded hover:bg-blue-600  ">Insert
                                                          Area</button>
                                                  </div>
                                                  @foreach ($content->areas as $area)
@@ -126,11 +131,11 @@
                                                          <div class="flex flex-row gap-2">
                                                              <button type="button"
                                                                  onclick="editAreaModal({{ $content->id }}, {{ $area['id'] }})"
-                                                                 class="text-blue-600 underline hover:text-blue-800">Edit
+                                                                 class="text-blue-600 tracking-wider font-medium hover:text-blue-800">Edit
                                                              </button>
                                                              <button type="button"
                                                                  onclick="deleteArea({{ $content->id }}, {{ $area['id'] }})"
-                                                                 class="text-red-600 underline hover:text-red-800">Remove
+                                                                 class="text-red-600 tracking-wider font-medium hover:text-red-800">Remove
                                                              </button>
                                                          </div>
                                                      </div>
@@ -140,17 +145,17 @@
 
 
                                          </td>
-                                         <td class="py-2 px-2 border border-gray-500   text-center">
+                                         <td class="py-2 px-2 border border-gray-300   text-center">
 
                                              <div class="flex flex-col gap-2 w-full">
                                                  <div> <button
                                                          onclick='editISPDetailsModal({{ $content->id }}, {{ $content->list_id }}, {{ $content->connection_type_id }}, {{ $content->quality_id }} ,{{ $content->upload }},{{ $content->download }},{{ $content->ping }}, "{{ $content->isp_purpose_id ?? '' }}",
                                              @json($content->areas))'
-                                                         class="bg-blue-600 w-full text-center text-white whitespace-nowrap px-4 py-1 rounded-md shadow-sm  hover:bg-blue-800">Edit
+                                                         class="bg-yellow-300 w-full text-center  tracking-wider font-medium shadow text-black whitespace-nowrap px-2 py-1 rounded   hover:bg-yellow-400">Edit
                                                      </button></div>
 
                                                  <div> <button type="button" onclick="deleteISP({{ $content->id }})"
-                                                         class="bg-red-600 w-full text-center text-white whitespace-nowrap px-4 py-1 rounded-md shadow-sm  hover:bg-red-800">Remove</button>
+                                                         class="bg-red-600 w-full text-center tracking-wider font-medium shadow text-white whitespace-nowrap px-2 py-1 rounded   hover:bg-red-800">Remove</button>
                                                  </div>
                                              </div>
 
@@ -207,7 +212,7 @@
                          <input type="hidden" name="insert_isp_details_id" id="insert_isp_details_id">
                          <div class="mb-2">
                              <label for="insert_isp_area_available_id">ISP Area of Connection</label>
-                             <select class="border border-gray-400 rounded-md py-1 px-2 w-full"
+                             <select class="border border-gray-400 rounded-md py-1 px-2 w-full" required
                                  name="insert_isp_area_available_id" id="insert_isp_area_available_id">
                                  @php
                                      $isp_area = App\Models\ISP\ISPAreaAvailable::all();
@@ -220,10 +225,11 @@
                              </select>
                          </div>
                          <div class="flex flex-row gap-2">
-                             <button type="submit" class="w-full bg-blue-600 rounded-sm px-2 py-1 text-white">Save
+                             <button type="submit"
+                                 class="w-full bg-blue-600 rounded tracking-wider font-medium shadow px-2 py-1 text-white">Save
                                  Area</button>
                              <button type="button"
-                                 class="w-full bg-gray-400 hover:bg-gray-500 rounded-sm px-2 py-1 text-white"
+                                 class="w-full bg-gray-400 hover:bg-gray-500 rounded tracking-wider font-medium shadow  px-2 py-1 text-white"
                                  onclick="closeInsertAreaModal(1)">Cancel</button>
                          </div>
                      </form>
@@ -241,7 +247,7 @@
                              <input type="hidden" id="old_isp_area_id" name="old_isp_area_id">
                              <input type="hidden" id="isp_details_id" name="isp_details_id">
                              <label for="isp_area">ISP Area of Connection</label>
-                             <select class="border border-gray-400 px-2 py-1 w-full rounded-sm"
+                             <select class="border border-gray-400 px-2 py-1 w-full rounded-sm" required
                                  name="isp_area_available_id" id="isp_area_available_id">
                                  <option value="" selected>Select area</option>
                                  @php
@@ -255,9 +261,9 @@
                          </div>
                          <div class="flex flex-row gap-2">
                              <button type="submit"
-                                 class="w-full bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded">Submit</button>
+                                 class="w-full bg-yellow-300 hover:bg-yellow-400 text-gray-800 py-1 px-4 rounded  tracking-wider font-medium shadow ">Update</button>
                              <button type="button"
-                                 class="w-full bg-gray-400 hover:bg-gray-500 text-white py-1 px-4 rounded"
+                                 class="w-full bg-gray-400 hover:bg-gray-500 text-white py-1 px-4 rounded  tracking-wider font-medium shadow "
                                  onclick="closeEditAreaModal()">Cancel</button>
                          </div>
                      </form>
@@ -330,7 +336,7 @@
                                  @php
                                      $isp_purpose = App\Models\ISP\ISPPurpose::all();
                                  @endphp
-                                 <select name="isp_purpose" class="border border-gray-600 rounded-sm py-1 px-2"
+                                 <select required name="isp_purpose" class="border border-gray-600 rounded-sm py-1 px-2"
                                      id="isp_purpose">
                                      <option value="">Select Purpose</option>
                                      @foreach ($isp_purpose as $purpose)
@@ -375,7 +381,7 @@
 
                                      </select>
                                      <button type="button" onclick="addArea()"
-                                         class="bg-blue-600 rounded-sm px-2 py-1 text-white ">
+                                         class="bg-blue-600 rounded  tracking-wider font-medium shadow  px-2 py-1 text-white ">
                                          Add Area
                                      </button>
                                  </div>
@@ -388,12 +394,12 @@
                              </div>
                              <div class="flex gap-2">
                                  <button type="submit"
-                                     class="bg-blue-600 font-normal text-white px-4 py-1 rounded-sm">Save
+                                     class="bg-blue-600   tracking-wider font-medium shadow  text-white px-4 py-1 rounded ">Save
                                      ISP
                                      Details
                                  </button>
                                  <button type="button" onclick="closeISPDetailsModal()"
-                                     class="bg-gray-400 text-white py-1 px-4 font-normal rounded-sm">
+                                     class="bg-gray-400 text-white py-1 px-4 font-normal rounded  tracking-wider font-medium shadow ">
                                      Cancel
                                  </button>
                              </div>
@@ -421,8 +427,8 @@
 
                                  @endphp
                                  <label for="isp_list_id">Internet Service Provider</label>
-                                 <select id="edit_isp_list_id" class="border border-gray-600 rounded-sm py-1 px-2"
-                                     name="isp_list_id">
+                                 <select required id="edit_isp_list_id"
+                                     class="border border-gray-600 rounded-sm py-1 px-2" name="isp_list_id">
                                      <option value="" selected>Select ISP</option>
                                      @foreach ($isp_list as $list)
                                          <option value="{{ $list->pk_isp_list_id }}">{{ $list->name }}</option>
@@ -434,7 +440,7 @@
                              <div class="flex md:flex-row flex-col gap-4">
                                  <div class="mb-4 flex flex-col w-full">
                                      <label for="isp_connection_type">Connection Type</label>
-                                     <select id="edit_isp_connection_type_id" name="isp_connection_type"
+                                     <select required id="edit_isp_connection_type_id" name="isp_connection_type"
                                          class="border border-gray-600 rounded-sm py-1 px-2">
                                          <option value="" selected>Select type</option>
                                          @php
@@ -449,7 +455,7 @@
                                  </div>
                                  <div class="mb-4 flex flex-col w-full">
                                      <label for="isp_internet_quality">Internet Quality</label>
-                                     <select name="isp_internet_quality" id="edit_isp_internet_quality_id"
+                                     <select required name="isp_internet_quality" id="edit_isp_internet_quality_id"
                                          class="border border-gray-600 rounded-sm px-2 py-1" id="">
                                          <option value="" selected>Select</option>
                                          @php
@@ -468,7 +474,7 @@
                              <div class="mb-4 flex flex-col">
                                  <label for="isp_purpose">Purpose</label>
 
-                                 <select class="border border-gray-600 rounded-sm py-1 px-2" name="isp_purpose"
+                                 <select required class="border border-gray-600 rounded-sm py-1 px-2" name="isp_purpose"
                                      id="edit_isp_purpose">
                                      <option value="" selected>Select</option>
                                      @php
@@ -510,12 +516,12 @@
 
                              <div class="flex gap-2">
                                  <button type="submit"
-                                     class="bg-blue-600 hover:bg-blue-700 font-normal text-white px-4 py-1 rounded-sm">Update
+                                     class="bg-yellow-300 hover:bg-yellow-400 font-normal text-gray-800 px-4 py-1 rounded  tracking-wider font-medium shadow ">Update
                                      ISP
                                      Details
                                  </button>
                                  <button type="button" onclick="closeEditModal()"
-                                     class="bg-gray-400 hover:bg-gray-500 text-white py-1 px-4 font-normal rounded-sm">
+                                     class="bg-gray-400 hover:bg-gray-500 text-white py-1 px-4 font-normal rounded  tracking-wider font-medium shadow ">
                                      Cancel
                                  </button>
                              </div>

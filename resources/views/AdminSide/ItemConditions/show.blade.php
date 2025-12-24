@@ -2,39 +2,49 @@
 <title>@yield('title', 'DCP Conditions')</title>
 
 @section('content')
-    <div class="mx-5 my-5">
-        <div id="page-title" class="text-lg font-bold "></div>
+    <div class="p-2 md:mx-5 md:my-5 mx-0 my-0">
+        <div class="flex md:flex-row flex-col justify-between items-center mb-4">
+            <div class="w-full" style="letter-spacing: 0.05rem">
+                <h2 class="text-2xl font-bold text-gray-800 uppercase">DCP item current condition</h2>
+                <div id="page-title" style="letter-spacing: 0.05rem!important" class="text-lg font-medium uppercase  "></div>
+
+            </div>
+            <div class="w-50 flex md:justify-end justify-start my-2">
+                <select style="letter-spacing: 0.05rem" id="select-condition"
+                    class="px-3 py-2 text-md border border-gray-300 shadow-sm  rounded-md bg-white mb-2"
+                    onchange="showCondition()">
+                    @php
+                        $condition_list = App\Models\DCPItemCondition::with('dcpCurrentCondition')
+                            ->get()
+                            ->groupBy('current_condition_id')
+                            ->map(function ($group) {
+                                return [
+                                    'condition' => $group->first()->dcpCurrentCondition->name,
+                                    'id' => $group->first()->current_condition_id,
+                                    'count' => $group->count(),
+                                ];
+                            })
+                            ->values()
+                            ->toArray();
+                    @endphp
+                    <option>Select Condition</option>
+                    <option value="0">All</option>
+                    @foreach ($condition_list as $list)
+                        <option value="{{ $list['id'] }}">
+                            {{ $list['condition'] }} ({{ $list['count'] }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div>
-            <select id="select-condition" class="px-3 py-1 border border-gray-300, shadow-md  rounded-sm mb-2"
-                onchange="showCondition()">
-                @php
-                    $condition_list = App\Models\DCPItemCondition::with('dcpCurrentCondition')
-                        ->get()
-                        ->groupBy('current_condition_id')
-                        ->map(function ($group) {
-                            return [
-                                'condition' => $group->first()->dcpCurrentCondition->name,
-                                'id' => $group->first()->current_condition_id,
-                                'count' => $group->count(),
-                            ];
-                        })
-                        ->values()
-                        ->toArray();
-                @endphp
-                <option>Select Condition</option>
-                <option value="0">All</option>
-                @foreach ($condition_list as $list)
-                    <option value="{{ $list['id'] }}">
-                        {{ $list['condition'] }} ({{ $list['count'] }})
-                    </option>
-                @endforeach
-            </select>
+
         </div>
         <div id="printReport">
 
 
         </div>
-        <div id="card-container" class="  grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div style="letter-spacing: 0.05rem !important" id="card-container" class="  grid grid-cols-1 md:grid-cols-2 gap-2">
 
         </div>
     </div>
@@ -77,7 +87,8 @@
                      <div class="text-lg font-bold text-gray-800 w-full text-center mb-4">
                     (${data.dcp_item_current_condition.dcp_current_condition.name})
                     </div>
-                    <table class="min-w-full border border-gray-400 text-md text-left text-gray-700">
+                    
+                    <table  class="min-w-full border border-gray-400 text-md text-left text-gray-700">
                     <tbody>
                         <tr class="border-b">
                         <th class="px-3 py-2 border w-1/4 font-semibold bg-gray-100">Product</th>
@@ -214,6 +225,16 @@
         const myConditions = @json($condition);
         console.log(myConditions);
         const bgColors = [
+
+            "#16A34A", // green
+            "#DC2626", // red
+            "#3B82F6", // blue fair
+            "#FACC15", // yellow
+            "#4F46E5", // indigo
+            "#4B5563", // light gray - missing
+            "#9CA3AF ", // light gray
+            "#9CA3AF ", // light gray
+            "#9CA3AF ", // light gray
             "bg-green-100", // green-100
             "bg-yellow-100", // yellow-100
             "bg-gray-100", // gray-100
@@ -226,16 +247,22 @@
         myConditions.forEach((data, index) => {
             console.log(data.dcp_batch_item_id);
             document.getElementById('page-title').innerHTML =
-                `DCP Item Current Conditions : ${data.condition ==0 ?  'All': data.condition}`;
+                `${data.condition ==0 ?  'All': data.condition}`;
             const newCard = document.createElement("div");
             newCard.className =
-                "px-5 py-5 border border-gray-500 bg-white    w-full";
+                "px-5 py-5 border border-gray-300 bg-white    w-full";
             newCard.innerHTML = `
                    
             <div>
-                        <div class="flex justify-start">
-                            <span class="${bgColors[data.condition_id-1]} font-semibold text-gray-700 border border-gray-800 px-2 py-0">
-                            ${index + 1}.</span>
+                        <div class="flex justify-center relative items-center mb-4">
+                            <span  class="  text-gray-800 text-lg font-semibold  rounded-full  px-2 py-0">
+                           Product ${index + 1}</span>
+                              <div class="flex justify-end mt-2 absolute right-0">
+                            <button type="button" onclick=(generateItemReport(${data.dcp_batch_item_id})) class="bg-gray-200 border border-gray-300 px-4 py-1 rounded-sm shadow-md  font-semibold"> 
+                                
+                                <svg class="w-6 h-6 text-gray-700" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M17 7H7V6h10v1zm0 12H7v-6h10v6zm2-12V3H5v4H1v8.996C1 17.103 1.897 18 3.004 18H5v3h14v-3h1.996A2.004 2.004 0 0 0 23 15.996V7h-4z" fill="currentColor"></path></g></svg>
+                                </button>
+                            </div>
                         </div>
                         <div class="text-gray-700">
                             <b> Product:</b>
@@ -247,17 +274,15 @@
                             </span>
                         ${data.generated_code ?? ''}
                         </div>
-                        <div class="font-normal text-gray-700"> <b>From Batch:</b>
+                        <div class="font-normal text-gray-700 mb-3"> <b>From Batch:</b>
                             ${data.batch_label ?? ''}
                         </div>
 
 
-                        <div class="${bgColors[data.condition_id-1]} px-4   rounded-sm text-gray-800 border border-gray-800">
+                        <div style="background-color:${bgColors[data.condition_id-1]};" class=" px-4 py-1  text-md uppercase rounded-sm text-white font-medium  shadow-md">
                            ${data.condition ?? ''}
                         </div>
-                        <div class="flex justify-end mt-2">
-                            <button type="button" onclick=(generateItemReport(${data.dcp_batch_item_id})) class="bg-blue-500 px-4 py-1 rounded-sm shadow-md text-white font-semibold"> Generate Report </button>
-                            </div>
+                     
                     </div>
             `;
             document.getElementById("card-container").appendChild(newCard);

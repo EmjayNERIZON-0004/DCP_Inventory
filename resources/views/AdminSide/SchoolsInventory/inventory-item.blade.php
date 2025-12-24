@@ -1,10 +1,10 @@
 @extends('layout.Admin-Side')
 
-@section('title', 'DCP Inventory')
+<title>@yield('title', 'DCP Inventory')</title>
 
 @section('content')
-    <div class="px-6 py-10 max-w-5xl mx-auto">
-        <div class="bg-white rounded shadow p-4 mb-4">
+    <div class=" max-w-full mx-auto">
+        <div class=" p-4 mb-2">
             <form method="GET" action="{{ route('index.SchoolsInventory') }}" class="mb-1">
                 <input type="hidden" value="{{ $school_pk }}" name="school">
 
@@ -43,15 +43,16 @@
                     : null;
             @endphp
 
-            <div class="bg-white border border-gray-300 rounded-2xl shadow-sm p-6 mb-8">
+            <div class="bg-white border border-gray-300 rounded-md shadow-sm p-6 mb-8">
                 <div class="border-b border-gray-200 pb-4 mb-6">
 
-                    <h2 class="text-2xl font-bold text-gray-800">📦 DCP Item Details</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">DCP Item Details</h2>
                     <p class="text-lg text-gray-600 mt-1">Code: <span
                             class="font-mono text-gray-800">{{ $item->generated_code }}</span></p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10 text-lg text-gray-800">
+                <div style="letter-spacing:0.05rem; font-weight:500;"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-10 text-lg text-gray-800">
                     <div><span class="font-semibold text-gray-700">Batch:</span> {{ $batchName }}</div>
 
                     <div><span class="font-semibold text-gray-700">Product Type:</span>
@@ -177,5 +178,4 @@
             </div>
         @endforeach
     </div>
-
 @endsection

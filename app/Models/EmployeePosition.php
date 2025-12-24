@@ -13,7 +13,8 @@ class EmployeePosition extends Model
         "created_at",
         "updated_at",
     ];
-    public function schoolEmployees(){
-        return $this->hasMany(SchoolEmployee::class,'position_title_id','pk_position_title_id');
+    public function schoolEmployees()
+    {
+        return $this->hasMany(SchoolEmployee::class, 'position_title_id', 'pk_school_position_id');
     }
 }

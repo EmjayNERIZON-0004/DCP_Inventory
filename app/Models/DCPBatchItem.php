@@ -65,6 +65,8 @@ class DCPBatchItem extends Model
     {
         return $this->hasOne(DCPItemAssignedUser::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');
     }
+
+
     public function dcpBatchItemLocation()
     {
         return $this->hasOne(DCPItemAssignedLocation::class, 'dcp_batch_item_id', 'pk_dcp_batch_items_id');

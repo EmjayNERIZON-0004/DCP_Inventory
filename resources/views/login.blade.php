@@ -29,8 +29,8 @@
 
             <!-- LEFT: Hero -->
             <div class="text-center lg:text-left md:space-y-6 space-y-1  ">
-                <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight md:inline   hidden">
-                    <img class="h-40 md:inline  hidden shadow-md" src="{{ asset('icon/header.png') }}" alt="">
+                <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight md:inline    hidden">
+                    <img class="h-40 md:block  hidden shadow-md" src="{{ asset('icon/header.png') }}" alt="">
                     <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;"
                         class="
                         
@@ -50,18 +50,7 @@
                 </p>
             </div>
 
-            @if ($errors->any())
-                <div class="mb-4">
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        Incorrect Login Credentials, Please Try Again<br>
-                        <ul class="mt-2 list-disc list-inside text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
+
 
             <!-- RIGHT: Login -->
             <div class="flex justify-center lg:justify-end   ">
@@ -99,7 +88,18 @@
                             <p class="text-gray-600 font-[Verdana] text-sm sm:text-base">Please sign in to your account
                             </p>
                         </div>
-
+                        @if ($errors->any())
+                            <div class="mb-4">
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                    Incorrect Login Credentials, Please Try Again<br>
+                                    <ul class="mt-2 list-disc list-inside text-sm">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         <!-- Login Form -->
                         <form method="POST" action="{{ route('submit-login') }}" class="space-y-5">
                             @csrf

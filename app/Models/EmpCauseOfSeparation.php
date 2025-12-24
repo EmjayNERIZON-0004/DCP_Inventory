@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EmpCauseOfSeparation extends Model
+{
+    protected $table = 'emp_cause_of_separations';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'name',
+        'created_at',
+        'updated_at',
+    ];  
+    public function employees()
+    {
+        return $this->hasMany(SchoolEmployee::class, 'cause_of_separation_id', 'id');
+    }
+}

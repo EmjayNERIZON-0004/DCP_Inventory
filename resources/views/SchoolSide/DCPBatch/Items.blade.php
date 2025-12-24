@@ -15,12 +15,17 @@
     <div style="transform:translateY(1rem)" class=" p-0 mx-5 ">
 
         <a href="{{ route('school.dcp_batch') }}"
-            class="inline-flex items-center text-blue-600 text-md font-semibold hover:underline mb-2">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            DCP Batch Package
+            class="inline-flex bg-blue-600 shadow uppercase rounded items-center justify-center text-white px-2 py-1 tracking-wider  text-md font-medium  mb-2">
+
+            <div>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </div>
+            <div>
+                Return
+            </div>
         </a>
     </div>
 
@@ -77,11 +82,11 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white shadow-xl rounded-lg overflow-hidden p-4 border border-gray-300 mx-5 my-5">
-            <div class="  px-2 ">
-                <h2 class="text-2xl font-bold text-gray-800   text-blue-600">School DCP Batch Item</h2>
-                <p class="mb-2">Encode the serial number of the item and other important information.</p>
-            </div>
+        <div class=" rounded-sm overflow-hidden    mx-5 my-5">
+            {{-- <div class=" px-2 ">
+                <h2 class="text-2xl font-semibold text-gray-800   text-blue-600">School DCP Batch Item</h2>
+                <p class="mb-2 tracking-wide    ">Encode the serial number of the item and other important information.</p>
+            </div> --}}
             @php
                 $batch_items = App\Models\DCPBatchItem::where('dcp_batch_id', $batchId)->get();
 
@@ -99,14 +104,14 @@
 
             <div class="  px-2 flex md:flex-row flex-col gap-2">
                 <div
-                    class="rounded-md border border-gray-400  w-full  px-4  shadow-sm p-2 transition duration-300 
-                   {{ $isCompleted ? 'bg-gray-100  ' : 'bg-gray-100  ' }}">
+                    class="rounded-md bg-white border border-gray-300  w-full  px-4  shadow-sm p-2 transition duration-300 
+                  ">
 
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-semibold text-gray-700">Batch Progress</h2>
+                        <h2 class="text-lg font-semibold tracking-wide text-gray-700 uppercase">Encoding Progress</h2>
                         <span
-                            class="text-md px-3 py-1 rounded-full 
+                            class="text-md px-3 py-1 rounded-full  whitespace-nowrap
                         {{ $isCompleted ? 'bg-green-500 text-white' : 'bg-blue-500 text-white' }}">
                             {{ $isCompleted ? 'Completed' : 'In Progress' }}
                         </span>
@@ -121,37 +126,39 @@
                     </div>
 
                     <!-- Stats -->
-                    <div class="flex justify-between items-center text-md text-gray-600">
+                    <div class="flex justify-between items-center text-lg text-gray-600  font-medium">
                         <span>{{ $completed_count }} / {{ $batch_items->count() }} Items</span>
                         <span>{{ round(($completed_count / max($batch_items->count(), 1)) * 100, 0) }}%</span>
                     </div>
                 </div>
-
                 <div
-                    class="bg-white w-full shadow-md border border-gray-300 rounded-md p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    class="bg-white w-full   border border-gray-300 rounded-md p-6 flex flex-col  sm:items-center sm:justify-between gap-4">
                     <!-- Left: Batch Label -->
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-800">
-                            Items for Batch:
+                    <div class="tracking-wide font-medium">
+                        <h2 class="text-xl  text-gray-800">
+                            Product Code:
                             <span class="text-blue-600">{{ $batch->batch_label ?? '' }}</span>
                         </h2>
                     </div>
 
-                    <div><button type="button" onclick="printAllQRCodes()"
-                            class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 transition duration-200 shadow-sm">
+                    <div>
+                        <button type="button" onclick="printAllQRCodes()"
+                            class="px-4 py-2 rounded uppercase tracking-wider shadow font-medium text-white bg-blue-500 hover:bg-blue-600 transition duration-200 shadow-sm">
                             Print All QR Codes
                         </button>
                     </div>
                     <!-- Right: Action Button -->
 
                 </div>
+
+
+
             </div>
         </div>
 
 
 
-        <div class="   overflow-hidden p-2 mx-5  ">
-
+        <div class="overflow-hidden p-2 mx-5  ">
 
 
             <!-- Place this somewhere above your table, e.g. after <h2> -->
@@ -165,13 +172,11 @@
                     <span id="result-message"></span>
                 </div>
             </div>
+            <div class="font-medium tracking-wider text-gray-800">Click to Open</div>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full   text-left   table-fixed font-medium  text-gray-700 mb-4"
                     style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif  ">
-                    <!-- <thead style="background: #2563eb;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <th class="px-4 py-3 text-white border-r border-blue-700 w-32">Generated Code</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </thead> -->
                     <tbody class="  divide-y divide-gray-200 space-y-6">
                         @forelse($items as $index => $item)
                             <tr>
@@ -180,7 +185,7 @@
 
                             <tr>
                                 <td x-data="{ open: false }" colspan="13"
-                                    class="px-4 py-3 shadow-md bg-white border border-gray-800">
+                                    class="px-4 py-3 shadow bg-white border border-gray-300">
                                     <form id="dcp_update_form_{{ $item->pk_dcp_batch_items_id }}" method="POST"
                                         action="{{ route('school.dcp_items.update', $item->pk_dcp_batch_items_id) }}"
                                         enctype="multipart/form-data" class="space-y-4">
@@ -196,12 +201,13 @@
 
                                         @endphp
                                         <span id="status-badge-{{ $item->pk_dcp_batch_items_id }}"
-                                            class="{{ $condition_current && $item->brand ? 'bg-green-600 px-2 py-1 rounded text-white' : 'text-gray-600' }}">
+                                            class="{{ $condition_current && $item->brand ? 'bg-green-600 px-2 py-1  text-white shadow rounded tracking-wide font-medium' : 'text-gray-600' }} ">
                                             {{ $condition_current && $item->brand ? 'Completed' : 'Not Completed' }}
                                         </span>
                                         {{-- Header --}}
+                                        {{-- transform scale-100 hover:scale-105 transition duration-200  --}}
                                         <div @click="open = !open"
-                                            class="flex items-center  flex-col font-bold cursor-pointer tracking-wider transform scale-100 hover:scale-105 transition duration-200  text-center md:text-2xl text-md pb-0 ">
+                                            class="flex items-center  flex-col font-bold cursor-pointer tracking-wider  text-center md:text-2xl text-md pb-0 ">
 
                                             {{ $item->generated_code }}
 
@@ -313,12 +319,12 @@
                                                     <button type="button"
                                                         onclick="update({{ $item->pk_dcp_batch_items_id }})"
                                                         id="status-button-{{ $item->pk_dcp_batch_items_id }}"
-                                                        class="px-4 py-2 text-md font-semibold text-white rounded transform scale-100 hover:scale-105 transition duration-200 {{ $condition_current && $item->brand ? 'bg-green-600' : 'bg-blue-600' }}">
+                                                        class="px-4 py-1 text-md text-white rounded shadow tracking-wider   font-medium uppercase {{ $condition_current && $item->brand ? 'bg-yellow-300 text-gray-800 hover:bg-yellow-400' : 'bg-blue-600 hover:bg-blue-700' }}">
                                                         {{ $condition_current && $item->brand ? 'Update' : 'Submit' }}
                                                     </button>
                                                     <a href="/School/DCPInventory/{{ $item->generated_code }}"
                                                         title="Show in Inventory"
-                                                        class="px-4 py-2 text-md font-semibold text-white bg-gray-200 border border-gray-800 rounded hover:bg-gray-300">
+                                                        class="px-4 py-2 text-md font-semibold text-white bg-gray-200 border border-gray-300 shadow rounded  ">
                                                         <div class="flex items-center ">
                                                             <svg class="h-6 " viewBox="0 0 24 24" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -466,7 +472,7 @@
                         if (statusButton) {
                             statusButton.innerText = "Update";
                             statusButton.classList.remove('bg-blue-600');
-                            statusButton.classList.add('bg-green-600');
+                            statusButton.classList.add('bg-yellow-300');
                         }
 
 

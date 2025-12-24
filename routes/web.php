@@ -66,6 +66,9 @@ Route::get('Admin/DCP-Dashboard', function () {
 
 Route::get('/Admin/SchoolUser/search', [SchoolDetailsController::class, 'search'])->name('user.search');
 
+Route::get('Admin/Product/{code}', [DCPSchoolsInventoryController::class, 'showItem'])->name('index.api.view');
+Route::post('Admin/api-find-item', [DCPSchoolsInventoryController::class, 'findItem'])->name('index.api.search');
+Route::get('Admin/Search/Product', [DCPSchoolsInventoryController::class, 'searchPage'])->name('index.page.search');
 Route::get('Admin/SchoolsInventory/inventory', [DCPSchoolsInventoryController::class, 'inventory'])->name('index.SchoolsInventory');
 Route::get('Admin/SchoolsInventory/{code}', [DCPSchoolsInventoryController::class, 'showItems'])->name('show.SchoolsInventory');
 Route::get('Admin/DCPBatch/search', [DCPBatchController::class, 'search'])->name('search.batch');
@@ -244,6 +247,8 @@ Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     // Existing update routes
     Route::post('insert-no-non-teaching', [SchoolDetailsController::class, 'insertNonTeaching'])->name('school.submit.non_teaching');
     Route::post('/update-details', [AdminController::class, 'updateSchoolDetails'])->name('school.update.details');
+    Route::post('/update-coordinates', [AdminController::class, 'updateSchoolCoordinates'])->name('school.update.coordinates');
+    Route::post('/update-admin-details', [AdminController::class, 'updateAdminDetails'])->name('school.update.admin_details');
     Route::post('/upload-logo', [AdminController::class, 'upload_school_logo'])->name('school.update.logo');
     Route::post('/update-officials', [AdminController::class, 'updateSchoolOfficials'])->name('school.update.officials');
     Route::post('assignment/items', [SchoolDCPBatchController::class, 'assigned_for_items'])->name('school.assignment.items');

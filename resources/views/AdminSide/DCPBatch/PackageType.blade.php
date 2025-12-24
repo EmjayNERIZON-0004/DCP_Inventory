@@ -329,7 +329,7 @@
     </div>
 
 
-    <div class="bg-white w-full min-w-full border border-gray-400 shadow-xl rounded-lg overflow-hidden p-6 md:mx-5 md:my-5 mx-0 my-0"
+    <div class="p-2 md:mx-5 md:my-5 mx-0 my-0"
         style="border-radius: 8px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         @php
             $groupedPackages = $packages->groupBy('package_name');
@@ -338,8 +338,8 @@
         @endphp
 
         <div class="flex justify-between md:flex-row flex-col   mb-6">
-            <div class="w-full">
-                <h2 class="text-2xl font-bold text-gray-700">DCP Package List</h2>
+            <div class="w-full" style="letter-spacing: 0.05rem">
+                <h2 class="text-2xl font-bold text-gray-800 uppercase">DCP Package List</h2>
                 <p class="text-md text-gray-600">List of Package Type with Item Content</p>
             </div>
             <div class="w-full flex md:justify-end items-center justify-start">
@@ -356,15 +356,14 @@
         @if ($packages->isEmpty())
             <div class="text-center text-gray-500 py-8">No packages found.</div>
         @else
-            <div class="text-md text-gray-700">List of DCP Packages</div>
-
-            <div class="grid grid-cols-1  gap-6">
+            <div class="grid grid-cols-1  gap-2">
                 @foreach ($groupedPackages as $packageName => $items)
                     @php
                         $color = $colors[$colorIndex % count($colors)];
                         $colorIndex++;
                     @endphp
-                    <div class="rounded-sm shadow-lg overflow-hidden border border-gray-300" x-data="{ open: false }">
+                    <div class="rounded-sm shadow-lg bg-white overflow-hidden border border-gray-300"
+                        x-data="{ open: false }">
                         <!-- Header -->
                         <div class="p-4 flex justify-between md:flex-row flex-col items-center gap-2">
                             <h3 style="letter-spacing: 0.05rem;"

@@ -27,7 +27,8 @@ class SchoolDetailsController extends Controller
         $validated = $request->validate([
             'total_no_teaching' => 'required|integer|min:0',
             'classroom_with_tv' => 'required|integer|min:0',
-
+            'has_network_admin' => 'nullable|int',
+            'has_bandwidth' => 'nullable|int',
         ]);
         $school_id = Auth::guard('school')->user()->school->pk_school_id;
         $school_data = School::where('pk_school_id', $school_id)
@@ -35,16 +36,18 @@ class SchoolDetailsController extends Controller
         $school_data->update([
             'total_no_teaching' => $validated['total_no_teaching'],
             'classroom_with_tv' => $validated['classroom_with_tv'],
+            'has_network_admin' => $validated['has_network_admin'],
+            'has_bandwidth' => $validated['has_bandwidth'],
         ]);
 
 
         if ($school_data) {
-            return back()->with('success', 'Non-Teaching Staff data submitted successfully!');
+            return back()->with('success', 'Additional Information submitted successfully!');
         } else {
-            return back()->with('error', 'Non-Teaching Staff data not submitted successfully!');
+            return back()->with('error', 'Additional Information not submitted successfully!');
         }
 
-        return back()->with('success', 'Non-Teaching Staff data submitted successfully!');
+        return back()->with('success', 'Additional Information submitted successfully!');
     }
     public function store_data(Request $request)
     {

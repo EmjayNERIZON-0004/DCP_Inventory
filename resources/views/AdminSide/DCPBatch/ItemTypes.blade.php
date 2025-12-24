@@ -47,11 +47,10 @@
             </form>
         </div>
     </div>
-    <div class="bg-white border border-gray-300 shadow-lg rounded-lg p-6  md:mx-5 md:my-5 mx-0 my-0"
-        style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div class="p-2  md:mx-5 md:my-5 mx-0 my-0" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         <div class="flex md:flex-row flex-col justify-between items-center mb-4">
             <div class="w-full">
-                <h2 class="text-2xl font-bold text-gray-700">Product List</h2>
+                <h2 class="text-2xl font-bold text-gray-800 uppercase">Product List</h2>
                 <p class="text-md text-gray-500">Create, Edit, and Delete Item Types</p>
             </div>
             <div class="w-full flex md:justify-end items-center">
@@ -70,14 +69,14 @@
             <input type="text" id="searchItemType" placeholder="Search Item Name..."
                 class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
         </div>
-        <div class="text-md text-gray-700">List of DCP Products</div>
+
 
         <!-- Card Grid -->
         <div id="itemTypeCardGrid"
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 max-h-[380px] overflow-y-auto pr-2">
             @forelse ($itemTypes as $index => $itemType)
                 <div
-                    class="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
+                    class="bg-white border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
 
                     <!-- Top -->
                     <div class="flex-1" style="letter-spacing: 0.05rem">
@@ -147,7 +146,7 @@
                     if (response.length > 0) {
                         response.forEach((item, index) => {
                             cards += `
-                            <div class="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
+                            <div class="bg-white border border-gray-300 rounded-xl shadow hover:shadow-lg transition-all duration-300 p-4 flex flex-col gap-2 justify-between">
                                 <!-- Top -->
                                 <div style="letter-spacing: 0.05rem">
                                     <h3 class="text-lg font-bold text-gray-800 break-words mb-1">

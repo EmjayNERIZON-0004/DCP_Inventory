@@ -123,10 +123,12 @@
                      </div>
 
                      <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit" class="bg-blue-500 text-white px-6 py-1 rounded">
+                         <button type="submit"
+                             class="bg-blue-500 text-white px-6 py-1   tracking-wider font-medium rounded shadow ">
                              Submit
                          </button>
-                         <button type="button" onclick="closeModal(1)" class="bg-gray-500 text-white px-6 py-1 rounded">
+                         <button type="button" onclick="closeModal(1)"
+                             class="bg-gray-500  tracking-wider font-medium rounded shadow  text-white px-6 py-1 rounded">
                              Cancel
                          </button>
                      </div>
@@ -263,10 +265,12 @@
                      </div>
 
                      <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit" class="bg-blue-500 text-white px-6 py-1 rounded">
+                         <button type="submit"
+                             class="bg-blue-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
                              Update
                          </button>
-                         <button type="button" onclick="closeModal(3)" class="bg-gray-500 text-white px-6 py-1 rounded">
+                         <button type="button" onclick="closeModal(3)"
+                             class="bg-gray-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
                              Cancel
                          </button>
                      </div>
@@ -395,10 +399,12 @@
                      </div>
 
                      <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit" class="bg-blue-500 text-white px-6 py-1 rounded">
+                         <button type="submit"
+                             class="bg-blue-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
                              Submit
                          </button>
-                         <button type="button" onclick="closeModal(2)" class="bg-gray-500 text-white px-6 py-1 rounded">
+                         <button type="button" onclick="closeModal(2)"
+                             class="bg-gray-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
                              Cancel
                          </button>
                      </div>
@@ -508,36 +514,43 @@
              <div class="flex justify-between">
                  <div>
                      <div class="text-2xl font-bold text-gray-700   ">School's CCTV Details</div>
-                     <div class="text-md font-normal text-gray-600 mb-2  ">Create, View, Edit and Remove Details</div>
+                     <div class="text-md font-normal text-gray-600 mb-2  tracking-wide">Create, View, Edit and Remove
+                         Details</div>
                      <div>
-                         <button onclick="openModal(1)" class="bg-blue-600 text-white rounded-sm py-1 px-4 mb-2"> Add New
+                         <button onclick="openModal(1)"
+                             class="bg-blue-600 text-white  tracking-wider font-medium rounded shadow  py-1 px-4 mb-2"> Add
+                             New
                              Record</button>
                      </div>
 
                  </div>
-                 <div class="h-16 w-16  text-blue-600">
-                     <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 280.606 280.606" xmlns:xlink="http://www.w3.org/1999/xlink"
-                         enable-background="new 0 0 280.606 280.606" transform="matrix(-1, 0, 0, 1, 0, 0)">
-                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                         <g id="SVGRepo_iconCarrier">
-                             <g>
-                                 <path
-                                     d="m278.161,191.032l-149.199-149.199c-3.89-3.89-10.253-3.89-14.143,0l-55.861,55.861c-3.89,3.89-3.89,10.411 0,14.302l14.098,14.256h-40.056v-23.317c0-5.5-4.44-9.683-9.94-9.683h-13c-5.5,0-10.06,4.183-10.06,9.683v79c0,5.5 4.56,10.317 10.06,10.317h13c5.5,0 9.94-4.817 9.94-10.317v-22.683h73.056l78.767,78.607c3.89,3.891 11.097,4.979 16.016,2.52l75.449-37.764c4.919-2.459 5.763-7.693 1.873-11.583zm-162.104-127.81c3.223-3.222 8.445-3.222 11.668-7.10543e-15 3.222,3.223 3.222,8.445 0,11.667-3.223,3.223-8.445,3.223-11.668,0.001-3.222-3.222-3.222-8.445 1.42109e-14-11.668zm53.349,135.373l-94.007-94.007 11.313-11.313 94.007,94.007-11.313,11.313z">
-                                 </path>
+                 <div
+                     class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
+                     <div class="text-white bg-blue-600 p-2 rounded-full">
+                         <svg class="h-10 w-10" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 280.606 280.606" xmlns:xlink="http://www.w3.org/1999/xlink"
+                             enable-background="new 0 0 280.606 280.606" transform="matrix(-1, 0, 0, 1, 0, 0)">
+                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                             <g id="SVGRepo_iconCarrier">
+                                 <g>
+                                     <path
+                                         d="m278.161,191.032l-149.199-149.199c-3.89-3.89-10.253-3.89-14.143,0l-55.861,55.861c-3.89,3.89-3.89,10.411 0,14.302l14.098,14.256h-40.056v-23.317c0-5.5-4.44-9.683-9.94-9.683h-13c-5.5,0-10.06,4.183-10.06,9.683v79c0,5.5 4.56,10.317 10.06,10.317h13c5.5,0 9.94-4.817 9.94-10.317v-22.683h73.056l78.767,78.607c3.89,3.891 11.097,4.979 16.016,2.52l75.449-37.764c4.919-2.459 5.763-7.693 1.873-11.583zm-162.104-127.81c3.223-3.222 8.445-3.222 11.668-7.10543e-15 3.222,3.223 3.222,8.445 0,11.667-3.223,3.223-8.445,3.223-11.668,0.001-3.222-3.222-3.222-8.445 1.42109e-14-11.668zm53.349,135.373l-94.007-94.007 11.313-11.313 94.007,94.007-11.313,11.313z">
+                                     </path>
+                                 </g>
                              </g>
-                         </g>
-                     </svg>
+                         </svg>
+                     </div>
                  </div>
+
              </div>
              <div class="overflow-x-auto ">
                  @if ($cctv_info->isNotEmpty())
                      <div class="grid gap-4">
                          @foreach ($cctv_info as $index => $info)
-                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white">
+                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white tracking-wider">
                                  <div class="flex justify-between items-center  border-b border-gray-400 pb-2 mb-3">
-                                     <h3 class="font-semiboldtext-gray-700">CCTV #{{ $index + 1 }}</h3>
+                                     <h3 class="font-semiboldtext-gray-700">CCTV No.{{ $index + 1 }}</h3>
                                      <span
                                          class="text-sm text-gray-500">{{ $info->equipment_details->date_installed ?? '' }}</span>
                                  </div>
@@ -587,10 +600,10 @@
                                      <div>
                                          <button type="button"
                                              onclick="openEditModal('cctv',{{ $info->equipment_details->pk_equipment_details_id }},{{ $info->equipment_details->brand_model->pk_equipment_brand_model_id }},{{ $info->no_of_units }},{{ $info->cctv_type->pk_e_cctv_camera_type_id }},{{ $info->equipment_details->powersource->pk_equipment_power_source_id }},{{ $info->equipment_details->location->pk_equipment_location_id }},{{ $info->equipment_details->total_amount }},{{ $info->equipment_details->installer->pk_equipment_installer_id }},{{ $info->no_of_functional }}, {{ $info->equipment_details->incharge->pk_equipment_incharge_id }},'{{ $info->equipment_details->date_installed }}')"
-                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white rounded-sm py-1 px-4">Edit
+                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Edit
                                              Data</button>
                                          <button onclick="deleteFunction({{ $info->pk_e_cctv_details_id }},'cctv')"
-                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white rounded-sm py-1 px-4">Remove</button>
+                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Remove</button>
 
                                      </div>
                                  </div>
@@ -612,122 +625,41 @@
              <div class="flex justify-between">
                  <div>
                      <div class="text-2xl font-bold text-gray-700   ">School's Biometric Details</div>
-                     <div class="text-md font-normal text-gray-600 mb-2  ">Create, View, Edit and Remove Details</div>
+                     <div class="text-md font-normal text-gray-600 mb-2 tracking-wide ">Create, View, Edit and Remove
+                         Details</div>
                      <div>
-                         <button onclick="openModal(2)" class="bg-blue-600 text-white rounded-sm mb-2 py-1 px-4"> Add New
+                         <button onclick="openModal(2)"
+                             class="bg-blue-600 text-white  tracking-wider font-medium rounded shadow  mb-2 py-1 px-4"> Add
+                             New
                              Record</button>
                      </div>
                  </div>
-                 <div class="text-blue-600 h-16 w-16">
-                     <svg fill="currentColor" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" xml:space="preserve">
-                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                         <g id="SVGRepo_iconCarrier">
-                             <g>
+                 <div
+                     class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
+                     <div class="text-white bg-blue-600 p-2 rounded-full">
+                         <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 32 32" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg">
+                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                             <g id="SVGRepo_iconCarrier">
+                                 <title>fingerprint</title>
                                  <path
-                                     d="M1,19c0.552,0,1-0.448,1-1V2h16c0.552,0,1-0.448,1-1s-0.448-1-1-1H0v18C0,18.552,0.448,19,1,19z">
+                                     d="M5.796 6.587c2.483-2.099 5.629-3.486 9.084-3.812l0.066-0.005c4.263 0 8.188 1.446 11.312 3.874l-0.042-0.031c0.121 0.087 0.271 0.138 0.434 0.138 0.415 0 0.751-0.336 0.751-0.751 0-0.251-0.123-0.473-0.312-0.609l-0.002-0.002c-3.327-2.569-7.556-4.118-12.147-4.118-0.028 0-0.055 0-0.083 0h0.004c-3.847 0.349-7.287 1.856-10.029 4.166l0.027-0.022c-0.174 0.139-0.284 0.35-0.284 0.587 0 0.414 0.336 0.75 0.75 0.75 0.178 0 0.342-0.062 0.471-0.166l-0.001 0.001zM28.555 11.495c-4.166-4.572-8.404-6.891-12.602-6.891h-0.044c-4.184 0.017-8.378 2.336-12.468 6.895-0.119 0.132-0.192 0.308-0.192 0.501 0 0.414 0.336 0.75 0.75 0.75 0.222 0 0.421-0.096 0.558-0.249l0.001-0.001c3.794-4.23 7.615-6.382 11.356-6.396 3.796-0.025 7.647 2.139 11.53 6.4 0.138 0.151 0.335 0.245 0.555 0.245 0.414 0 0.75-0.336 0.75-0.75 0-0.195-0.074-0.372-0.196-0.505l0.001 0.001zM22.68 27.684c-1.684-0.444-3.106-1.387-4.139-2.657l-0.011-0.014c-1.034-1.355-1.692-3.047-1.792-4.887l-0.001-0.023c-0.048-0.381-0.37-0.672-0.759-0.672-0.022 0-0.043 0.001-0.065 0.003l0.003-0c-0.381 0.040-0.675 0.358-0.675 0.746 0 0.027 0.001 0.053 0.004 0.079l-0-0.003c0.137 2.165 0.912 4.126 2.136 5.724l-0.018-0.025c1.245 1.532 2.94 2.654 4.882 3.169l0.065 0.015c0.056 0.015 0.12 0.023 0.185 0.023h0c0.414-0 0.75-0.336 0.75-0.75 0-0.348-0.237-0.641-0.559-0.725l-0.005-0.001zM20.094 9.35c-1.252-0.502-2.703-0.793-4.222-0.793-0.586 0-1.162 0.043-1.725 0.127l0.064-0.008c-2.143 0.362-4.029 1.268-5.569 2.571l0.017-0.014c-2.242 1.836-3.847 4.374-4.482 7.275l-0.016 0.086c-0.093 0.436-0.166 0.871-0.228 1.369-0.029 0.323-0.046 0.7-0.046 1.080 0 2.965 1.012 5.694 2.709 7.86l-0.021-0.028c0.139 0.172 0.349 0.281 0.585 0.281 0.414 0 0.75-0.336 0.75-0.75 0-0.178-0.062-0.342-0.166-0.47l0.001 0.001c-1.473-1.869-2.363-4.257-2.363-6.854 0-0.348 0.016-0.692 0.047-1.032l-0.003 0.044q0.076-0.601 0.201-1.189c0.578-2.645 2.001-4.892 3.966-6.501l0.020-0.016c1.324-1.122 2.963-1.912 4.767-2.222l0.060-0.008c0.429-0.064 0.923-0.1 1.426-0.1 1.33 0 2.6 0.255 3.764 0.718l-0.069-0.024c3.107 1.2 5.481 3.696 6.492 6.807l0.022 0.077c0.549 1.778 0.705 4.901-0.43 6.142-0.348 0.34-0.823 0.549-1.348 0.549-0.219 0-0.43-0.037-0.626-0.104l0.014 0.004c-0.743-0.197-1.382-0.57-1.893-1.073l0.001 0.001c-0.376-0.309-0.674-0.699-0.869-1.144l-0.008-0.020c-0.108-0.36-0.171-0.774-0.171-1.202 0-0.031 0-0.061 0.001-0.092l-0 0.005c0-0.009 0-0.019 0-0.029 0-0.555-0.076-1.093-0.217-1.603l0.010 0.042c-0.527-1.406-1.684-2.466-3.118-2.849l-0.032-0.007c-0.463-0.172-0.997-0.272-1.555-0.272-0.344 0-0.679 0.038-1.001 0.11l0.030-0.006c-0.913 0.269-1.685 0.784-2.262 1.469l-0.006 0.007c-0.679 0.705-1.167 1.597-1.38 2.592l-0.006 0.035c-0.008 0.137-0.013 0.297-0.013 0.458 0 2.243 0.889 4.278 2.333 5.773l-0.002-0.002c1.365 1.634 2.84 3.086 4.444 4.385l0.060 0.047c0.13 0.113 0.301 0.181 0.489 0.181 0.414 0 0.75-0.336 0.75-0.75 0-0.231-0.104-0.437-0.268-0.575l-0.001-0.001c-1.586-1.282-2.993-2.664-4.257-4.17l-0.038-0.047c-1.249-1.225-2.024-2.93-2.024-4.816 0-0.075 0.001-0.15 0.004-0.224l-0 0.011c0.168-0.742 0.528-1.383 1.024-1.889l-0.001 0.001c0.389-0.476 0.907-0.833 1.499-1.022l0.023-0.006c0.181-0.037 0.389-0.059 0.602-0.059 0.394 0 0.771 0.073 1.119 0.206l-0.021-0.007c0.993 0.249 1.786 0.941 2.17 1.847l0.008 0.021c0.090 0.346 0.141 0.744 0.141 1.154 0 0.018-0 0.036-0 0.054l0-0.003c-0 0.019-0 0.042-0 0.064 0 0.602 0.096 1.182 0.273 1.725l-0.011-0.039c0.287 0.702 0.722 1.291 1.269 1.752l0.007 0.006c0.699 0.676 1.574 1.174 2.549 1.421l0.039 0.008c0.285 0.087 0.612 0.137 0.951 0.137 0.956 0 1.819-0.399 2.431-1.040l0.001-0.001c1.689-1.846 1.359-5.639 0.756-7.596-1.175-3.631-3.878-6.475-7.332-7.815l-0.084-0.029zM9.269 20.688c0.052-2.064 1.027-3.89 2.526-5.088l0.013-0.010c0.574-0.489 1.234-0.901 1.95-1.208l0.050-0.019c0.8-0.349 1.732-0.552 2.712-0.552 1.095 0 2.131 0.254 3.053 0.705l-0.041-0.018c2.115 1.295 3.505 3.594 3.505 6.217 0 0.112-0.003 0.224-0.008 0.335l0.001-0.016c0.020 0.399 0.348 0.715 0.75 0.715 0.415 0 0.751-0.336 0.751-0.751 0-0.011-0-0.021-0.001-0.032l0 0.002c0.006-0.117 0.009-0.254 0.009-0.392 0-3.165-1.727-5.926-4.29-7.394l-0.042-0.022c-1.078-0.535-2.347-0.848-3.69-0.848-1.187 0-2.317 0.245-3.342 0.686l0.055-0.021c-0.915 0.389-1.703 0.88-2.401 1.475l0.013-0.011c-1.823 1.479-2.999 3.694-3.073 6.186l-0 0.012c0.125 3.937 1.87 7.444 4.586 9.893l0.012 0.011c0.134 0.128 0.317 0.207 0.518 0.207 0.414 0 0.75-0.336 0.75-0.75 0-0.213-0.089-0.406-0.232-0.543l-0-0c-2.434-2.174-3.998-5.277-4.134-8.746l-0.001-0.023z">
                                  </path>
-                                 <path
-                                     d="M59,42c-0.552,0-1,0.448-1,1v15H43c-0.552,0-1,0.448-1,1s0.448,1,1,1h17V43C60,42.448,59.552,42,59,42z">
-                                 </path>
-                                 <path
-                                     d="M43,0c-0.552,0-1,0.448-1,1s0.448,1,1,1h15v16c0,0.552,0.448,1,1,1s1-0.448,1-1V0H43z">
-                                 </path>
-                                 <path
-                                     d="M18,58H2V43c0-0.552-0.448-1-1-1s-1,0.448-1,1v17h18c0.552,0,1-0.448,1-1S18.552,58,18,58z">
-                                 </path>
-                                 <path
-                                     d="M32.743,51.946c0.61-17.503-1.61-22.969-1.705-23.193c-0.214-0.507-0.794-0.742-1.304-0.531 c-0.508,0.211-0.749,0.795-0.54,1.305c0.021,0.052,2.14,5.439,1.55,22.35c-0.019,0.552,0.413,1.015,0.965,1.034 c0.012,0,0.023,0,0.035,0C32.28,52.911,32.724,52.486,32.743,51.946z">
-                                 </path>
-                                 <path
-                                     d="M17.08,12.307c0.301,0.463,0.921,0.595,1.383,0.293c1.197-0.778,2.508-1.466,3.899-2.046C24.833,9.523,27.441,9,30.118,9 c8.109,0,15.391,4.826,18.55,12.294c1.26,2.978,1.981,5.929,2.337,9.571c0.05,0.517,0.485,0.903,0.994,0.903 c0.032,0,0.065-0.001,0.098-0.005c0.55-0.054,0.952-0.542,0.898-1.092c-0.376-3.853-1.143-6.985-2.485-10.156 C47.036,12.305,39.032,7,30.118,7c-2.942,0-5.811,0.575-8.525,1.708c-1.501,0.626-2.921,1.371-4.219,2.215 C16.91,11.224,16.779,11.844,17.08,12.307z">
-                                 </path>
-                                 <path
-                                     d="M15.206,13.803c-0.388-0.394-1.021-0.399-1.414-0.011c-3.967,3.909-6.149,9.159-6.311,15.182 c-0.092,3.412,0.451,7.121,1.614,11.025c0.129,0.434,0.527,0.715,0.958,0.715c0.095,0,0.191-0.014,0.286-0.042 c0.529-0.158,0.831-0.715,0.673-1.244c-1.103-3.701-1.618-7.2-1.532-10.4c0.15-5.575,2.073-10.222,5.715-13.811 C15.588,14.829,15.593,14.196,15.206,13.803z">
-                                 </path>
-                                 <path
-                                     d="M44.822,24.893c0.455,1.342,0.796,2.737,1.042,4.266c0.613,3.813,0.631,8.411,0.462,14.593 c-0.015,0.552,0.42,1.012,0.972,1.027c0.009,0,0.019,0,0.028,0c0.54,0,0.984-0.43,0.999-0.973 c0.172-6.298,0.151-10.998-0.486-14.965c-0.264-1.64-0.631-3.142-1.123-4.591c-2.232-6.581-9.395-12.125-15.966-12.36 c-2.519-0.09-4.964,0.354-7.279,1.321c-6.393,2.667-10.563,8.861-10.622,15.78v0v0v0v0c-0.014,1.633,0.206,3.262,0.653,4.842 c0.234,0.825,0.473,1.703,0.6,2.57c0.275,1.877,0.577,5.382,0.45,11.422c-0.011,0.552,0.427,1.009,0.979,1.021 c0.007,0,0.014,0,0.021,0c0.542,0,0.988-0.434,1-0.979c0.129-6.178-0.186-9.802-0.472-11.753c-0.144-0.986-0.402-1.937-0.655-2.826 c-0.396-1.396-0.59-2.836-0.577-4.279l0,0l0,0c0.052-6.116,3.738-11.593,9.392-13.951c2.046-0.854,4.213-1.251,6.437-1.167 C36.39,14.093,42.867,19.133,44.822,24.893z">
-                                 </path>
-                                 <path
-                                     d="M24.186,20.625c0.452-0.317,0.561-0.941,0.244-1.393c-0.317-0.451-0.941-0.561-1.393-0.244 c-3.13,2.197-4.993,5.835-5.111,9.982c0,0.001,0,0.002,0,0.003c-0.041,1.435,0.131,2.873,0.509,4.267 c0,0.003,0.026,0.096,0.027,0.099c0.854,3.129,1.176,9.135,0.905,16.911c-0.019,0.552,0.413,1.015,0.965,1.034 c0.012,0,0.023,0,0.035,0c0.536,0,0.98-0.425,0.999-0.965c0.282-8.087-0.055-14.141-0.999-17.596 c-0.329-1.212-0.478-2.455-0.442-3.694c0,0,0-0.001,0-0.002C20.024,25.519,21.577,22.456,24.186,20.625z">
-                                 </path>
-                                 <path
-                                     d="M42.28,48.845c0.012,0,0.023,0,0.035,0c0.536,0,0.98-0.425,0.999-0.965c0.343-9.832,0.361-14.919-0.439-19.07 c0-0.001,0-0.002,0-0.003c-0.309-1.602-0.751-3.07-1.352-4.49c-1.943-4.592-6.419-7.559-11.405-7.559 c-0.896,0-1.79,0.097-2.656,0.288c-0.54,0.119-0.88,0.652-0.762,1.191c0.118,0.54,0.651,0.879,1.191,0.762 c0.726-0.16,1.475-0.241,2.226-0.241c4.181,0,7.935,2.488,9.563,6.338c0.545,1.29,0.948,2.628,1.23,4.092c0,0.001,0,0.001,0,0.002 c0.763,3.96,0.741,8.945,0.403,18.619C41.296,48.362,41.728,48.825,42.28,48.845z">
-                                 </path>
-                                 <path
-                                     d="M37.544,45.219c-0.002,0-0.005,0-0.007,0c-0.549,0-0.996,0.443-1,0.993c-0.004,0.642-0.013,1.304-0.026,1.987 c-0.01,0.552,0.429,1.008,0.981,1.019c0.006,0,0.013,0,0.02,0c0.543,0,0.989-0.435,1-0.981c0.013-0.69,0.022-1.361,0.026-2.011 C38.541,45.673,38.096,45.223,37.544,45.219z">
-                                 </path>
-                                 <path
-                                     d="M25.428,29.028c0.051-1.851,1.182-3.505,2.883-4.214c0.577-0.241,1.185-0.363,1.807-0.363c1.889,0,3.585,1.124,4.324,2.872 c0.119,0.282,0.368,0.869,0.652,1.936c0.557,2.085,1.255,6.02,1.413,12.918c0.012,0.544,0.458,0.977,0.999,0.977 c0.008,0,0.016,0,0.023,0c0.552-0.012,0.989-0.47,0.977-1.022c-0.128-5.617-0.64-10.246-1.479-13.389 c-0.321-1.201-0.606-1.875-0.747-2.207c-1.05-2.481-3.469-4.084-6.163-4.084c-0.888,0-1.755,0.174-2.577,0.517 c-2.426,1.012-4.04,3.369-4.112,6.005c-0.024,0.884,0.125,1.752,0.426,2.528c0.07,0.216,1.713,5.455,1.199,20.179 c-0.019,0.552,0.413,1.015,0.965,1.034c0.012,0,0.023,0,0.035,0c0.536,0,0.98-0.425,0.999-0.965 c0.517-14.818-1.109-20.291-1.314-20.917C25.516,30.253,25.411,29.646,25.428,29.028z">
-                                 </path>
-                                 <circle cx="5" cy="55" r="1"></circle>
-                                 <circle cx="9" cy="55" r="1"></circle>
-                                 <circle cx="13" cy="55" r="1"></circle>
-                                 <circle cx="11" cy="53" r="1"></circle>
-                                 <circle cx="15" cy="53" r="1"></circle>
-                                 <circle cx="17" cy="55" r="1"></circle>
-                                 <circle cx="21" cy="55" r="1"></circle>
-                                 <circle cx="19" cy="53" r="1"></circle>
-                                 <circle cx="7" cy="53" r="1"></circle>
-                                 <circle cx="25" cy="55" r="1"></circle>
-                                 <circle cx="29" cy="55" r="1"></circle>
-                                 <circle cx="33" cy="55" r="1"></circle>
-                                 <circle cx="35" cy="53" r="1"></circle>
-                                 <circle cx="23" cy="53" r="1"></circle>
-                                 <circle cx="37" cy="55" r="1"></circle>
-                                 <circle cx="41" cy="55" r="1"></circle>
-                                 <circle cx="39" cy="53" r="1"></circle>
-                                 <circle cx="45" cy="55" r="1"></circle>
-                                 <circle cx="49" cy="55" r="1"></circle>
-                                 <circle cx="53" cy="55" r="1"></circle>
-                                 <circle cx="51" cy="53" r="1"></circle>
-                                 <circle cx="55" cy="53" r="1"></circle>
-                                 <circle cx="43" cy="53" r="1"></circle>
-                                 <circle cx="47" cy="53" r="1"></circle>
-                                 <circle cx="5" cy="51" r="1"></circle>
-                                 <circle cx="9" cy="51" r="1"></circle>
-                                 <circle cx="13" cy="51" r="1"></circle>
-                                 <circle cx="11" cy="49" r="1"></circle>
-                                 <circle cx="17" cy="51" r="1"></circle>
-                                 <circle cx="7" cy="49" r="1"></circle>
-                                 <circle cx="45" cy="51" r="1"></circle>
-                                 <circle cx="49" cy="51" r="1"></circle>
-                                 <circle cx="53" cy="51" r="1"></circle>
-                                 <circle cx="51" cy="49" r="1"></circle>
-                                 <circle cx="55" cy="49" r="1"></circle>
-                                 <circle cx="47" cy="49" r="1"></circle>
-                                 <circle cx="5" cy="47" r="1"></circle>
-                                 <circle cx="9" cy="47" r="1"></circle>
-                                 <circle cx="7" cy="45" r="1"></circle>
-                                 <circle cx="49" cy="47" r="1"></circle>
-                                 <circle cx="53" cy="47" r="1"></circle>
-                                 <circle cx="51" cy="45" r="1"></circle>
-                                 <circle cx="55" cy="45" r="1"></circle>
-                                 <circle cx="5" cy="43" r="1"></circle>
-                                 <circle cx="9" cy="43" r="1"></circle>
-                                 <circle cx="7" cy="41" r="1"></circle>
-                                 <circle cx="53" cy="43" r="1"></circle>
-                                 <circle cx="55" cy="41" r="1"></circle>
-                                 <circle cx="5" cy="39" r="1"></circle>
-                                 <circle cx="53" cy="39" r="1"></circle>
-                                 <circle cx="55" cy="37" r="1"></circle>
-                                 <circle cx="5" cy="35" r="1"></circle>
-                                 <circle cx="53" cy="35" r="1"></circle>
-                                 <circle cx="55" cy="33" r="1"></circle>
                              </g>
-                         </g>
-                     </svg>
+                         </svg>
+                     </div>
                  </div>
+
              </div>
              <div class="overflow-x-auto ">
 
                  @if ($biometric_info->isNotEmpty())
                      <div class="grid gap-4">
                          @foreach ($biometric_info as $index => $info)
-                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white">
+                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white tracking-wider">
                                  <div class="flex justify-between items-center border-b border-gray-400 pb-2 mb-2">
-                                     <h3 class="font-semibold text-gray-700">Biometric #{{ $index + 1 }}</h3>
+                                     <h3 class="font-semibold text-gray-700">Biometric No.{{ $index + 1 }}</h3>
                                      <span
                                          class="text-sm text-gray-500">{{ $info->equipment_details->date_installed ?? '' }}</span>
                                  </div>
@@ -777,11 +709,11 @@
                                      <div>
                                          <button
                                              onclick="openEditModal('biometrics', {{ $info->equipment_details->pk_equipment_details_id }},{{ $info->equipment_details->brand_model->pk_equipment_brand_model_id }},{{ $info->no_of_units }},{{ $info->biometric_type->pk_e_biometric_type_id }},{{ $info->equipment_details->powersource->pk_equipment_power_source_id }},{{ $info->equipment_details->location->pk_equipment_location_id }},{{ $info->equipment_details->total_amount }},{{ $info->equipment_details->installer->pk_equipment_installer_id }},{{ $info->no_of_functional }}, {{ $info->equipment_details->incharge->pk_equipment_incharge_id }},'{{ $info->equipment_details->date_installed }}')"
-                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white rounded-sm py-1 px-4">Edit
+                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Edit
                                              Data</button>
                                          <button
                                              onclick="deleteFunction({{ $info->pk_e_biometric_details_id }},'biometrics')"
-                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white rounded-sm py-1 px-4">Remove</button>
+                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Remove</button>
 
                                      </div>
                                  </div>

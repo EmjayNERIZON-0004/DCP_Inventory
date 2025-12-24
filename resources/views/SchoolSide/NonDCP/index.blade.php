@@ -7,46 +7,79 @@
     <div class="mx-5 my-5">
 
         <div class=" p-6 border bg-white border-gray-300 rounded-lg shadow-md">
-            <div class="text-2xl font-bold text-gray-800">Non DCP Items</div>
-            <div class="text-md font-normal text-gray-600 mb-4">eg. Computer, Laptop, Smart TV - Unit Price, Date Acquired
-            </div>
-            <button onclick="openModal()" class="bg-blue-600 text-white rounded-sm mb-2 py-1 px-4">Add Non-DCP Item</button>
-            <div class="overflow-x-auto">
-                <table class="table-auto w-full table-collapse">
-                    <thead class="bg-gray-200 border border-gray-600 text-white">
-                        <tr>
-                            <td
-                                class="text-lg tracking-wider font-semibold border-b border-gray-500 text-gray-800 text-center  text-gray-800 font-normal px-3 py-1">
-                                No. </td>
+            <div class="flex justify-between">
+                <div>
 
-                            <td
-                                class="text-lg tracking-wider font-semibold border-b border-gray-500 text-gray-800 text-center  text-gray-800 font-normal px-3 py-1">
-                                Item - Description </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Unit - Price </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Date Acquired </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Funcitonal </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Fund Source </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Item Holder - Location </td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Remarks</td>
-                            <td
-                                class="text-lg tracking-wider text-gray-800 font-semibold border-b border-gray-500 text-gray-800 text-center  font-normal px-3 py-1">
-                                Action</td>
+                    <div class="text-2xl font-bold text-gray-800">Non DCP Items</div>
+                    <div class="text-md font-normal text-gray-600 mb-4">eg. Computer, Laptop, Smart TV - Unit Price, Date
+                        Acquired
+                    </div>
+                    <button onclick="openModal()"
+                        class="bg-blue-600 text-white  tracking-wider font-medium rounded shadow  mb-2 py-1 px-4">Add Non-DCP
+                        Item</button>
+                </div>
+                <div
+                    class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
+                    <div class="text-white bg-blue-600 p-2 rounded-full">
+                        <svg class="w-10 h-10" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"
+                            fill="currentColor">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <style type="text/css">
+                                    .st0 {
+                                        fill: none;
+                                        stroke: currentColor;
+                                        stroke-width: 2;
+                                        stroke-linecap: round;
+                                        stroke-linejoin: round;
+                                        stroke-miterlimit: 10;
+                                    }
+                                </style>
+                                <g>
+                                    <path
+                                        d="M16,12H3c-0.6,0-1,0.4-1,1v9c0,0.6,0.4,1,1,1h13c0.6,0,1-0.4,1-1v-9C17,12.4,16.6,12,16,12z">
+                                    </path>
+                                    <path d="M13,25H6c-0.6,0-1,0.4-1,1s0.4,1,1,1h7c0.6,0,1-0.4,1-1S13.6,25,13,25z"></path>
+                                    <path
+                                        d="M29,5H19c-0.6,0-1,0.4-1,1v20c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V6C30,5.4,29.6,5,29,5z M28,7v9h-8V7H28z">
+                                    </path>
+                                    <path d="M22,11h4c0.6,0,1-0.4,1-1s-0.4-1-1-1h-4c-0.6,0-1,0.4-1,1S21.4,11,22,11z"></path>
+                                    <path d="M26,12h-1c-0.6,0-1,0.4-1,1s0.4,1,1,1h1c0.6,0,1-0.4,1-1S26.6,12,26,12z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table-auto  border border-gray-300 w-full table-collapse">
+                    <thead class="bg-gray-100 text-white">
+                        <tr>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                No. </th>
+
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Item - Description </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Unit - Price </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Date Acquired </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Functional </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Fund Source </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Item Holder - Location </th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Remarks</th>
+                            <th class="tracking-wider whitespace-nowrap   py-2 px-2 font-semibold  text-gray-800">
+                                Action</th>
 
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tracking-wider">
 
                         @foreach ($non_dcp as $index => $item)
                             <tr>
@@ -84,12 +117,12 @@
                                         @json($item->item_holder_and_location),
                                         @json($item->remarks)
                                     )'
-                                            class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">
+                                            class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4  tracking-wider font-medium rounded shadow ">
                                             Edit
                                         </button>
 
                                         <button onclick="deleteItem({{ $item->pk_non_dcp_item_id }})"
-                                            class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded">Delete</button>
+                                            class="bg-red-500 hover:bg-red-700 text-white py-1 px-4  tracking-wider font-medium rounded shadow ">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -159,10 +192,12 @@
                                 placeholder="Description of the Non-DCP item"></textarea>
                         </div>
                         <div class="flex justify-end  col-span-2 gap-2  ">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-4 rounded">
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-4  tracking-wider font-medium rounded shadow ">
                                 Save this Item
                             </button>
-                            <button type="button" class="bg-gray-500 hover:bg-gray-700 text-white  py-1 px-4 rounded"
+                            <button type="button"
+                                class="bg-gray-500 hover:bg-gray-700 text-white  py-1 px-4  tracking-wider font-medium rounded shadow "
                                 onclick="document.getElementById('add-modal').classList.add('hidden')">
                                 Cancel
                             </button>
@@ -234,10 +269,12 @@
                             placeholder="Description of the Non-DCP item"></textarea>
                     </div>
                     <div class="flex justify-end  col-span-2 gap-2  ">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-4 rounded">
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white  py-1 px-4  tracking-wider font-medium rounded shadow ">
                             Update this Item
                         </button>
-                        <button type="button" class="bg-gray-500 hover:bg-gray-700 text-white  py-1 px-4 rounded"
+                        <button type="button"
+                            class="bg-gray-500 hover:bg-gray-700 text-white  py-1 px-4  tracking-wider font-medium rounded shadow "
                             onclick="document.getElementById('edit-modal').classList.add('hidden')">
                             Cancel
                         </button>
