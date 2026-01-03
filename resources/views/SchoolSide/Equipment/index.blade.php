@@ -4,523 +4,36 @@
 
  @section('content')
      <div class="my-10 mx-5">
-         <div id="add-cctv-modal"
-             class="modal inset-0 fixed  overflow-y-auto  bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-             <div class="modal-content p-4 bg-white rounded-md">
-                 <form action="{{ route('schools.equipment.store') }}" method="POST">
-                     @csrf
-                     @method('POST')
-                     <h2 class="font-bold text-2xl text-gray-800">CCTV Information</h2>
-                     <h3 class="font-normal text-lg text-gray-800 mb-4">Save Information for Reports</h3>
-                     <div>
-                         <label for="e_type"></label>
-                         <select class="hidden " name="selected_equipment" id="selected_equipment_cctv">
-                             @foreach ($equipment_type as $e_type)
-                                 <option value="{{ $e_type->pk_equipment_type_id }}">{{ $e_type->name }}</option>
-                             @endforeach
-                         </select>
-                     </div>
-                     <div class="grid md:grid-cols-2 grid-cols-1 gap-2">
 
-
-
-                         <div>
-                             <label for="e_brand">Brand/Model</label>
-                             <select required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" name="e_brand"
-                                 id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_brand_model as $e_brand)
-                                     <option value="{{ $e_brand->pk_equipment_brand_model_id }}">{{ $e_brand->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div>
-                             <label for="e_cctv_type">CCTV Camera Type</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_cctv_type" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($cctv_type as $e_cctv_type)
-                                     <option value="{{ $e_cctv_type->pk_e_cctv_camera_type_id }}">
-                                         {{ $e_cctv_type->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div>
-                             <label for="no_of_cctv">Total No. of Camera</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="text"
-                                 name="no_of_cctv" id="no_of_cctv" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="e_power_source">Power Source</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_power_source" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_power_source as $e_power_source)
-                                     <option value="{{ $e_power_source->pk_equipment_power_source_id }}">
-                                         {{ $e_power_source->name }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="e_location">Location</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_location">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_location as $e_location)
-                                     <option value="{{ $e_location->pk_equipment_location_id }}">{{ $e_location->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="date_installed">Date Installed</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="date"
-                                 name="date_installed" id="date_installed">
-                         </div>
-                         <div>
-                             <label for="total_amount">Total Amount</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="number"
-                                 step="0.01" name="total_amount" id="total_amount" placeholder="₱ 0.00">
-                         </div>
-
-                         <div>
-                             <label for="e_installer">Installer</label>
-                             <select required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2 "
-                                 name="e_installer" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_installer as $e_installer)
-                                     <option value="{{ $e_installer->pk_equipment_installer_id }}">
-                                         {{ $e_installer->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="no_of_functional">Total No. of Functional</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="number"
-                                 name="no_of_functional" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="e_incharge">Person In Charge</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_incharge" id="">
-                                 <option value="">Select</option>
-                                 @foreach ($equipment_incharge as $e_incharge)
-                                     <option value="{{ $e_incharge->pk_equipment_incharge_id }}">{{ $e_incharge->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                     </div>
-
-                     <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit"
-                             class="bg-blue-500 text-white px-6 py-1   tracking-wider font-medium rounded shadow ">
-                             Submit
-                         </button>
-                         <button type="button" onclick="closeModal(1)"
-                             class="bg-gray-500  tracking-wider font-medium rounded shadow  text-white px-6 py-1 rounded">
-                             Cancel
-                         </button>
-                     </div>
-
-                 </form>
-             </div>
-         </div>
-
-         <div id="edit-overall-modal"
-             class="modal inset-0 fixed  overflow-y-auto  bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-             <div class="modal-content p-4 bg-white rounded-md">
-                 <form action="{{ route('schools.equipment.update') }}" method="POST">
-                     @csrf
-                     @method('PUT')
-                     <h2 class="font-bold text-2xl text-gray-800" id="edit-modal-title">Update CCTV Information</h2>
-                     <h3 class="font-normal text-lg text-gray-800 mb-4">Save Information for Reports</h3>
-                     <input type="hidden" name="edit_primary_key" id="edit_primary_key">
-
-
-                     <div class="grid md:grid-cols-2 grid-cols-1 gap-2">
-
-
-                         <input type="hidden" id="target" name="target">
-                         <div>
-                             <label for="edit_e_brand">Brand/Model</label>
-                             <select class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" name="edit_e_brand"
-                                 id="edit_e_brand">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_brand_model as $e_brand)
-                                     <option value="{{ $e_brand->pk_equipment_brand_model_id }}">{{ $e_brand->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div id="for-cctv" class="hidden">
-                             <label for="edit_e_cctv_type">CCTV Camera Type</label>
-                             <select class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="edit_e_cctv_type" id="edit_e_cctv_type">
-                                 <option value="">Select</option>
-
-                                 @foreach ($cctv_type as $e_cctv_type)
-                                     <option value="{{ $e_cctv_type->pk_e_cctv_camera_type_id }}">
-                                         {{ $e_cctv_type->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div id="for-biometric" class="hidden">
-                             <label for="edit_e_biometric_type">Biometric Authentication Type</label>
-                             <select class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="edit_e_biometric_type" id="edit_e_biometric_type">
-                                 <option value="">Select</option>
-
-                                 @foreach ($biometric_type as $e_bio_type)
-                                     <option value="{{ $e_bio_type->pk_e_biometric_type_id }}">
-                                         {{ $e_bio_type->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div>
-                             <label for="edit_no_of_unit">Total No. of Camera</label>
-                             <input class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="text"
-                                 name="edit_no_of_unit" id="edit_no_of_unit" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="edit_e_power_source">Power Source</label>
-                             <select class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="edit_e_power_source" id="edit_e_power_source">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_power_source as $e_power_source)
-                                     <option value="{{ $e_power_source->pk_equipment_power_source_id }}">
-                                         {{ $e_power_source->name }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="edit_e_location">Location</label>
-                             <select class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" id="edit_e_location"
-                                 name="edit_e_location">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_location as $e_location)
-                                     <option value="{{ $e_location->pk_equipment_location_id }}">{{ $e_location->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="edit_date_installed">Date Installed</label>
-                             <input class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="date"
-                                 name="edit_date_installed" id="edit_date_installed">
-                         </div>
-                         <div>
-                             <label for="edit_total_amount">Total Amount</label>
-                             <input class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="number"
-                                 step="0.01" name="edit_total_amount" id="edit_total_amount" placeholder="₱ 0.00">
-                         </div>
-
-                         <div>
-                             <label for="edit_e_installer">Installer</label>
-                             <select class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2 "
-                                 name="edit_e_installer" id="edit_e_installer">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_installer as $e_installer)
-                                     <option value="{{ $e_installer->pk_equipment_installer_id }}">
-                                         {{ $e_installer->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="edit_no_of_functional">Total No. of Functional</label>
-                             <input class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2" type="number"
-                                 name="edit_no_of_functional" id="edit_no_of_functional" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="edit_e_incharge">Person In Charge</label>
-                             <select class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="edit_e_incharge" id="edit_e_incharge">
-                                 <option value="">Select</option>
-                                 @foreach ($equipment_incharge as $e_incharge)
-                                     <option value="{{ $e_incharge->pk_equipment_incharge_id }}">{{ $e_incharge->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                     </div>
-
-                     <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit"
-                             class="bg-blue-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
-                             Update
-                         </button>
-                         <button type="button" onclick="closeModal(3)"
-                             class="bg-gray-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
-                             Cancel
-                         </button>
-                     </div>
-
-                 </form>
-             </div>
-         </div>
-
-         <div id="add-biometric-modal"
-             class="modal inset-0 fixed  overflow-y-auto  bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-             <div class="modal-content p-4 bg-white rounded-md">
-                 <form action="{{ route('schools.equipment.store') }}" method="POST">
-                     @csrf
-                     @method('POST')
-                     <h2 class="font-bold text-2xl text-gray-800">Biometrics Equipment Information</h2>
-                     <h3 class="font-normal text-lg text-gray-800 mb-4">Save Information for Reports</h3>
-                     <div>
-                         <label for="e_type"></label>
-                         <select class="hidden " name="selected_equipment" id="selected_equipment_biometric">
-                             @foreach ($equipment_type as $e_type)
-                                 <option value="{{ $e_type->pk_equipment_type_id }}">{{ $e_type->name }}</option>
-                             @endforeach
-                         </select>
-                     </div>
-                     <div class="grid md:grid-cols-2 grid-cols-1 gap-2">
-
-
-
-                         <div>
-                             <label for="e_brand">Brand/Model</label>
-                             <select required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_brand" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_brand_model as $e_brand)
-                                     <option value="{{ $e_brand->pk_equipment_brand_model_id }}">{{ $e_brand->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div>
-                             <label for="e_biometric_type">Biometric Authentication Type</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_biometric_type" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($biometric_type as $e_biometric_type)
-                                     <option value="{{ $e_biometric_type->pk_e_biometric_type_id }}">
-                                         {{ $e_biometric_type->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-
-                         <div>
-                             <label for="no_of_cctv">Total No. of Biometric</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 type="text" name="no_of_cctv" id="no_of_cctv" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="e_power_source">Power Source</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_power_source" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_power_source as $e_power_source)
-                                     <option value="{{ $e_power_source->pk_equipment_power_source_id }}">
-                                         {{ $e_power_source->name }}</option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="e_location">Location</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_location">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_location as $e_location)
-                                     <option value="{{ $e_location->pk_equipment_location_id }}">{{ $e_location->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="date_installed">Date Installed</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 type="date" name="date_installed" id="date_installed">
-                         </div>
-                         <div>
-                             <label for="total_amount">Total Amount</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 type="number" step="0.01" name="total_amount" id="total_amount"
-                                 placeholder="₱ 0.00">
-                         </div>
-
-                         <div>
-                             <label for="e_installer">Installer</label>
-                             <select required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2 "
-                                 name="e_installer" id="">
-                                 <option value="">Select</option>
-
-                                 @foreach ($equipment_installer as $e_installer)
-                                     <option value="{{ $e_installer->pk_equipment_installer_id }}">
-                                         {{ $e_installer->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                         <div>
-                             <label for="no_of_functional">Total No. of Functional</label>
-                             <input required class="px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 type="number" name="no_of_functional" placeholder="0">
-                         </div>
-                         <div>
-                             <label for="e_incharge">Person In Charge</label>
-                             <select required class=" px-2 py-1 w-full border border-gray-400 rounded-sm mb-2"
-                                 name="e_incharge" id="">
-                                 <option value="">Select</option>
-                                 @foreach ($equipment_incharge as $e_incharge)
-                                     <option value="{{ $e_incharge->pk_equipment_incharge_id }}">{{ $e_incharge->name }}
-                                     </option>
-                                 @endforeach
-                             </select>
-                         </div>
-                     </div>
-
-                     <div class="flex justify-end gap-2 mt-4">
-                         <button type="submit"
-                             class="bg-blue-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
-                             Submit
-                         </button>
-                         <button type="button" onclick="closeModal(2)"
-                             class="bg-gray-500 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
-                             Cancel
-                         </button>
-                     </div>
-
-                 </form>
-             </div>
-         </div>
-
-
-
-
-
-         <script>
-             function openEditModal(type, id, brand, total_object, object_type, powersource, location, total_amount, installer,
-                 functional, incharge, date_installed) {
-                 console.log(id, brand, total_object, object_type, powersource, location, total_amount, installer,
-                     functional, incharge, "DATE", date_installed);
-                 if (type == 'cctv') {
-                     document.getElementById("edit-overall-modal").classList.remove('hidden');
-                     document.getElementById('for-cctv').classList.remove('hidden');
-                     document.getElementById('edit-modal-title').textContent = "Update CCTV Details";
-                     document.getElementById('edit_primary_key').value = id;
-                     document.getElementById('edit_e_brand').value = brand;
-                     document.getElementById('edit_no_of_unit').value = total_object;
-                     document.getElementById('edit_e_cctv_type').value = object_type;
-                     document.getElementById('edit_e_power_source').value = powersource;
-                     document.getElementById('edit_e_location').value = location;
-                     document.getElementById('edit_total_amount').value = total_amount;
-                     document.getElementById('edit_e_installer').value = installer;
-                     document.getElementById('edit_no_of_functional').value = functional;
-                     document.getElementById('edit_e_incharge').value = incharge;
-                     document.getElementById('edit_date_installed').value = date_installed;
-                     document.getElementById('target').value = 'cctv';
-
-                 } else if (type == 'biometrics') {
-                     document.getElementById("edit-overall-modal").classList.remove('hidden');
-
-                     document.getElementById('for-biometric').classList.remove('hidden');
-                     document.getElementById('edit-modal-title').textContent = "Update Biometric Details";
-                     document.getElementById('edit_primary_key').value = id;
-                     document.getElementById('edit_e_brand').value = brand;
-                     document.getElementById('edit_no_of_unit').value = total_object;
-                     document.getElementById('edit_e_biometric_type').value = object_type;
-                     document.getElementById('edit_e_power_source').value = powersource;
-                     document.getElementById('edit_e_location').value = location;
-                     document.getElementById('edit_total_amount').value = total_amount;
-                     document.getElementById('edit_e_installer').value = installer;
-                     document.getElementById('edit_no_of_functional').value = functional;
-                     document.getElementById('edit_e_incharge').value = incharge;
-                     document.getElementById('edit_date_installed').value = date_installed;
-                     document.getElementById('target').value = 'biometric';
-
-                 }
-
-
-             }
-
-             function openModal(type) {
-                 if (type == '1') {
-                     document.getElementById('add-cctv-modal').classList.remove('hidden')
-
-                     document.getElementById('selected_equipment_cctv').value = type;
-                 } else if (type == '2') {
-                     document.getElementById('selected_equipment_biometric').value = type;
-                     document.getElementById('add-biometric-modal').classList.remove('hidden')
-
-                 }
-             }
-
-             function closeModal(type) {
-                 if (type == '1') {
-
-                     document.getElementById('add-cctv-modal').classList.add('hidden')
-                 } else if (type == '2') {
-
-                     document.getElementById('add-biometric-modal').classList.add('hidden')
-                 } else if (type == '3') {
-                     document.getElementById('edit-overall-modal').classList.add('hidden')
-                 }
-
-             }
-
-             function deleteFunction(id, type) {
-                 if (confirm("Are you sure you want to delete this record?")) {
-                     fetch('/School/Equipment/delete/' + id + '/' + type, {
-                             method: 'DELETE',
-                             headers: {
-                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                             }
-                         })
-                         .then(response => {
-                             if (response.ok) {
-                                 alert('Record deleted successfully!');
-                                 location.reload();
-                             } else {
-                                 alert('Failed to delete record.');
-                             }
-                         })
-                         .catch(error => console.error('Error:', error));
-                 }
-
-             }
-         </script>
-
+         @include('SchoolSide.Equipment.partials._addBiometricModal')
+         @include('SchoolSide.Equipment.partials._addCCTVModal')
+         @include('SchoolSide.Equipment.partials._editModal')
+         @include('SchoolSide.Equipment.partials.scripts')
 
          <div class="px-5 py-5  mb-2 bg-white rounded-md border border-gray-300">
              <div class="flex justify-between">
                  <div>
-                     <div class="text-2xl font-bold text-gray-700   ">School's CCTV Details</div>
+                     <div class="text-2xl font-bold text-gray-700   ">CCTV Information</div>
                      <div class="text-md font-normal text-gray-600 mb-2  tracking-wide">Create, View, Edit and Remove
                          Details</div>
                      <div>
-                         <button onclick="openModal(1)"
-                             class="bg-blue-600 text-white  tracking-wider font-medium rounded shadow  py-1 px-4 mb-2"> Add
-                             New
-                             Record</button>
+                         <div class="flex justify-start mb-3">
+                             <button type="button" onclick="openModal(1)"
+                                 class="flex items-center gap-0 px-1 py-1 border border-gray-300  uppercase shadow-md rounded-full bg-white hover:bg-gray-50">
+                                 <span class="text-blue-600 px-2 font-semibold tracking-wider">
+                                     Add Record
+                                 </span>
+
+                                 <div
+                                     class="h-8 w-8 bg-blue-600 p-2 shadow hover:bg-blue-700 rounded-full flex items-center justify-center">
+                                     <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                         <path fill-rule="evenodd"
+                                             d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
+                                             clip-rule="evenodd" />
+                                     </svg>
+                                 </div>
+                             </button>
+                         </div>
                      </div>
 
                  </div>
@@ -544,79 +57,8 @@
                  </div>
 
              </div>
-             <div class="overflow-x-auto ">
-                 @if ($cctv_info->isNotEmpty())
-                     <div class="grid gap-4">
-                         @foreach ($cctv_info as $index => $info)
-                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white tracking-wider">
-                                 <div class="flex justify-between items-center  border-b border-gray-400 pb-2 mb-3">
-                                     <h3 class="font-semiboldtext-gray-700">CCTV No.{{ $index + 1 }}</h3>
-                                     <span
-                                         class="text-sm text-gray-500">{{ $info->equipment_details->date_installed ?? '' }}</span>
-                                 </div>
 
-                                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-md">
-                                     <div>
-                                         <span class="font-semibold">Brand / Model:</span>
-                                         <p>{{ $info->equipment_details->brand_model->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">No. of Cameras:</span>
-                                         <p>{{ $info->no_of_units ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Camera Type:</span>
-                                         <p>{{ $info->cctv_type->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Power Source:</span>
-                                         <p>{{ $info->equipment_details->powersource->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Location:</span>
-                                         <p>{{ $info->equipment_details->location->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Total Amount:</span>
-                                         <p>{{ $info->equipment_details->total_amount ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Installer/Contractor:</span>
-                                         <p>{{ $info->equipment_details->installer->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         @php
-                                             $percentage = ($info->no_of_functional / $info->no_of_units) * 100;
-                                         @endphp
-                                         <span class="font-semibold">Functional Cameras:</span>
-                                         <p>{{ $info->no_of_functional ?? '' }}/{{ $info->no_of_units ?? '' }} -
-                                             {{ $percentage . '%' ?? '' }}</p>
-
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Person In-Charge:</span>
-                                         <p>{{ $info->equipment_details->incharge->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <button type="button"
-                                             onclick="openEditModal('cctv',{{ $info->equipment_details->pk_equipment_details_id }},{{ $info->equipment_details->brand_model->pk_equipment_brand_model_id }},{{ $info->no_of_units }},{{ $info->cctv_type->pk_e_cctv_camera_type_id }},{{ $info->equipment_details->powersource->pk_equipment_power_source_id }},{{ $info->equipment_details->location->pk_equipment_location_id }},{{ $info->equipment_details->total_amount }},{{ $info->equipment_details->installer->pk_equipment_installer_id }},{{ $info->no_of_functional }}, {{ $info->equipment_details->incharge->pk_equipment_incharge_id }},'{{ $info->equipment_details->date_installed }}')"
-                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Edit
-                                             Data</button>
-                                         <button onclick="deleteFunction({{ $info->pk_e_cctv_details_id }},'cctv')"
-                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Remove</button>
-
-                                     </div>
-                                 </div>
-                             </div>
-                         @endforeach
-                     </div>
-                 @else
-                     <div class="text-center  text-md font-normal text-gray-600">
-                         No CCTV Details Available.
-                     </div>
-                 @endif
-
-             </div>
+             @include('SchoolSide.Equipment.partials._tableCCTV')
 
          </div>
 
@@ -624,14 +66,28 @@
          <div class="px-5 py-5 bg-white mb-4 rounded-md border border-gray-300">
              <div class="flex justify-between">
                  <div>
-                     <div class="text-2xl font-bold text-gray-700   ">School's Biometric Details</div>
+                     <div class="text-2xl font-bold text-gray-700   ">Biometrics Information</div>
                      <div class="text-md font-normal text-gray-600 mb-2 tracking-wide ">Create, View, Edit and Remove
                          Details</div>
                      <div>
-                         <button onclick="openModal(2)"
-                             class="bg-blue-600 text-white  tracking-wider font-medium rounded shadow  mb-2 py-1 px-4"> Add
-                             New
-                             Record</button>
+
+                         <div class="flex justify-start mb-3">
+                             <button type="button" onclick="openModal(2)"
+                                 class="flex items-center gap-0 px-1 py-1 border border-gray-300  uppercase shadow-md rounded-full bg-white hover:bg-gray-50">
+                                 <span class="text-blue-600 px-2 font-semibold tracking-wider">
+                                     Add Record
+                                 </span>
+
+                                 <div
+                                     class="h-8 w-8 bg-blue-600 p-2 shadow hover:bg-blue-700 rounded-full flex items-center justify-center">
+                                     <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                         <path fill-rule="evenodd"
+                                             d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
+                                             clip-rule="evenodd" />
+                                     </svg>
+                                 </div>
+                             </button>
+                         </div>
                      </div>
                  </div>
                  <div
@@ -652,80 +108,7 @@
                  </div>
 
              </div>
-             <div class="overflow-x-auto ">
-
-                 @if ($biometric_info->isNotEmpty())
-                     <div class="grid gap-4">
-                         @foreach ($biometric_info as $index => $info)
-                             <div class="border border-gray-400 rounded-lg shadow p-4 bg-white tracking-wider">
-                                 <div class="flex justify-between items-center border-b border-gray-400 pb-2 mb-2">
-                                     <h3 class="font-semibold text-gray-700">Biometric No.{{ $index + 1 }}</h3>
-                                     <span
-                                         class="text-sm text-gray-500">{{ $info->equipment_details->date_installed ?? '' }}</span>
-                                 </div>
-
-                                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-md">
-                                     <div>
-                                         <span class="font-semibold">Brand / Model:</span>
-                                         <p>{{ $info->equipment_details->brand_model->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">No. of Biometrics:</span>
-                                         <p>{{ $info->no_of_units ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Authentication Type:</span>
-                                         <p>{{ $info->biometric_type->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Power Source:</span>
-                                         <p>{{ $info->equipment_details->powersource->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Location:</span>
-                                         <p>{{ $info->equipment_details->location->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Total Amount:</span>
-                                         <p>{{ $info->equipment_details->total_amount ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Installer/Contractor:</span>
-                                         <p>{{ $info->equipment_details->installer->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         @php
-                                             $percentage = ($info->no_of_functional / $info->no_of_units) * 100;
-
-                                         @endphp
-                                         <span class="font-semibold">Functional Biometrics:</span>
-                                         <p>{{ $info->no_of_functional ?? '' }}/{{ $info->no_of_units ?? '' }} -
-                                             {{ $percentage . '%' ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <span class="font-semibold">Person In-Charge:</span>
-                                         <p>{{ $info->equipment_details->incharge->name ?? '' }}</p>
-                                     </div>
-                                     <div>
-                                         <button
-                                             onclick="openEditModal('biometrics', {{ $info->equipment_details->pk_equipment_details_id }},{{ $info->equipment_details->brand_model->pk_equipment_brand_model_id }},{{ $info->no_of_units }},{{ $info->biometric_type->pk_e_biometric_type_id }},{{ $info->equipment_details->powersource->pk_equipment_power_source_id }},{{ $info->equipment_details->location->pk_equipment_location_id }},{{ $info->equipment_details->total_amount }},{{ $info->equipment_details->installer->pk_equipment_installer_id }},{{ $info->no_of_functional }}, {{ $info->equipment_details->incharge->pk_equipment_incharge_id }},'{{ $info->equipment_details->date_installed }}')"
-                                             class="text-blue-600 border border-blue-600  hover:bg-blue-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Edit
-                                             Data</button>
-                                         <button
-                                             onclick="deleteFunction({{ $info->pk_e_biometric_details_id }},'biometrics')"
-                                             class=" text-red-600 border border-red-600  hover:bg-red-600 hover:text-white  tracking-wider font-medium rounded shadow  py-1 px-4">Remove</button>
-
-                                     </div>
-                                 </div>
-                             </div>
-                         @endforeach
-                     </div>
-                 @else
-                     <div class="text-center  text-md font-normal text-gray-600">
-                         No Biometric Details Available.
-                     </div>
-                 @endif
-             </div>
+             @include('SchoolSide.Equipment.partials._tableBiometric')
          </div>
 
      </div>
