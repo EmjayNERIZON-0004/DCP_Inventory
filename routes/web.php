@@ -9,7 +9,12 @@ use App\Http\Controllers\DCPBatchItemController;
 use App\Http\Controllers\DCPItemTypesController;
 use App\Http\Controllers\DCPPackageTypeController;
 use App\Http\Controllers\DCPSchoolsInventoryController;
+use App\Http\Controllers\EmpCauseOfSeparationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmpPositionController;
+use App\Http\Controllers\EmpROOfficeController;
+use App\Http\Controllers\EmpSDOOfficeController;
+use App\Http\Controllers\EmpSourceOfFundController;
 use App\Http\Controllers\SchoolEquipmentContoller;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ISPController;
@@ -27,13 +32,25 @@ use App\Http\Controllers\SchoolItemConditionController;
 use App\Http\Controllers\SchoolNonDCPItemController;
 use App\Http\Controllers\SchoolReportController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentAccountabiltyController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentConditionController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentDispositionController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentDocumentController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentDocumentTypeController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentReceiverTypeController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentTransactionTypeController;
+use App\Http\Controllers\SchoolEquipment\SchoolEquipmentStatusController;
 use App\Models\DCPBatch;
 use App\Models\DCPBatchApproval;
 use App\Models\DCPBatchItem;
 use App\Models\DCPItemTypes;
 use App\Models\DCPPackageTypes;
+use App\Models\EmpSourceOfFund;
 use App\Models\SchoolData;
 use App\Models\SchoolEmployee;
+use App\Models\SchoolEquipment\SchoolEquipmentDocument;
+use App\Models\SchoolEquipment\SchoolEquipmentReceiverType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -182,6 +199,12 @@ Route::get('Admin/api/Reports', [ReportsController::class, 'generateReport'])->n
 Route::get('Admin/api/schools-with-packages', [DCPBatchController::class, 'getSchoolsWithPackages'])->name('api.schools.with.packages');
 Route::get('Admin/api/cost', [ReportsController::class, 'totalCost'])->name('api.reports.cost');
 
+Route::resource('emp-cause-of-separation', EmpCauseOfSeparationController::class);
+Route::resource('emp-source-of-fund', EmpSourceOfFundController::class);
+Route::resource('emp-position', EmpPositionController::class);
+Route::resource('emp-sdo-office', EmpSDOOfficeController::class);
+Route::resource('emp-ro-office', EmpROOfficeController::class);
+
 // School dashboard update routes
 Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     Route::get('/get-current-conditions', [SchoolDashboardController::class, 'getItemConditionCounts'])->name('schools.get.current_conditions');
@@ -226,21 +249,6 @@ Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     Route::get('/dcp-batch/{batch}/item-status', [SchoolDCPBatchController::class, 'itemStatus'])->name('school.dcp_item_status');
     Route::get('/dcp-batch/{batch}/warranty', [SchoolDCPBatchController::class, 'warranty'])->name('school.dcp_item_warranty');
     Route::put('/dcp-batch/{item}', [SchoolDCPBatchController::class, 'updateItem'])->name('school.dcp_items.update');
-
-
-    Route::get('/dcp-documents', function () {
-        return view('SchoolSide.DCPDocument');
-    })->name('school.dcp_documents');
-
-    Route::get('/ict-slac', function () {
-        return view('SchoolSide.ICTSLAC');
-    })->name('school.ict_slac');
-
-    Route::get('/manual', function () {
-        return view('SchoolSide.Manual');
-    })->name('school.manual');
-
-
     Route::post('update-batch-status/{batchId}', [SchoolDCPBatchController::class, 'updateBatchStatus'])->name('school.update.batch_status');
     Route::put('batch-status/{batchId}', [SchoolDCPBatchController::class, 'editUpdateBatchStatus'])->name('batch_status.update');
     Route::get('index-batch-status/{batchId}', [SchoolDCPBatchController::class, 'batch_status'])->name('school.index.batch_status');
@@ -254,7 +262,6 @@ Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     Route::post('assignment/items', [SchoolDCPBatchController::class, 'assigned_for_items'])->name('school.assignment.items');
     Route::get('/batch-items/search', [SchoolInventoryController::class, 'searchBatchItems']);
     Route::post('/submit-dcp-batch', [DCPBatchApprovalController::class, 'submit'])->name('submit.dcp_batch');
-
     Route::get('/ISP/index', [SchoolISPController::class, 'index'])->name('schools.isp.index');
     Route::post('/ISP/store', [SchoolISPController::class, 'storeData'])->name('schools.isp.store');
     Route::put('/ISP/update-area', [SchoolISPController::class, 'updateArea'])->name('schools.isp.update.area');
@@ -274,18 +281,31 @@ Route::middleware(['web', 'auth:school'])->prefix('School')->group(function () {
     Route::post('Employee/submit', [SchoolEmployeeController::class, 'store'])->name('schools.employee.store');
     Route::put('Employee/update', [SchoolEmployeeController::class, 'update'])->name('schools.employee.update');
     Route::delete('Employee/delete/{id}', [SchoolEmployeeController::class, 'destroy'])->name('schools.employee.destroy');
-
     Route::get('Account/index', [SchoolAccountController::class, 'index'])->name('schools.account.index');
     Route::post('Account/change-password', [SchoolAccountController::class, 'change_password'])->name('schools.account.change-password');
-
     Route::get('NonDCPItem/index', [SchoolNonDCPItemController::class, 'index'])->name('schools.nondcpitem.index');
     Route::post('NonDCPItem/store', [SchoolNonDCPItemController::class, 'store'])->name('schools.nondcpitem.store');
     Route::put('NonDCPItem/update', [SchoolNonDCPItemController::class, 'update'])->name('schools.nondcpitem.update');
     Route::delete('NonDCPItem/delete/{id}', [SchoolNonDCPItemController::class, 'delete'])->name('schools.nondcpitem.delete');
+    Route::resource('SchoolEquipment', SchoolEquipmentController::class);
+    Route::resource('school-equipment-document-type', SchoolEquipmentDocumentTypeController::class);
+    Route::resource('school-equipment-document', SchoolEquipmentDocumentController::class);
+    Route::resource('school-equipment-accountability', SchoolEquipmentAccountabiltyController::class);
+    Route::resource('school-equipment-status', SchoolEquipmentStatusController::class);
+    Route::resource('school-equipment-condition', SchoolEquipmentConditionController::class);
+    Route::resource('school-equipment-disposition', SchoolEquipmentDispositionController::class);
+    Route::resource('school-equipment-transaction-type', SchoolEquipmentTransactionTypeController::class)
+        ->parameters([
+            'school-equipment-transaction-type' => 'transactionType'
+        ]);
 
+    Route::resource('school-equipment-accountability-receiver-type', SchoolEquipmentReceiverTypeController::class)
+        ->parameters([
+            'school-equipment-accountability-receiver-type' => 'receiverType'
+        ]);
+
+    Route::get('school-employee-list', [SchoolEmployeeController::class, 'showSchoolEmployees'])->name('school.employee.list');
     Route::get('Employee/get-data', [SchoolEmployeeController::class, 'get_data']);
-
-
     //END OF PREFIX SCHOOL
 });
 

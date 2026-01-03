@@ -57,7 +57,10 @@ class School extends Model
         'created_at',
         'updated_at'
     ];
-
+    public function schoolEquipments()
+    {
+        return $this->hasMany(SchoolEquipment\SchoolEquipment::class, 'school_id', 'pk_school_id');
+    }
     public function dcpBatches()
     {
         return $this->hasMany(DCPBatch::class, 'school_id', 'pk_school_id');

@@ -15,7 +15,11 @@ class SchoolEmployeeController extends Controller
         return view('SchoolSide.Employee.index', compact('employee'));
     }
 
-
+    public function showSchoolEmployees()
+    {
+        $employee = SchoolEmployee::where('school_id', Auth::guard('school')->user()->pk_school_id)->get();
+        return response()->json(['success' => true, 'data' => $employee]);
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
