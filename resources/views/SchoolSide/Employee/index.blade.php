@@ -95,7 +95,7 @@
                               class="w-full border border-gray-400 rounded px-2 py-1">
                       </div>
                       <div>
-                          <label for="position_title_id">Position Title</label>
+                          <label for="position_title_id">Employee Title</label>
                           <select name="position_title_id" class="w-full border border-gray-400 rounded px-2 py-1" required>
                               <option value="">Select</option>
                               @foreach (App\Models\EmployeePosition::all() as $position)
@@ -388,7 +388,7 @@
                               class="w-full border border-gray-400 rounded px-2 py-1">
                       </div>
                       <div>
-                          <label for="position_title_id">Employee Position Title</label>
+                          <label for="position_title_id">Employee Title</label>
                           <select name="position_title_id" id="position_title_id"
                               class="w-full border border-gray-400 rounded px-2 py-1">
                               <option value="">Select</option>
@@ -788,12 +788,21 @@
           <div>
               <table class="w-full tracking-wider table-auto border-collapse" id="employeeTable">
                   @foreach ($employee as $emp)
-                      {{-- ===== Basic Info ===== --}}
+                      {{-- ===== BASIC INFO ===== --}}
+                      <tr>
+                          <td colspan="8" style="height: 10px;font-size:10px;"
+                              class="bg-gray-300 border border-gray-500 text-gray-800 font-bold text-center">
+                              BASIC INFO
+                          </td>
+                      </tr>
+
                       <tr>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Name</td>
-                          <td class="px-4 py-2 border border-gray-500" colspan="7">{{ $emp->fname }}
+                          <td class="px-4 py-2 border border-gray-500" colspan="5">{{ $emp->fname }}
                               {{ $emp->mname }} {{ $emp->lname }} {{ $emp->suffix_name }}</td>
 
+                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Employee No.</td>
+                          <td class="px-4 py-2 border border-gray-500">{{ $emp->employee_number }}</td>
                       </tr>
 
                       <tr>
@@ -802,24 +811,31 @@
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Birthdate</td>
                           <td class="px-4 py-2 border border-gray-500">
                               {{ \Carbon\Carbon::parse($emp->birthdate)->format('F j, Y') }}</td>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Employee Number</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ $emp->employee_number }}</td>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Position Title</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ optional($emp->positionTitle)->name }}</td>
-
-                      </tr>
-
-                      {{-- ===== Login / Email Status ===== --}}
-                      <tr>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Salary Grade</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->salary_grade }}</td>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Deped Email</td>
+                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Employee Title</td>
+                          <td class="px-4 py-2 border border-gray-500">{{ optional($emp->positionTitle)->name }}</td>
+                      </tr>
+
+
+
+                      {{-- ===== LOGIN / EMAIL STATUS ===== --}}
+                      <tr>
+                          <td colspan="8" style="height: 10px;font-size:10px;"
+                              class="bg-gray-300 border border-gray-500 text-gray-800 font-bold text-center">
+                              LOGIN / EMAIL STATUS
+                          </td>
+                      </tr>
+
+                      <tr>
+                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">DepEd Email</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->deped_email }}</td>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Deped Email Status</td>
+                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">DepEd Email Status</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->deped_email_status }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">M365 Email Status</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->m365_email_status }}</td>
-
+                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">L4NT Recipient</td>
+                          <td class="px-4 py-2 border border-gray-500">{{ $emp->l4nt_recipient }}</td>
                       </tr>
 
                       <tr>
@@ -831,38 +847,48 @@
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->l4t_recipient }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Smart TV Recipient</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->smart_tv_recipient }}</td>
-
                       </tr>
 
-                      {{-- ===== Office / Position Info ===== --}}
+                      {{-- ===== OFFICE / POSITION INFO ===== --}}
                       <tr>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">L4NT Recipient</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ $emp->l4nt_recipient }}</td>
+                          <td colspan="8" style="height: 10px;font-size:10px;"
+                              class="bg-gray-300 border border-gray-500 text-gray-800 font-bold text-center">
+                              OFFICE / POSITION INFO
+                          </td>
+                      </tr>
 
+                      <tr>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Personal Email</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->personal_email_address }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">RO Office</td>
                           <td class="px-4 py-2 border border-gray-500">{{ optional($emp->roOffice)->name }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">SDO Office</td>
                           <td class="px-4 py-2 border border-gray-500">{{ optional($emp->sdoOffice)->name }}</td>
-
+                          <td rowspan="2" class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Officer in
+                              Charge
+                          </td>
+                          <td rowspan="2" class="px-4 py-2 border border-gray-500">
+                              {{ $emp->officer_in_charge ? 'Yes' : 'No' }}</td>
                       </tr>
 
-                      {{-- ===== Contact Info ===== --}}
                       <tr>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Position</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ optional($emp->position)->name }}</td>
-                          <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Officer in Charge</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ $emp->officer_in_charge ? 'Yes' : 'No' }}</td>
+                          <td class="px-4 py-2 border border-gray-500"> {{ optional($emp->position)->name }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Mobile No 1</td>
                           <td class="px-4 py-2 border border-gray-500">{{ $emp->mobile_no_1 }}</td>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Mobile No 2</td>
-                          <td class="px-4 py-2 border border-gray-500">{{ $emp->mobile_no_2 }}</td>
-
+                          <td colspan="4" class="px-4 py-2 border border-gray-500">{{ $emp->mobile_no_2 }}</td>
 
                       </tr>
 
-                      {{-- ===== Employment Dates ===== --}}
+                      {{-- ===== EMPLOYMENT DATES / STATUS ===== --}}
+                      <tr>
+                          <td colspan="8" style="height: 10px;font-size:10px;"
+                              class="bg-gray-300 border border-gray-500 text-gray-800 font-bold text-center">
+                              EMPLOYMENT DATES / STATUS
+                          </td>
+                      </tr>
+
                       <tr>
                           <td class="px-4 py-1 bg-gray-100 border border-gray-500 font-semibold">Date Hired</td>
                           <td class="px-4 py-2 border border-gray-500">
@@ -875,7 +901,7 @@
                           <td class="px-4 py-2 border border-gray-500">{{ optional($emp->causeOfSeparation)->name }}</td>
                       </tr>
 
-                      {{-- ===== Buttons / Separator ===== --}}
+                      {{-- ===== ACTION BUTTONS ===== --}}
                       <tr>
                           <td colspan="8" class="h-5">
                               <div class="mb-5 mt-1 flex flex-row gap-2">
@@ -899,8 +925,6 @@
                       </tr>
                   @endforeach
               </table>
-
-
 
           </div>
       </div>

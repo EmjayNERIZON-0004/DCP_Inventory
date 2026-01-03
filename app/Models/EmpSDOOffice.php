@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmpSDOOffice extends Model
 {
-    protected $table = 'emp_sdo_office';
+    protected $table = 'school_employee_sdo_office';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
