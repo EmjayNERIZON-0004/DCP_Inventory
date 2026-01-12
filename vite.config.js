@@ -4,15 +4,15 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     plugins: [
+        tailwindcss(),
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-        tailwindcss(),
     ],
-    base: '/public/', // <-- add this line
     build: {
-        outDir: 'public/build', // keep this
+        outDir: 'public/build',
         emptyOutDir: true,
     },
 });
+

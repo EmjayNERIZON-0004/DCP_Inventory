@@ -1,14 +1,79 @@
-@import 'tailwindcss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Example custom classes */
+.btn-primary {
+    @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.card {
+    @apply bg-white shadow-lg p-4 rounded-lg;
+}
+
+@layer components {
+    .modal {
+        @apply fixed inset-0 z-50 flex justify-center  py-10
+               items-start md:items-center bg-black/40;
+    }
+    .modal-content {
+        @apply bg-white  rounded-lg shadow-lg w-full p-6 overflow-y-auto md:mx-0 mx-5 max-h-[90vh];
+    }
+    .large-modal {
+        @apply max-w-full md:max-w-2xl lg:max-w-3xl ;
+    }
+     .medium-modal {
+        @apply max-w-full md:max-w-xl lg:max-w-2xl ;
+    }
+    .small-modal {
+        @apply max-w-full md:max-w-md lg:max-w-sm ;
+    }
+    .super-large-modal {
+        @apply max-w-full md:max-w-4xl lg:max-w-5xl ;
+    }
+    .btn-submit {
+        @apply bg-blue-600 text-white hover:bg-blue-700 font-medium tracking-wider;
+    }
+    .btn-update{
+        @apply bg-amber-400 text-white hover:bg-amber-500 font-medium tracking-wider;
+    }
+    .btn-delete{
+        @apply bg-red-600 text-white hover:bg-red-700 font-medium tracking-wider;
+    }
+    .btn-green{
+        @apply bg-green-600 text-white hover:bg-green-700 font-medium tracking-wider;
+    }
+    .btn-cancel{
+        @apply bg-gray-400 text-white hover:bg-gray-500  font-medium tracking-wider;
+    }
+    .container{
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    .medium-text {
+        @apply text-xs md:text-base;
+    }
+    .td-cell{   
+            @apply px-3 py-2 text-base text-gray-800 border border-gray-500;
+    }
+    .thin-scroll {
+        scrollbar-width: thin;                 /* Firefox */
+        scrollbar-color: #9ca3af transparent;  /* thumb / track */
+    }
+
+    .thin-scroll::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .thin-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .thin-scroll::-webkit-scrollbar-thumb {
+        background-color: #9ca3af; /* gray-400 */
+        border-radius: 9999px;
+    }
+
+    .thin-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: #6b7280; /* gray-500 */
+    }
+   
 }
