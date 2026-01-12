@@ -5,11 +5,15 @@
     <div class="mx-5 my-5 px-5 max-w-full mx-auto">
         <a href="{{ route('school.dcp_inventory') }}"
             class="inline-flex  items-center text-blue-600 text-md font-semibold hover:underline mb-2">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            DCP Inventory
+            <div class="flex justify-start my-2">
+                <div
+                    class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
+                    <button title="Show Info Modal" type="button" onclick="openISPDetailsModal()"
+                        class="btn-submit h-8 py-1 px-4 rounded-full">
+                        Show Inventory List
+                    </button>
+                </div>
+            </div>
         </a>
         {{-- <div class="bg-white border border-gray-300 rounded-sm shadow-sm p-6 mb-8">
             @php
@@ -65,7 +69,7 @@
             <div class="bg-white border border-gray-300 rounded-sm shadow-sm p-6 mb-8">
                 <div class="border-b border-gray-200 pb-4 mb-6 flex md:flex-row flex-col justify-between">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-800"> DCP Item </h2>
+                        <h2 class="text-2xl font-bold text-gray-800"> DCP Product </h2>
                         <p class="text-lg text-gray-600 mt-1"> <span
                                 class=" text-gray-800 tracking-wider font-semibold text-xl">{{ $item->generated_code }}</span>
                         </p>
