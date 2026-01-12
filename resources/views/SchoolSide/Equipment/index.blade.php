@@ -11,32 +11,8 @@
          @include('SchoolSide.Equipment.partials.scripts')
 
          <div class="px-5 py-5  mb-2 bg-white rounded-md border border-gray-300">
-             <div class="flex justify-between">
-                 <div>
-                     <div class="text-2xl font-bold text-gray-700   ">CCTV Information</div>
-                     <div class="text-md font-normal text-gray-600 mb-2  tracking-wide">Create, View, Edit and Remove
-                         Details</div>
-                     <div>
-                         <div class="flex justify-start mb-3">
-                             <button type="button" onclick="openModal(1)"
-                                 class="flex items-center gap-0 px-1 py-1 border border-gray-300  uppercase shadow-md rounded-full bg-white hover:bg-gray-50">
-                                 <span class="text-blue-600 px-2 font-semibold tracking-wider">
-                                     Add Record
-                                 </span>
+             <div class="flex justify-start mb-2 space-x-4">
 
-                                 <div
-                                     class="h-8 w-8 bg-blue-600 p-2 shadow hover:bg-blue-700 rounded-full flex items-center justify-center">
-                                     <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                         <path fill-rule="evenodd"
-                                             d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
-                                             clip-rule="evenodd" />
-                                     </svg>
-                                 </div>
-                             </button>
-                         </div>
-                     </div>
-
-                 </div>
                  <div
                      class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
                      <div class="text-white bg-blue-600 p-2 rounded-full">
@@ -55,41 +31,35 @@
                          </svg>
                      </div>
                  </div>
+                 <div>
+                     <div class="text-2xl font-bold text-gray-700   ">CCTV Information</div>
+                     <div class="text-md font-normal text-gray-600 mb-2  tracking-wide">Create, View, Edit and Remove
+                         Details</div>
 
+
+                 </div>
              </div>
+             <div>
+                 <div class="flex justify-start mb-3">
+                     <div class="flex justify-start my-2">
+                         <div
+                             class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
+                             <button title="Show Info Modal" type="button" onclick="openModal(1)"
+                                 class="btn-submit h-8 py-1 px-4 rounded-full">
+                                 Add CCTV Record
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
              @include('SchoolSide.Equipment.partials._tableCCTV')
 
          </div>
 
 
          <div class="px-5 py-5 bg-white mb-4 rounded-md border border-gray-300">
-             <div class="flex justify-between">
-                 <div>
-                     <div class="text-2xl font-bold text-gray-700   ">Biometrics Information</div>
-                     <div class="text-md font-normal text-gray-600 mb-2 tracking-wide ">Create, View, Edit and Remove
-                         Details</div>
-                     <div>
-
-                         <div class="flex justify-start mb-3">
-                             <button type="button" onclick="openModal(2)"
-                                 class="flex items-center gap-0 px-1 py-1 border border-gray-300  uppercase shadow-md rounded-full bg-white hover:bg-gray-50">
-                                 <span class="text-blue-600 px-2 font-semibold tracking-wider">
-                                     Add Record
-                                 </span>
-
-                                 <div
-                                     class="h-8 w-8 bg-blue-600 p-2 shadow hover:bg-blue-700 rounded-full flex items-center justify-center">
-                                     <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                         <path fill-rule="evenodd"
-                                             d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
-                                             clip-rule="evenodd" />
-                                     </svg>
-                                 </div>
-                             </button>
-                         </div>
-                     </div>
-                 </div>
+             <div class="flex justify-start mb-4 space-x-4">
                  <div
                      class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
                      <div class="text-white bg-blue-600 p-2 rounded-full">
@@ -106,7 +76,26 @@
                          </svg>
                      </div>
                  </div>
+                 <div>
+                     <div class="text-2xl font-bold text-gray-700   ">Biometrics Information</div>
+                     <div class="text-md font-normal text-gray-600 mb-2 tracking-wide ">Create, View, Edit and Remove
+                         Details</div>
+                     <div>
 
+
+                     </div>
+                 </div>
+
+             </div>
+             <div class="flex justify-start my-2">
+                 <div
+                     class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
+
+                     <button title="Show Info Modal" type="button" onclick="openModal(2)"
+                         class="btn-submit h-8 py-1 px-4 rounded-full">
+                         Add Biometrics Record
+                     </button>
+                 </div>
              </div>
              @include('SchoolSide.Equipment.partials._tableBiometric')
          </div>

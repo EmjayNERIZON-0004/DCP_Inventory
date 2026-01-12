@@ -40,7 +40,7 @@
 
         }
 
-
+        document.body.classList.add('overflow-hidden');
     }
 
     function openModal(type) {
@@ -53,6 +53,7 @@
             document.getElementById('add-biometric-modal').classList.remove('hidden')
 
         }
+        document.body.classList.add('overflow-hidden');
     }
 
     function closeModal(type) {
@@ -65,7 +66,7 @@
         } else if (type == '3') {
             document.getElementById('edit-overall-modal').classList.add('hidden')
         }
-
+        document.body.classList.remove('overflow-hidden');
     }
 
     function deleteFunction(id, type) {

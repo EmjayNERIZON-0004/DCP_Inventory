@@ -1,6 +1,5 @@
- <div id="add-biometric-modal"
-     class="modal inset-0 fixed  overflow-y-auto  bg-black bg-opacity-40 flex md:items-center items-start justify-center z-50 hidden">
-     <div class="modal-content p-4 px-5 bg-white rounded-md">
+ <div id="add-biometric-modal" class="modal  hidden">
+     <div class="modal-content large-modal">
          <form action="{{ route('schools.equipment.store') }}" method="POST">
              @csrf
              @method('POST')
@@ -139,12 +138,10 @@
              </div>
 
              <div class="flex justify-end gap-2 mt-4">
-                 <button type="submit"
-                     class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
+                 <button type="submit" class=" btn-submit px-6 py-1   rounded shadow ">
                      Submit
                  </button>
-                 <button type="button" onclick="closeModal(2)"
-                     class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
+                 <button type="button" onclick="closeModal(2)" class="btn-cancel px-6 py-1 rounded shadow ">
                      Cancel
                  </button>
              </div>

@@ -1,6 +1,5 @@
-<div id="edit-overall-modal"
-    class="modal inset-0 fixed  overflow-y-auto  bg-black bg-opacity-40 flex  md:items-center items-start justify-center z-50 hidden">
-    <div class="modal-content p-4 bg-white rounded-md">
+<div id="edit-overall-modal" class="modal  hidden">
+    <div class="modal-content large-modal">
         <form action="{{ route('schools.equipment.update') }}" method="POST">
             @csrf
             @method('PUT')
@@ -173,7 +172,7 @@
                     Update
                 </button>
                 <button type="button" onclick="closeModal(3)"
-                    class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-1  tracking-wider font-medium rounded shadow ">
+                    class="btn-cancel px-6 py-1  tracking-wider  rounded shadow ">
                     Cancel
                 </button>
             </div>

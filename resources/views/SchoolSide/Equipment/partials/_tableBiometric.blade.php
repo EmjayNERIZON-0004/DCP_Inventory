@@ -9,11 +9,22 @@
 
                          {{-- HEADER ROW --}}
                          <tr>
-                             <td colspan="6"
-                                 class="border uppercase border-gray-500 px-3 py-2 text-lg font-medium text-left">
-                                 Biometric No. {{ $index + 1 }}
-                             </td>
+                             <td colspan="6" class=" uppercase   py-2 text-lg font-medium text-left">
 
+                                 <div class="flex justify-start  ">
+                                     <div
+                                         class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-sm flex items-center justify-center">
+
+                                         <button title="Show Info Modal" type="button"
+                                             class="bg-green-600 text-white flex items-center  font-medium tracking-wider h-8 py-1 px-4 rounded-sm">
+                                             Biometric No. {{ $index + 1 }}
+
+
+
+                                         </button>
+                                     </div>
+                                 </div>
+                             </td>
                          </tr>
 
                          {{-- ROW 1 --}}
@@ -80,12 +91,12 @@
                          </tr>
                          <tr>
                              <td colspan="6">
-                                 <div class="flex gap-1 items-center justify-start py-2">
+                                 <div class="flex gap-1 items-center justify-end py-2">
 
                                      <div
                                          class="h-12 w-12 bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
-                                         <button class="text-white bg-green-600 hover:bg-green-700 p-1 rounded-full"
+                                         <button class="btn-update p-1 rounded-full"
                                              onclick="openEditModal(
                                                                 'biometrics',
                                                                 {{ $info->equipment_details->pk_equipment_details_id }},
