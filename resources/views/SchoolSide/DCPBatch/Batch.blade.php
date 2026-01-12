@@ -5,13 +5,8 @@
 @section('title', 'My DCP Batches')
 
 @section('content')
-    <div class="bg-white shadow-sm rounded-sm overflow-hidden p-6 mx-5 my-5" style="border:1px solid #ccc">
-        <div class="flex justify-between  mb-4  space-x-4">
-            <div class="tracking-wide">
-                <h2 class="text-2xl font-semibold text-blue-600">School DCP Batches</h2>
-                <p class="mb-2 tracking-wider">Here are the list of DCP Batches for your school.</p>
-            </div>
-
+    <div class="bg-white overflow-hidden p-6  ">
+        <div class="flex justify-start  mb-4  space-x-4">
             <div class="md:flex hidden justify-center items-start">
                 <div
                     class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
@@ -32,20 +27,32 @@
                     </div>
                 </div>
             </div>
+            <div class="tracking-wide">
+                <h1 class="text-2xl font-bold tracking-wide text-blue-700 ">
+                    School DCP Batch Received
+                </h1>
+                <div class="mb-2 tracking-wider font-medium">Here are the list of DCP Batches for your school.
+                </div>
+            </div>
+
+
 
         </div>
         <div class="overflow-x-auto border border-gray-200 rounded-sm md:border-none shadow-md md:shadow-none">
-            <table class="min-w-full border-collapse  text-left  ">
-                <thead class="bg-gray-100 border border-gray-300">
+            <table class="min-w-full border-collapse text-left  ">
+                <thead class="bg-gray-100 border border-gray-500">
                     <tr>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800  ">
+                            class="px-2 py-2  text-center font-semibold border-b border-gray-500 uppercase whitespace-nowrap tracking-wider text-gray-800  ">
+                            No.</th>
+                        <th
+                            class="px-4 py-2 font-semibold border-b border-gray-500 uppercase whitespace-nowrap tracking-wider text-gray-800  ">
                             Batch Label</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
+                            class="px-4 py-2 text-center font-semibold border-b border-gray-500 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
                             DCP Items</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
+                            class="px-4 py-2 text-center font-semibold border-b border-gray-500 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
                             DCP Files</th>
                         {{-- <th
                             class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap  tracking-wider text-gray-800   ">
@@ -54,23 +61,25 @@
                             class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800   ">
                             Budget Year</th> --}}
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase whitespace-nowrap tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-500 uppercase whitespace-nowrap tracking-wider text-gray-800   ">
                             Delivery Date</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300  uppercase tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-500  uppercase tracking-wider text-gray-800   ">
                             Supplier</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300  uppercase tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-500  uppercase tracking-wider text-gray-800   ">
                             Status</th>
                         <th
-                            class="px-4 py-2 font-semibold border-b border-gray-300 uppercase  tracking-wider text-gray-800   ">
+                            class="px-4 py-2 font-semibold border-b border-gray-500 uppercase  tracking-wider text-gray-800   ">
                             Submit</th>
 
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($batch as $b)
-                        <tr class="hover:bg-blue-50 transition tracking-wide">
+                        <tr class="tracking-wider">
+                            <td class="px-2 py-3 text-center border border-gray-500 bg-gray-300">{{ $loop->iteration }}
+                            </td>
                             <td class="px-4 py-3 border border-gray-300">{{ $b->batch_label }} </td>
                             @php
                                 $batch_items = App\Models\DCPBatchItem::where(
@@ -88,38 +97,55 @@
                                         $completed_count++;
                                     }
                                     if ($completed_count == count($batch_items)) {
-                                        $bg_color = 'bg-green-200 hover:bg-green-300  ';
+                                        $bg_color = 'bg-green-600 hover:bg-green-700  ';
                                     } else {
-                                        $bg_color = 'bg-gray-200 hover:bg-gray-300  ';
+                                        $bg_color = 'bg-gray-400 hover:bg-gray-500  ';
                                     }
                                 }
 
                             @endphp
                             <td class="px-2 py-3 md:px-4 space-x-2 border border-gray-300">
-                                <a href="{{ route('school.dcp_items', $b->id ?? $b->pk_dcp_batches_id) }}"
-                                    class=" flex items-center justify-center tracking-wide font-medium gap-2 text-md whitespace-nowrap {{ $bg_color }} text-gray-800 px-2 py-1   rounded    border border-gray-800">
-                                    <div class="inline-block h-6 w-6">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path d="M20.3873 7.1575L11.9999 12L3.60913 7.14978" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path d="M12 12V21" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M11 2.57735C11.6188 2.22008 12.3812 2.22008 13 2.57735L19.6603 6.42265C20.2791 6.77992 20.6603 7.44017 20.6603 8.1547V15.8453C20.6603 16.5598 20.2791 17.2201 19.6603 17.5774L13 21.4226C12.3812 21.7799 11.6188 21.7799 11 21.4226L4.33975 17.5774C3.72094 17.2201 3.33975 16.5598 3.33975 15.8453V8.1547C3.33975 7.44017 3.72094 6.77992 4.33975 6.42265L11 2.57735Z"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M8.5 4.5L16 9" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    {{ $completed_count }}/{{ $batch_items->count() }}
-                                    Items
-                                </a>
+                                <div class="flex justify-center items-center">
+                                    <a href="{{ route('school.dcp_items', $b->id ?? $b->pk_dcp_batches_id) }}">
+
+                                        <div class="flex justify-start my-2">
+                                            <div
+                                                class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
+
+                                                <button title="Show Info Modal" type="button"
+                                                    onclick="openISPDetailsModal()"
+                                                    class=" {{ $bg_color }} flex items-center whitespace-nowrap text-white text-md font-medium tracking-wider h-8 py-1 px-4 rounded-full">
+
+                                                    <div class="inline-block h-6 w-6">
+                                                        <svg viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                stroke-linejoin="round">
+                                                            </g>
+                                                            <g id="SVGRepo_iconCarrier">
+                                                                <path d="M20.3873 7.1575L11.9999 12L3.60913 7.14978"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M12 12V21" stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path
+                                                                    d="M11 2.57735C11.6188 2.22008 12.3812 2.22008 13 2.57735L19.6603 6.42265C20.2791 6.77992 20.6603 7.44017 20.6603 8.1547V15.8453C20.6603 16.5598 20.2791 17.2201 19.6603 17.5774L13 21.4226C12.3812 21.7799 11.6188 21.7799 11 21.4226L4.33975 17.5774C3.72094 17.2201 3.33975 16.5598 3.33975 15.8453V8.1547C3.33975 7.44017 3.72094 6.77992 4.33975 6.42265L11 2.57735Z"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M8.5 4.5L16 9" stroke="currentColor"
+                                                                    stroke-width="2" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    {{ $completed_count }}/{{ $batch_items->count() }}
+                                                    Items
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             </td>
                             <td class="px-4 py-3 border border-gray-300 ">
                                 @php
@@ -147,23 +173,31 @@
                                         $obj->invoice_receipt_status !== null
                                     ) {
                                         $status = 'Completed';
-                                        $bg_color = 'bg-green-200';
-                                        $hover = 'hover:bg-green-300';
+                                        $bg_color = 'bg-green-600';
+                                        $hover = 'hover:bg-green-700';
                                     } else {
                                         $status = 'Pending';
-                                        $bg_color = 'bg-gray-200';
-                                        $hover = 'hover:bg-gray-300';
+                                        $bg_color = 'bg-yellow-500';
+                                        $hover = 'hover:bg-yellow-600';
                                     }
                                 @endphp
-                                <div class="text-left">
-                                    <a href="{{ route('school.index.batch_status', $b->id ?? $b->pk_dcp_batches_id) }}"
-                                        class="flex justify-center items-center  tracking-wide font-medium 
-                                    {{ $bg_color }} {{ $hover }} text-gray-800 px-2 py-1
-                                    rounded border border-gray-800">
+                                <div class="text-left flex justify-center items-center">
+                                    <a href="{{ route('school.index.batch_status', $b->id ?? $b->pk_dcp_batches_id) }}">
+                                        <div class="flex justify-start my-2">
+                                            <div
+                                                class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
+                                                <button title="Show Info Modal" type="button"
+                                                    onclick="openISPDetailsModal()"
+                                                    class="  {{ $bg_color }} {{ $hover }} text-white text-md font-medium tracking-wider h-8 py-1 px-4 rounded-full">
 
-                                        {{ $status ?? '' }}
+                                                    {{ $status ?? '' }}
+                                                </button>
+                                            </div>
+                                        </div>
                                     </a>
+
+
                                 </div>
                             </td>
                             {{-- <td class="px-4 py-3 border border-gray-300">{{ $b->dcpPackageType->name ?? '' }}</td> --}}
