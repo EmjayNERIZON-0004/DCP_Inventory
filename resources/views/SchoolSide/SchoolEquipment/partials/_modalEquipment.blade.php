@@ -1,6 +1,5 @@
- <div id="add-equipment-modal"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-start justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md">
+ <div id="add-equipment-modal" class="modal hidden">
+     <div class="modal-content super-large-modal thin-scroll">
 
          <form method="POST" action="{{ route('SchoolEquipment.store') }}">
              @csrf
@@ -37,7 +36,7 @@
              </div>
              @include('SchoolSide.SchoolEquipment.partials._addEquipmentForm')
 
-             <div class="flex gap-2 mb-4">
+             <div class="flex gap-2  ">
                  <button type="submit"
                      class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Save
                      Equipment</button>
@@ -48,9 +47,8 @@
 
      </div>
  </div>
- <div id="edit-equipment-modal"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-start justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md">
+ <div id="edit-equipment-modal" class="modal hidden">
+     <div class="modal-content super-large-modal  thin-scroll">
 
          <form id="editEquipmentForm" method="POST">
              @csrf
@@ -87,12 +85,11 @@
              </div>
              @include('SchoolSide.SchoolEquipment.partials._editEquipmentForm')
 
-             <div class="flex gap-2 mb-4">
-                 <button type="submit"
-                     class="bg-green-600 hover:bg-green-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Update
+             <div class="flex gap-2">
+                 <button type="submit" class=" py-1 px-4 btn-green font-medium rounded shadow">Update
                      Equipment</button>
                  <button type="button" onclick="closeModal()"
-                     class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Cancel</button>
+                     class="  py-1 px-4 btn-cancel rounded shadow">Cancel</button>
              </div>
          </form>
 
@@ -102,6 +99,7 @@
      function openModal() {
          const modal = document.getElementById('add-equipment-modal');
          modal.classList.remove('hidden');
+         document.body.classList.add('overflow-hidden');
      }
 
      function closeModal() {
@@ -110,6 +108,7 @@
 
          const editModal = document.getElementById('edit-equipment-modal');
          editModal.classList.add('hidden');
+         document.body.classList.remove('overflow-hidden');
      }
      const baseUrl = "{{ url('School/SchoolEquipment') }}";
 
@@ -157,5 +156,6 @@
 
          const modal = document.getElementById('edit-equipment-modal');
          modal.classList.remove('hidden');
+         document.body.classList.add('overflow-hidden');
      }
  </script>

@@ -1,6 +1,5 @@
- <div id="show-user-list"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-start  justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md max-w-xl w-full ">
+ <div id="show-user-list" class="modal  hidden">
+     <div class="modal-content medium-modal  thin-scroll">
 
          <div id="userAccountabilityContainer">
 
@@ -58,6 +57,7 @@
                     `;
              modalUser.classList.remove('hidden');
          }
+         document.body.classList.add('overflow-hidden');
      }
 
      function renderAccountabilityForm(res, employees, receiverTypes, equipmentId, transactionTypes) {
@@ -105,11 +105,11 @@
                                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">Select </option>
                             ${employees.map(emp => `
-                             <option value="${emp.pk_schools_employee_id}"
-                                 ${emp.pk_schools_employee_id === data?.accountable_employee_id ? 'selected' : ''}>
-                                 ${emp.fname} ${emp.mname ?? ''} ${emp.lname} ${emp.suffix_name ?? ''}
-                             </option>
-                         `).join('')}
+                                     <option value="${emp.pk_schools_employee_id}"
+                                         ${emp.pk_schools_employee_id === data?.accountable_employee_id ? 'selected' : ''}>
+                                         ${emp.fname} ${emp.mname ?? ''} ${emp.lname} ${emp.suffix_name ?? ''}
+                                     </option>
+                                 `).join('')}
                         </select>
                     </div>
 
@@ -128,10 +128,10 @@
                                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">Select </option>
                             ${receiverTypes.map(rt => `
-                                                                                                                                                <option value="${rt.id}" ${rt.id === data?.receiver_type_id ? 'selected' : ''}>
-                                                                                                                                                    ${rt.name}
-                                                                                                                                                </option>
-                                                                                                                                            `).join('')}
+                                                                                                                                                        <option value="${rt.id}" ${rt.id === data?.receiver_type_id ? 'selected' : ''}>
+                                                                                                                                                            ${rt.name}
+                                                                                                                                                        </option>
+                                                                                                                                                    `).join('')}
                         </select>
                     </div>
 
@@ -197,21 +197,21 @@
                                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">-- Select Transaction Type --</option>
                             ${transactionTypes.map(ty => `
-                                                                                                                                                <option value="${ty.id}" ${ty.id === data?.transaction_type_id ? 'selected' : ''}>
-                                                                                                                                                    ${ty.name}
-                                                                                                                                                </option>
-                                                                                                                                            `).join('')}
+                                                                                                                                                        <option value="${ty.id}" ${ty.id === data?.transaction_type_id ? 'selected' : ''}>
+                                                                                                                                                            ${ty.name}
+                                                                                                                                                        </option>
+                                                                                                                                                    `).join('')}
                         </select>
                     </div>
 
                     <div class="flex md:flex-row flex-col gap-2 my-2">
                     <button type="submit"
-                            class="w-full ${isUpdate ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold px-4 py-2 rounded transition-colors">
+                            class="  ${isUpdate ? 'btn-green' : 'btn-submit'} px-4 py-1 rounded transition-colors">
                         ${isUpdate ? 'Update Accountability' : 'Save Accountability'}
                     </button>
 
                     <button type="button" onclick="closeUserRecipientModal()"
-                            class="  w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded transition-colors">
+                            class="btn-cancel px-4 py-1 rounded transition-colors">
                         Cancel
                     </button>
                     </div>
@@ -228,5 +228,6 @@
      function closeUserRecipientModal() {
          const modal = document.getElementById('show-user-list');
          modal.classList.add('hidden');
+         document.body.classList.remove('overflow-hidden');
      }
  </script>

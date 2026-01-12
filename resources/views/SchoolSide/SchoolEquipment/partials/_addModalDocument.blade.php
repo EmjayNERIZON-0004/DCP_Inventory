@@ -1,6 +1,6 @@
- <div id="add-document-modal"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md max-w-lg">
+ <div id="add-document-modal" class="modal   hidden">
+
+     <div class="modal-content small-modal">
 
          <form method="POST" action="{{ route('school-equipment-document.store') }}">
              @csrf
@@ -29,7 +29,7 @@
                      <div class="text-md text-blue-600 mb-4">Document for School Equipment</div>
                  </div>
              </div>
-             <div class=" grid grid-cols-1 gap-4 mb-4">
+             <div class=" grid grid-cols-1 gap-4 mb-4 ">
 
                  <input type="hidden" name="school_equipment_id" id="school_equipment_id">
                  <div>
@@ -52,12 +52,11 @@
 
              </div>
 
-             <div class="flex gap-2 mb-4">
-                 <button type="submit"
-                     class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Save
+             <div class="flex gap-2 ">
+                 <button type="submit" class="btn-submit py-1 px-4  rounded shadow">Save
                      Document</button>
                  <button type="button" onclick="closeDocumentModal()"
-                     class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Cancel</button>
+                     class=" btn-cancel py-1 px-4  rounded shadow">Cancel</button>
              </div>
          </form>
 
@@ -70,6 +69,7 @@
          console.log(school_equipment_id);
          const modal = document.getElementById('add-document-modal');
          modal.classList.remove('hidden');
+         document.body.classList.add('overflow-hidden');
      }
 
      function closeDocumentModal() {
@@ -78,5 +78,6 @@
 
          const editModal = document.getElementById('edit-document-modal');
          editModal.classList.add('hidden');
+         document.body.classList.remove('overflow-hidden');
      }
  </script>

@@ -4,10 +4,18 @@
         <tbody>
             <tr>
                 <td colspan="6">
-                    <div class="font-medium text-lg" style="letter-spacing: 0.05rem">
-                        <span class="uppercase">Equipment No.</span>
-                        {{ $loop->iteration }}
+                    <div class="flex justify-start mb-2 ">
+                        <div
+                            class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-sm flex items-center justify-center">
+
+                            <button title="Show Info Modal" type="button"
+                                class="bg-green-600 text-white font-medium tracking-wider h-8 py-1 px-4 rounded-sm">
+                                <span class="uppercase">Equipment No.</span>
+                                {{ $loop->iteration }}
+                            </button>
+                        </div>
                     </div>
+
                 </td>
             </tr>
             {{-- <tr>
@@ -231,7 +239,7 @@
 
                                     <button title="Edit Document" type="button"
                                         onclick="showDocumentEditModal({{ $document->id }}, {{ $document->document_type_id }}, '{{ $document->document_number }}')"
-                                        class="text-white bg-green-600 hover:bg-green-700 p-1 rounded-full">
+                                        class="btn-update p-1 rounded-full">
                                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -437,11 +445,11 @@
             @endforelse
             <tr>
                 <td colspan="6" class="py-2">
-                    <div class="flex flex-row gap-1 justify-start items-start">
+                    <div class="flex flex-row gap-1 justify-end items-start">
                         <div
                             class="h-12 w-12 bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
-                            <button class="text-white bg-green-600 hover:bg-green-700 p-1 rounded-full"
+                            <button class="btn-update p-1 rounded-full"
                                 onclick="showEditModal(
                                     {{ $equipment->id }},
                                     '{{ $equipment->property_number }}',
@@ -551,16 +559,15 @@
                             class="h-12 w-12 bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
                             <button id="btnStatus-{{ $equipment->id }}" title="Equipment Status"
-                                onclick="showStatusModal({{ $equipment->id }})"
-                                class="text-white bg-gray-400 hover:bg-gray-500 p-1 rounded-full">
-                                <svg fill="currentColor" class="w-8 h-8" viewBox="0 0 22 22" version="1.1"
+                                onclick="showStatusModal({{ $equipment->id }})" class="btn-cancel p-1 rounded-full">
+                                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M9.42857143,5.5 C9.42857143,5.02857143 9.74285714,4.71428571 10.2142857,4.71428571 L11.7857143,4.71428571 C12.2571429,4.71428571 12.5714286,5.02857143 12.5714286,5.5 L12.5714286,11.7857143 C12.5714286,12.2571429 12.2571429,12.5714286 11.7857143,12.5714286 L10.2142857,12.5714286 C9.74285714,12.5714286 9.42857143,12.2571429 9.42857143,11.7857143 L9.42857143,5.5 M9.42857143,14.9285714 C9.42857143,14.4571429 9.74285714,14.1428571 10.2142857,14.1428571 L11.7857143,14.1428571 C12.2571429,14.1428571 12.5714286,14.4571429 12.5714286,14.9285714 L12.5714286,16.5 C12.5714286,16.9714286 12.2571429,17.2857143 11.7857143,17.2857143 L10.2142857,17.2857143 C9.74285714,17.2857143 9.42857143,16.9714286 9.42857143,16.5 L9.42857143,14.9285714"
-                                            id="Shape"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M13.6 3H10V6.6H13.6V3ZM13.6 10.2H10V21H13.6V10.2Z" fill="currentColor">
+                                        </path>
                                     </g>
                                 </svg>
                             </button>

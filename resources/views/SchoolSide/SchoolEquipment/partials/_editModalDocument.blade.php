@@ -1,6 +1,5 @@
- <div id="edit-document-modal"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md max-w-lg">
+ <div id="edit-document-modal" class="modal   hidden">
+     <div class="modal-content small-modal">
 
          <form id="editDocumentForm" method="POST">
              @csrf
@@ -52,12 +51,11 @@
 
              </div>
 
-             <div class="flex gap-2 mb-4">
-                 <button type="submit"
-                     class="bg-green-600 hover:bg-green-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Update
+             <div class="flex gap-2  ">
+                 <button type="submit" class="btn-green text-white py-1 px-4  rounded shadow">Update
                      Document</button>
                  <button type="button" onclick="closeDocumentModal()"
-                     class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-4 tracking-wider font-medium rounded shadow">Cancel</button>
+                     class="btn-cancel py-1 px-4   rounded shadow">Cancel</button>
              </div>
          </form>
 

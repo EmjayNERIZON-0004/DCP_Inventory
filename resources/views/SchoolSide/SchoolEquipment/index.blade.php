@@ -20,37 +20,13 @@
     @include('SchoolSide.SchoolEquipment.partials._modalEquipment')
     @include('SchoolSide.SchoolEquipment.partials._addModalDocument')
     @include('SchoolSide.SchoolEquipment.partials._editModalDocument')
-    <div class=" m-5 flex flex-col gap-5 bg-white shadow-xl rounded-lg overflow-hidden p-6 border border-gray-300">
-        <div class="flex justify-between">
-            <div>
-                <div class="text-2xl font-bold text-gray-700">School Equipment </div>
-                <div class="text-md font-normal text-gray-600 mb-2  ">Properties and Information</div>
-
-                <div class="flex justify-start mb-3">
-                    <button type="button" onclick="openModal()"
-                        class="flex items-center gap-0 px-1 py-1 border border-gray-300  uppercase shadow-md rounded-full bg-white hover:bg-gray-50">
-                        <span class="text-blue-600 px-2 font-semibold tracking-wider">
-                            Add Equipment
-                        </span>
-
-                        <div
-                            class="h-8 w-8 bg-blue-600 p-2 shadow hover:bg-blue-700 rounded-full flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-
-            </div>
+    <div class=" flex flex-col gap-5 bg-white overflow-hidden p-6  ">
+        <div class="flex justify-start space-x-4">
             <div
                 class="h-16 w-16 bg-white p-3 border border-gray-300 shadow-lg rounded-full flex items-center justify-center">
-                <div class="text-white bg-gray-600 p-2 rounded-full">
-                    <svg fill="currentColor" class="h-10 w-10" version="1.1" id="Capa_1"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 390 390"
-                        xml:space="preserve">
+                <div class="text-white bg-blue-600 p-2 rounded-full">
+                    <svg fill="currentColor" class="h-10 w-10" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 390 390" xml:space="preserve">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
@@ -66,81 +42,29 @@
                     </svg>
                 </div>
             </div>
+            <div>
+                <div class="text-2xl font-bold text-blue-700">School Equipment </div>
+                <div class="text-md font-medium tracking-wider text-gray-600 mb-2">Properties and Information</div>
+
+            </div>
+
+        </div>
+        <div class="flex justify-start ">
+            <div class="flex justify-start  ">
+                <div
+                    class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
+
+                    <button title="Show Info Modal" type="button" onclick="openModal()"
+                        class="btn-submit h-8 py-1 px-4 rounded-full">
+                        Add Equipment
+                    </button>
+                </div>
+            </div>
         </div>
         @include('SchoolSide.SchoolEquipment.partials._tableEquipments')
         @include('SchoolSide.SchoolEquipment.partials._modalUserList')
         @include('SchoolSide.SchoolEquipment.partials._modalStatus')
 
     </div>
-    <script>
-        function printEquipment(id) {
-            const table = document.getElementById('equipment-print-' + id);
-            if (!table) return;
-
-            const win = window.open('', '', 'width=900,height=700');
-
-            win.document.write(`
-        <html>
-        <head>
-            <title>Print Equipment</title>
-            <style>
-                body { font-family: Arial, sans-serif !important; padding: 20px; }
-                table { width: 100% !important; border-collapse: collapse !important; }
-                td, th { border: 1px solid #000 !important; padding: 6px !important; }
-                .bg-gray-300 { background: #d1d5db !important; }
-                .bg-gray-100 { background: #f3f4f6 !important; }
-                .font-bold { font-weight: bold !important; }
-                .text-center { text-align: center !important; }
-                * {
-                        -webkit-print-color-adjust: exact !important;
-                        print-color-adjust: exact !important;
-                    }
-                @media print {
-
-                    body {
-                        font-family: Arial, sans-serif;
-                        background: white;
-                    }
-
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        page-break-inside: avoid;
-                    }
-
-                    td, th {
-                        border: 1px solid #000;
-                        padding: 6px;
-                        font-size: 12px;
-                    }
-
-                    /* Tailwind background fixes */
-                    .bg-gray-300 {
-                        background-color: #d1d5db !important;
-                    }
-
-                    .bg-gray-100 {
-                        background-color: #f3f4f6 !important;
-                    }
-
-                    /* Hide buttons when printing */
-                    button {
-                        display: none !important;
-                    }
-                }
-
-            </style>
-        </head>
-        <body>
-            ${table.outerHTML}
-        </body>
-        </html>
-    `);
-
-            win.document.close();
-            win.focus();
-            win.print();
-            win.close();
-        }
-    </script>
+    @include('SchoolSide.SchoolEquipment.partials._scriptPrint')
 @endsection

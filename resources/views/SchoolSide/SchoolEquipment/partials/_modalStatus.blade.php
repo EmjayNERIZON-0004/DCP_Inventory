@@ -1,6 +1,5 @@
- <div id="show-status-list"
-     class="modal inset-0 fixed overflow-y-auto bg-black bg-opacity-40 flex items-center  justify-center z-50 hidden">
-     <div class="modal-content bg-white p-4 px-5 my-5 mx-5 rounded-md max-w-xl w-full ">
+ <div id="show-status-list" class="modal hidden">
+     <div class="modal-content medium-modal thin-scroll">
          <div id="statusForm"></div>
      </div>
  </div>
@@ -93,11 +92,11 @@
                                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">Select </option>
                             ${condition.map(cond => `
-                                                                            <option value="${cond.id}"
-                                                                                ${cond.id === data?.equipment_condition_id ? 'selected' : ''}>
-                                                                                ${cond.name}  
-                                                                            </option>
-                                                                        `).join('')}
+                                                                                <option value="${cond.id}"
+                                                                                    ${cond.id === data?.equipment_condition_id ? 'selected' : ''}>
+                                                                                    ${cond.name}  
+                                                                                </option>
+                                                                            `).join('')}
                         </select>
                     </div>
 
@@ -108,11 +107,11 @@
                                 class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">Select </option>
                             ${disposition.map(dispo => `
-                                                                    <option value="${dispo.id}"
-                                                                        ${dispo.id === data?.disposition_status_id ? 'selected' : ''}>
-                                                                        ${dispo.name}  
-                                                                    </option>
-                                                                `).join('')}
+                                                                        <option value="${dispo.id}"
+                                                                            ${dispo.id === data?.disposition_status_id ? 'selected' : ''}>
+                                                                            ${dispo.name}  
+                                                                        </option>
+                                                                    `).join('')}
                         </select>
                     </div>
 
@@ -146,12 +145,12 @@
                         </div>
                     <div class="flex md:flex-row flex-col gap-2 my-2 w-full">
                         <button type="submit"
-                                class="w-full ${isUpdate ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold px-4 py-2 rounded transition-colors">
+                                class="${isUpdate ? 'btn-green' : 'btn-submit'}  px-4 py-1 rounded transition-colors">
                             ${isUpdate ? 'Update Status' : 'Save Status'}
                         </button>
 
                         <button type="button" onclick="closeStatusModal()"
-                                class="  w-full bg-gray-400 hover:bg-gray-500 text-white font-semibold px-4 py-2 rounded transition-colors">
+                                class="  btn-cancel px-4 py-1 rounded transition-colors">
                             Cancel
                         </button>
                     </div>
