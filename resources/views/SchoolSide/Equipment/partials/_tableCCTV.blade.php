@@ -9,9 +9,20 @@
                          <tbody>
 
                              <tr>
-                                 <td colspan="6"
-                                     class="border border-gray-500 uppercase px-3 py-2 text-lg font-medium text-left">
-                                     CCTV No. {{ $index + 1 }}
+                                 <td colspan="6" class=" uppercase   py-2 text-lg font-medium text-left">
+
+                                     <div class="flex justify-start  ">
+                                         <div
+                                             class="h-10 w-auto bg-white p-1 border border-gray-300 shadow-md rounded-sm flex items-center justify-center">
+
+                                             <button title="Show Info Modal" type="button"
+                                                 class="bg-green-600 text-white flex items-center  font-medium tracking-wider h-8 py-1 px-4 rounded-sm">
+
+
+                                                 CCTV No. {{ $index + 1 }}
+                                             </button>
+                                         </div>
+                                     </div>
                                  </td>
 
                              </tr>
@@ -85,12 +96,12 @@
                              </tr>
                              <tr>
                                  <td colspan="6">
-                                     <div class="flex gap-1 items-center justify-start py-2">
+                                     <div class="flex gap-1 items-center justify-end py-2">
 
                                          <div
                                              class="h-12 w-12 bg-white p-1 border border-gray-300 shadow-md rounded-full flex items-center justify-center">
 
-                                             <button class="text-white bg-green-600 hover:bg-green-700 p-1 rounded-full"
+                                             <button class="btn-update p-1 rounded-full"
                                                  onclick="openEditModal('cctv',{{ $info->equipment_details->pk_equipment_details_id }},{{ $info->equipment_details->brand_model->pk_equipment_brand_model_id }},{{ $info->no_of_units }},{{ $info->cctv_type->pk_e_cctv_camera_type_id }},{{ $info->equipment_details->powersource->pk_equipment_power_source_id }},{{ $info->equipment_details->location->pk_equipment_location_id }},{{ $info->equipment_details->total_amount }},{{ $info->equipment_details->installer->pk_equipment_installer_id }},{{ $info->no_of_functional }}, {{ $info->equipment_details->incharge->pk_equipment_incharge_id }},'{{ $info->equipment_details->date_installed }}')">
                                                  <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg">
