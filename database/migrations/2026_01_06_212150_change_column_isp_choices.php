@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emp_ro_office', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('i_s_p_choices', function (Blueprint $table) {
+            $table->text('choice_text')->nullable()->change();
+            $table->tinyInteger('choice_value')->nullable()->change();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emp_ro_office');
+        //
     }
 };

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emp_position', function (Blueprint $table) {
+        Schema::create('i_s_p_questions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('question_text');
+            $table->enum('question_type', ['boolean', 'single', 'multiple', 'text', 'number']);
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emp_position');
+        Schema::dropIfExists('i_s_p_questions');
     }
 };
